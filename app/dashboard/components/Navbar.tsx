@@ -1,4 +1,5 @@
 import Theme from "./Theme"
+import Image from "next/image"
 
 export default function Navbar() {
     return (
@@ -22,7 +23,7 @@ export default function Navbar() {
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                            <Image alt="User Profile Pic" width={200} height={200} src="https://source.unsplash.com/random/200x200/?potrait" />
                         </div>
                     </div>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
