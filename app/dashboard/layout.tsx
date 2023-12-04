@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
-import Sidebar from './components/Sidebar'
-import Navbar from './components/Navbar'
+import Sidebar from '../components/dashboard/common/Sidebar'
+import Navbar from '../components/dashboard/common/Navbar'
+import Footer from '../components/dashboard/common/Footer'
 
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export default function DashboardLayout({
     children: React.ReactNode
 }) {
     return (
-        <div className="drawer lg:drawer-open">
+        <div className="drawer lg:drawer-open h-screen ">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
 
             <div className="drawer-content flex flex-col">
@@ -23,6 +24,8 @@ export default function DashboardLayout({
                 <Navbar />
 
                 {children}
+
+                <Footer />
 
             </div>
             <div className="drawer-side">
