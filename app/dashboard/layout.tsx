@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import Sidebar from '../components/dashboard/common/Sidebar'
-import Navbar from '../components/dashboard/common/Navbar'
-import Footer from '../components/dashboard/common/Footer'
+import Sidebar from '../../components/dashboard/common/Sidebar'
+import Navbar from '../../components/dashboard/common/Navbar'
+import Footer from '../../components/dashboard/common/Footer'
 
 
 export const metadata: Metadata = {
