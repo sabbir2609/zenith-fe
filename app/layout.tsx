@@ -23,7 +23,6 @@ export default function RootLayout({
         <Provider>
           <Setup />
           {children}
-          <Fab />
         </Provider>
       </body>
     </html>
