@@ -1,3 +1,5 @@
+"use client";
+
 import { apiSlice } from "../services/apiSlice";
 
 interface User {
