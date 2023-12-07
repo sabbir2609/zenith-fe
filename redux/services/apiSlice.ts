@@ -1,16 +1,16 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type {
   BaseQueryFn,
   FetchArgs,
   FetchBaseQueryError,
-} from "@reduxjs/toolkit/query";
-import { setAuth, logout } from "../features/authSlice";
-import { Mutex } from "async-mutex";
+} from '@reduxjs/toolkit/query';
+import { setAuth, logout } from '../features/authSlice';
+import { Mutex } from 'async-mutex';
 
 const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
   baseUrl: `${process.env.NEXT_PUBLIC_HOST}/auth`,
-  credentials: "include",
+  credentials: 'include',
 });
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
@@ -26,14 +26,15 @@ const baseQueryWithReauth: BaseQueryFn<
       try {
         const refreshResult = await baseQuery(
           {
-            url: "/jwt/refresh/",
-            method: "POST",
+            url: '/jwt/refresh/',
+            method: 'POST',
           },
           api,
           extraOptions
         );
         if (refreshResult.data) {
           api.dispatch(setAuth());
+
           result = await baseQuery(args, api, extraOptions);
         } else {
           api.dispatch(logout());
@@ -50,7 +51,7 @@ const baseQueryWithReauth: BaseQueryFn<
 };
 
 export const apiSlice = createApi({
-  reducerPath: "api",
+  reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
-  endpoints: (builder) => ({}),
+  endpoints: builder => ({}),
 });
