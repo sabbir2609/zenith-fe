@@ -5,7 +5,8 @@ import { Form } from "@/components/homepage/forms";
 
 export default function RegisterForm() {
     const {
-        username,
+        first_name,
+        last_name,
         email,
         password,
         re_password,
@@ -16,11 +17,19 @@ export default function RegisterForm() {
 
     const config = [
         {
-            labelText: "Username",
-            labelId: "username",
+            labelText: "First Name",
+            labelId: "first_name",
             type: "text",
-            value: username,
-            placeholder: "Username, ie: john.smith",
+            value: first_name,
+            placeholder: "First Name, ie: John",
+            required: true
+        },
+        {
+            labelText: "Last Name",
+            labelId: "last_name",
+            type: "text",
+            value: last_name,
+            placeholder: "Last Name, ie: Smith",
             required: true
         },
         {

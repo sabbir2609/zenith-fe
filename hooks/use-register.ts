@@ -8,13 +8,14 @@ export default function useRegister() {
   const [register, { isLoading }] = useRegisterMutation();
 
   const [formData, setFormData] = useState({
-    username: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     re_password: "",
   });
 
-  const { username, email, password, re_password } = formData;
+  const { first_name, last_name, email, password, re_password } = formData;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -24,7 +25,7 @@ export default function useRegister() {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    register({ username, email, password, re_password })
+    register({ first_name, last_name, email, password, re_password })
       .unwrap()
       .then(() => {
         toast.success("Please Check Email to Verify!");
@@ -36,7 +37,8 @@ export default function useRegister() {
   };
 
   return {
-    username,
+    first_name,
+    last_name,
     email,
     password,
     re_password,
