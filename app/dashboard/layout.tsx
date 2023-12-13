@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Sidebar from "../../components/dashboard/common/Sidebar";
 import Navbar from "../../components/dashboard/common/Navbar";
 import Footer from "../../components/dashboard/common/Footer";
+import Breadcrumb from "@/components/dashboard/common/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Zenith System",
@@ -20,6 +21,15 @@ export default function DashboardLayout({
       <div className="drawer-content flex flex-col">
         {/* Page content here */}
         <Navbar />
+
+        <Breadcrumb
+          homeElement={'Home'}
+          separator={<span> {"/"} </span>}
+          activeClasses='text-amber-500'
+          containerClasses='flex py-5 text-sm'
+          listClasses='hover:underline mx-2 font-bold'
+          capitalizeLinks
+        />
 
         {children}
 

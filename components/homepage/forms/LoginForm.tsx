@@ -8,7 +8,7 @@ export default function LoginForm() {
 
   const config = [
     {
-      labelText: "email",
+      labelText: "Email",
       labelId: "email",
       type: "text",
       value: email,

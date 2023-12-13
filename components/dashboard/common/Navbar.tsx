@@ -1,6 +1,7 @@
 import Theme from "./Theme";
 import Image from "next/image";
 import userIcon from "./../../../static/image/user_icon.png";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
@@ -26,7 +27,7 @@ export default function Navbar() {
         </label>
       </div>
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Zenith</a>
+        <Link href={'/dashboard/'} className="btn btn-ghost text-xl">Zenith</Link>
       </div>
 
       <div className="flex-none gap-2">
@@ -73,7 +74,7 @@ export default function Navbar() {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-ghost btn-circle avatar"
+            className="btn btn-ghost btn-circle avatar online"
           >
             <div className="w-10 rounded-full">
               <Image
@@ -89,10 +90,10 @@ export default function Navbar() {
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
           >
             <li>
-              <a className="justify-between">
+              <Link href={"/dashboard/profile/"} className="justify-between">
                 Profile
                 <span className="badge">New</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a>Settings</a>
