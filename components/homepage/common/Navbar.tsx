@@ -47,12 +47,12 @@ export default function Navbar() {
                 </div>
                 <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                     <li>
-                        <Link href={"/dashboard/profile/"} className="justify-between">
+                        <Link href="/dashboard/profile" className="justify-between">
                             Profile
                         </Link>
                     </li>
                     <li>
-                        <Link href={"/dashboard/"}>
+                        <Link href="/dashboard">
                             Dashboard
                         </Link>
                     </li>
@@ -68,8 +68,8 @@ export default function Navbar() {
 
     const guestLinks = (
         <div className="space-x-2">
-            <Link href={'/auth/login/'} className="btn btn-sm btn-outline btn-primary">Login</Link>
-            <Link href={'/auth/register/'} className="btn btn-sm btn-outline btn-accent">Register</Link>
+            <Link href='/auth/login' className="btn btn-sm btn-outline btn-primary">Login</Link>
+            <Link href='/auth/register' className="btn btn-sm btn-outline btn-accent">Register</Link>
         </div>
     )
 

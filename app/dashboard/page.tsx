@@ -1,13 +1,8 @@
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-    title: 'Dashboard',
-}
-
-export default function Dashboard() {
+export default function Page() {
     return (
-        <div>
-            Dashboard
+        <div className="text-3xl font-bold underline">
+            Hello world!
         </div>
     )
+
 }
