@@ -19,11 +19,8 @@ export default function DashboardLayout({
     <RequireAuth>
       <div className="drawer lg:drawer-open h-screen ">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-
         <div className="drawer-content flex flex-col">
-          {/* Page content here */}
           <Navbar />
-
           <Breadcrumb
             homeElement={'Home'}
             separator={<span> {"/"} </span>}
@@ -32,9 +29,9 @@ export default function DashboardLayout({
             listClasses='hover:underline mx-2 font-bold'
             capitalizeLinks
           />
-
-          {children}
-
+          <div className="m-1">
+            {children}
+          </div>
           <Footer />
         </div>
         <div className="drawer-side">
@@ -44,7 +41,6 @@ export default function DashboardLayout({
             className="drawer-overlay"
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-            {/* Sidebar content here */}
             <Sidebar />
           </ul>
         </div>

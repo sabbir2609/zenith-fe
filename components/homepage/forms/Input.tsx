@@ -29,7 +29,7 @@ export default function Input({
         <div>
 
             <div className="flex justify-between align-center">
-                <label htmlFor={labelId} className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor={labelId} className="block text-sm font-medium leading-6">
                     {children}
                 </label>
 

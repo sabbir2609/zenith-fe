@@ -4,10 +4,14 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'source.unsplash.com',
+                hostname: 'source.unsplash.com', // Change to a string
+            },
+            {
+                protocol: 'https',
+                hostname: 'flowbite.com', // Change to a string
             }
         ],
     },
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;

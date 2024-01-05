@@ -7,7 +7,7 @@ interface SidebarItem {
 }
 
 const sidebarData: SidebarItem[] = [
-    { id: 1, text: "Sidebar Item 1", link: "#" },
+    { id: 1, text: "Guests", link: "/dashboard/guests" },
     { id: 2, text: "Sidebar Item 2", link: "#" },
     { id: 3, text: "Sidebar Item 3", link: "#" }
 ];

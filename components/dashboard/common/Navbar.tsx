@@ -1,9 +1,36 @@
+"use client"
+
 import Theme from "./Theme";
 import Image from "next/image";
 import userIcon from "./../../../static/image/user_icon.png";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/redux/hooks";
+import { useLogoutMutation } from "@/redux/features/authApiSlice";
+import { logout as setLogout } from "@/redux/features/authSlice";
 
 export default function Navbar() {
+  const router = useRouter();
+
+  const dispatch = useAppDispatch();
+
+  const [logout] = useLogoutMutation();
+
+  const handleLogout = async () => {
+    logout(undefined)
+      .unwrap()
+      .then(() => {
+        dispatch(setLogout());
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        router.push("/");
+      })
+
+  }
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-none">
@@ -71,11 +98,7 @@ export default function Navbar() {
         </div>
 
         <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar online"
-          >
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
               <Image
                 alt="User Profile Pic"
@@ -85,24 +108,25 @@ export default function Navbar() {
               />
             </div>
           </div>
-          <ul
-            tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-          >
+          <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
             <li>
               <Link href="/dashboard/profile" className="justify-between">
                 Profile
-                <span className="badge">New</span>
               </Link>
             </li>
             <li>
-              <a>Settings</a>
+              <Link href="/dashboard">
+                Dashboard
+              </Link>
             </li>
             <li>
-              <a>Logout</a>
+              <span role="button" onClick={handleLogout}>
+                Logout
+              </span>
             </li>
           </ul>
         </div>
+
       </div>
     </div>
   );

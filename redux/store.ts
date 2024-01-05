@@ -1,19 +1,16 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
+import { apiSlice } from './services/apiSlice';
+import authReducer from './features/authSlice';
 
-import authReducer from "./features/authSlice";
-import { apiSlice } from "./services/apiSlice";
+export const store = configureStore({
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    auth: authReducer,
+  },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: process.env.NODE_ENV !== 'production',
+});
 
-export const makeStore = () =>
-  configureStore({
-    reducer: {
-      [apiSlice.reducerPath]: apiSlice.reducer,
-      auth: authReducer,
-    },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(apiSlice.middleware),
-    devTools: process.env.NODE_ENV !== "production",
-  });
-
-export type AppStore = ReturnType<typeof makeStore>;
-export type RootState = ReturnType<AppStore["getState"]>;
-export type AppDispatch = AppStore["dispatch"];
+export type RootState = ReturnType<(typeof store)['getState']>;
+export type AppDispatch = (typeof store)['dispatch'];

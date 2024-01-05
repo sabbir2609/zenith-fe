@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react"
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
 import { toast } from "react-toastify";
 
@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default function RequireAuth({ children }: Props) {
-    const router = useRouter();
     const { isLoading, isAuthenticated } = useAppSelector(state => state.auth);
 
     if (isLoading) {
@@ -39,7 +38,7 @@ export default function RequireAuth({ children }: Props) {
 
     if (!isAuthenticated) {
         toast.error('You must be logged in to view this page.');
-        router.push('/auth/login/');
+        redirect('/auth/login');
     }
 
 

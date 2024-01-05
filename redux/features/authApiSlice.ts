@@ -1,8 +1,10 @@
 import { apiSlice } from '../services/apiSlice';
 
 interface User {
-  username: string;
+  username?: string;
   email: string;
+  first_name: string;
+  last_name: string;
 }
 
 interface SocialAuthArgs {

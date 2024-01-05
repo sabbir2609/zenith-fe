@@ -33,36 +33,34 @@ export default function Navbar() {
     }
 
     const authLinks = (
-        <div>
-            <div className="dropdown dropdown-end">
-                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                    <div className="w-10 rounded-full">
-                        <Image
-                            alt="User Profile Pic"
-                            width={200}
-                            height={200}
-                            src={userIcon}
-                        />
-                    </div>
+        <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full">
+                    <Image
+                        alt="User Profile Pic"
+                        width={200}
+                        height={200}
+                        src={userIcon}
+                    />
                 </div>
-                <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                    <li>
-                        <Link href="/dashboard/profile" className="justify-between">
-                            Profile
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/dashboard">
-                            Dashboard
-                        </Link>
-                    </li>
-                    <li>
-                        <span role="button" onClick={handleLogout}>
-                            Logout
-                        </span>
-                    </li>
-                </ul>
             </div>
+            <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                <li>
+                    <Link href="/dashboard/profile" className="justify-between">
+                        Profile
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/dashboard">
+                        Dashboard
+                    </Link>
+                </li>
+                <li>
+                    <span role="button" onClick={handleLogout}>
+                        Logout
+                    </span>
+                </li>
+            </ul>
         </div>
     )
 
