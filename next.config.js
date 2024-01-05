@@ -4,11 +4,15 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'source.unsplash.com', // Change to a string
+                hostname: 'source.unsplash.com',
             },
             {
                 protocol: 'https',
-                hostname: 'flowbite.com', // Change to a string
+                hostname: 'flowbite.com',
+            },
+            {
+                protocol: 'http',
+                hostname: '127.0.0.1',
             }
         ],
     },
