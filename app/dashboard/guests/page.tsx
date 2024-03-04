@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { cookies } from "next/headers";
-import userIcon from "./../../../static/image/user_icon.png";
 import Link from "next/link";
+import { userIcon } from "@/static";
 
 interface Guests {
     id: number;
@@ -23,13 +23,20 @@ export default async function Page() {
         return <h1>You are not logged in</h1>
     }
 
-    const guests: Guests[] = await fetch('http://127.0.0.1:8000/api/guests/', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/guests/`, {
         headers: {
+            "Content-Type": "application/json",
             'Authorization': `Bearer ${token}`
         },
-    })
-        .then((res) => res.json())
-        .catch((err) => console.error(err));
+    });
+
+    if (!response.ok) {
+        return (
+            <h1 className="text-red-500">Error fetching guest list</h1>
+        );
+    }
+
+    const guests: Guests[] = await response.json();
 
     return (
         <section>
@@ -37,16 +44,16 @@ export default async function Page() {
 
             <div className="m-3 border rounded">
                 <ul role="list" className="divide-y py-1 px-6">
-                    {guests.map((guest) => (
+                    {Array.isArray(guests) && guests.map((guest) => (
                         <li key={guest.id} className="py-3 sm:py-4">
                             <div className="flex items-center space-x-4">
                                 <div className="flex-shrink-0">
                                     <Image
-                                        className="rounded-full"
+                                        className="rounded-full w-12 h-12"
                                         src={guest.image || userIcon}
                                         alt={`${guest.user.first_name} image`}
-                                        width={50}
-                                        height={50}
+                                        width={48}
+                                        height={48}
                                     />
                                 </div>
                                 <div className="flex-1 min-w-0">

@@ -12,7 +12,7 @@ export default function LoginForm() {
       labelId: "email",
       type: "text",
       value: email,
-      placeholder: "Email, ie: john.smith@example.com",
+      placeholder: "Email Address",
       required: true,
     },
     {

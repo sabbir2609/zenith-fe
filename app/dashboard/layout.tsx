@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import Sidebar from "../../components/dashboard/common/Sidebar";
-import Navbar from "../../components/dashboard/common/Navbar";
-import Footer from "../../components/dashboard/common/Footer";
+import Sidebar from "@/components/dashboard/common/Sidebar";
+import Navbar from "@/components/dashboard/common/Navbar";
+import Footer from "@/components/dashboard/common/Footer";
 import Breadcrumb from "@/components/dashboard/common/Breadcrumbs";
 import { RequireAuth } from "@/components/utils";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export const metadata: Metadata = {
   title: "Zenith System",
@@ -30,7 +32,11 @@ export default function DashboardLayout({
             capitalizeLinks
           />
           <div className="m-1">
-            {children}
+
+            <Suspense fallback={<Loading />}>
+              {children}
+            </Suspense>
+
           </div>
           <Footer />
         </div>

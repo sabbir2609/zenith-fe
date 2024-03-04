@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { id: number } }) {
 
     const id = params.id
     const guest: Guest = await fetch(
-        `http://127.0.0.1:8000/api/guests/${id}`,
+        `${process.env.NEXT_PUBLIC_HOST}/api/main/guests/${id}`,
         {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -53,7 +53,7 @@ export default async function Page({ params }: { params: { id: number } }) {
                 <div className="flex items-center space-x-4">
                     <div className="flex-shrink-0">
                         <Image
-                            className="rounded-full"
+                            className="rounded-sm w-24"
                             src={guest.image || userIcon}
                             alt={`${guest.user.first_name} image`}
                             width={100}
