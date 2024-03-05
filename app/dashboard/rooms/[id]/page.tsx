@@ -39,9 +39,6 @@ interface Room {
 export default async function roomDetailPage(
     { params }: { params: { id: number } }
 ) {
-    // Imitate delay
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-
     const cookieStore = cookies()
     const token = cookieStore.get('access')?.value
 

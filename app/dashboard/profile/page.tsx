@@ -1,13 +1,12 @@
 "use client";
 
 import { useRetrieveUserQuery } from '@/redux/features/authApiSlice'
-import Loading from '@/components/dashboard/common/Loading'
 
 export default function Page() {
-    const { data: user, isLoading, isError } = useRetrieveUserQuery()
+    const { data: user, isError } = useRetrieveUserQuery()
 
-    if (isLoading) {
-        return <Loading />
+    if (isError) {
+        return <h1>Error fetching user</h1>
     }
 
     return (

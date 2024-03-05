@@ -7,7 +7,6 @@ interface RoomType {
     id: number;
     room_type: string;
     price: string;
-    description: string;
 }
 
 interface Image {
@@ -16,12 +15,6 @@ interface Image {
     description: string | null;
 }
 
-interface Amenity {
-    id: number;
-    title: string;
-    description: string;
-    is_available: boolean;
-}
 
 interface Room {
     id: number;
@@ -32,15 +25,10 @@ interface Room {
     description: string;
     is_available: boolean;
     images: Image[];
-    amenities: Amenity[];
 }
 
 
 export default async function RoomsPage() {
-
-    // Imitate delay
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-
     const cookieStore = cookies()
     const token = cookieStore.get('access')?.value
 
@@ -89,7 +77,7 @@ export default async function RoomsPage() {
                                     </p>
                                     <p className="text-sm truncate">Type: {room.room_type.room_type}</p>
                                     <p className="text-sm truncate">Price: {room.room_type.price}</p>
-                                    <p className="text-sm truncate">Description: {room.room_type.description}</p>
+                                    <p className="text-sm truncate">Description: {room.description}</p>
                                     <p className="text-sm truncate">Capacity: {room.capacity}</p>
                                     <p className="text-sm truncate">Available: {room.is_available ? "Yes" : "No"}</p>
                                     <Link href={`/dashboard/rooms/${room.id}`} className="text-blue-500">

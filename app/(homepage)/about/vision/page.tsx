@@ -2,7 +2,7 @@ export default function Page() {
     return (
         <div>
             <h1>
-                Contact Page
+                Vision Page
             </h1>
         </div>
     );
