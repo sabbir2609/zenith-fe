@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/dashboard/common/Breadcrumbs";
 import { RequireAuth } from "@/components/utils";
 import { Suspense } from "react";
 import Loading from "./loading";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Zenith System",
@@ -19,10 +20,17 @@ export default function DashboardLayout({
 }) {
   return (
     <RequireAuth>
-      <div className="drawer lg:drawer-open h-screen ">
+
+      <div className="bg-base-100 drawer lg:drawer-open">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col">
-          <Navbar />
+        <div className="drawer-content">
+          <div className="bg-base-100 text-base-content sticky top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-shadow duration-100 [transform:translate3d(0,0,0)] shadow-sm">
+
+            <Navbar />
+
+          </div>
+
+
           <Breadcrumb
             homeElement={'Home'}
             separator={<span> {"/"} </span>}
@@ -31,26 +39,31 @@ export default function DashboardLayout({
             listClasses='hover:underline mx-2 font-bold'
             capitalizeLinks
           />
+
           <div className="m-1">
 
             <Suspense fallback={<Loading />}>
+
               {children}
+
             </Suspense>
 
           </div>
+
           <Footer />
+
         </div>
-        <div className="drawer-side">
-          <label
-            htmlFor="my-drawer"
-            aria-label="close sidebar"
-            className="drawer-overlay"
-          ></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-            <Sidebar />
-          </ul>
+
+        <div className="drawer-side z-40" style={{ scrollBehavior: "smooth", scrollPaddingTop: "5rem" }}>
+
+          <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+
+          <Sidebar />
+
         </div>
+
       </div>
+
     </RequireAuth>
   );
 }

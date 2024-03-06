@@ -32,11 +32,13 @@ export default function Navbar() {
   }
 
   return (
-    <div className="navbar bg-base-100">
-      <div className="flex-none">
+    <div className="navbar z-40">
+
+      <div className="flex-none lg:hidden">
+
         <label
           htmlFor="my-drawer"
-          className="btn btn-square btn-ghost drawer-button lg:hidden "
+          className="btn btn-square btn-ghost"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -52,20 +54,24 @@ export default function Navbar() {
             ></path>
           </svg>
         </label>
+
       </div>
+
       <div className="flex-1">
-        <Link href='/dashboard' className="btn btn-ghost text-xl">Zenith</Link>
+        <Link href="/" className="btn btn-ghost normal-case text-xl lg:hidden">Zenith</Link>
+        <div className='hidden w-full max-w-sm lg:flex'>
+          <div className="form-control">
+            <div className="input-group flex items-center gap-2">
+              <input type="text" placeholder="Search…" className="input input-bordered" />
+              <button className="btn">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="flex-none gap-2">
-        <div className="form-control hidden lg:block">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          />
-        </div>
-
         <div title="theme-change" className="dropdown dropdown-end ">
           <div tabIndex={0} className="btn gap-1 normal-case btn-ghost">
             <svg
@@ -94,7 +100,9 @@ export default function Navbar() {
               <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
             </svg>
           </div>
+
           <Theme Component={undefined} pageProps={undefined} />
+
         </div>
 
         <div className="dropdown dropdown-end">
@@ -128,6 +136,7 @@ export default function Navbar() {
         </div>
 
       </div>
+
     </div>
   );
 }
