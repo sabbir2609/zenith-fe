@@ -50,8 +50,6 @@ export default function DashboardLayout({
 
           </div>
 
-          <Footer />
-
         </div>
 
         <div className="drawer-side z-40" style={{ scrollBehavior: "smooth", scrollPaddingTop: "5rem" }}>
