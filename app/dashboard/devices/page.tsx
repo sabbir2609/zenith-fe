@@ -63,9 +63,10 @@ export default function Page() {
                 ))}
             </ul>
 
-
             {/* pagination */}
-            <Pagination totalPages={totalPages} />
+            <div className="flex justify-center">
+                <Pagination totalPages={totalPages} />
+            </div>
         </div>
     )
 }

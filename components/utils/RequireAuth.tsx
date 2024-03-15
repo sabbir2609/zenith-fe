@@ -24,7 +24,7 @@ export default function RequireAuth({ children }: Props) {
                         Loading...
                     </div>
                     <p>
-                        If it's takes too long try reloading the page.
+                        If it&apos;s takes too long try reloading the page.
                     </p>
                     <div className="skeleton h-28 w-full"></div>
                     <div className="skeleton h-4 w-28"></div>
@@ -32,8 +32,7 @@ export default function RequireAuth({ children }: Props) {
                     <div className="skeleton h-4 w-full"></div>
                 </div>
             </div>
-
-        )
+        );
     }
 
     if (!isAuthenticated) {
