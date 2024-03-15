@@ -93,6 +93,9 @@ export default function Navbar() {
                                 <li>
                                     <Link href={"/about/vision"}>Vision</Link>
                                 </li>
+                                <li>
+                                    <Link href={"/dashboard"}>Dashboard</Link>
+                                </li>
                             </ul>
                         </li>
                         <li>
