@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FcOpenedFolder } from "react-icons/fc";
 
 interface SidebarItem {
     id: number;
@@ -9,7 +10,7 @@ interface SidebarItem {
 const sidebarDataSectionOne: SidebarItem[] = [
     { id: 1, text: "Guests", link: "/dashboard/guests" },
     { id: 2, text: "Rooms", link: "/dashboard/rooms" },
-    { id: 3, text: "Sidebar Item 3", link: "#" }
+    { id: 3, text: "Devices", link: "/dashboard/devices" }
 
 ];
 
@@ -68,6 +69,34 @@ export default function Sidebar() {
 
                 <div className="divider"></div>
 
+                <li>
+                    <details>
+                        <summary className="m-2 font-semibold">
+                            <FcOpenedFolder className="inline-block mr-2" />
+                            Sidebar Item 3
+                        </summary>
+                        <ul className="menu">
+                            <li className="m-2 font-semibold">
+                                <Link href="#">
+                                    Sidebar Item 3.1
+                                </Link>
+                            </li>
+                            <li className="m-2 font-semibold">
+                                <Link href="#">
+                                    Sidebar Item 3.2
+                                </Link>
+                            </li>
+                            <li className="m-2 font-semibold">
+                                <Link href="#">
+                                    Sidebar Item 3.3
+                                </Link>
+                            </li>
+                        </ul>
+                    </details>
+
+                </li>
+                <div className="divider"></div>
+
                 {sidebarDataSectionTwo.map((item) => (
                     <li key={item.id} className="m-2 font-semibold">
                         <Link href={item.link}>
@@ -87,6 +116,6 @@ export default function Sidebar() {
                 ))}
 
             </ul>
-        </aside>
+        </aside >
     )
 }
