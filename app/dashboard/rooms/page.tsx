@@ -63,7 +63,7 @@ export default async function RoomsPage() {
                         <li key={room.id} className="py-3 sm:py-4">
                             <div className="flex items-center space-x-4">
                                 <div className="flex-shrink-0">
-                                    <img
+                                    <Image
                                         className="rounded-full w-12 h-12"
                                         src={room.images.length > 0 ? room.images[0].image : RoomImage.src}
                                         alt={`${room.room_label} image`}

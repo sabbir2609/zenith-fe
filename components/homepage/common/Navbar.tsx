@@ -120,11 +120,14 @@ export default function Navbar() {
                                 <li>
                                     <Link href={"/about/vision"}>Vision</Link>
                                 </li>
+                                <li>
+                                    <Link href={"/dashboard"}>Dashboard</Link>
+                                </li>
                             </ul>
                         </details>
                     </li>
                     <li>
-                        <Link href={"/contact"}>Contact</Link>
+                        <Link href={"/dashboard"}>Contact</Link>
                     </li>
                 </ul>
             </div>
