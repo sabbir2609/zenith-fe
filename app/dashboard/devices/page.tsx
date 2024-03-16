@@ -1,42 +1,32 @@
 import { Pagination } from "@/components/dashboard/common";
 import Link from "next/link";
-import { v4 as uuidv4 } from "uuid";
 
 
 interface Device {
     id: string;
     name: string;
-    type: string;
+    device_type: string;
+    client_id: string;
     location: string;
     status: boolean;
 }
 
 
-const deviceTypes = ["XC", "XF", "XT"];
-const deviceNames = ["Light", "AC", "Thermostat"];
-const floors = ["F11", "F12", "F13", "F14", "F15"];
-const rooms = ["R1", "R2", "R3", "R4", "R5"];
-const locations = ["BR", "LR", "DR", "KT", "BA"];
-
-const devices: Device[] = Array(17).fill(0).map((_, index) => {
-    const randomDeviceTypeIndex = Math.floor(Math.random() * deviceTypes.length);
-    const randomFloorIndex = Math.floor(Math.random() * floors.length);
-    const randomRoomIndex = Math.floor(Math.random() * rooms.length);
-    const randomLocationIndex = Math.floor(Math.random() * locations.length);
-    const status = Math.random() > 0.5;
-
-    return {
-        id: uuidv4(),
-        name: `${deviceTypes[randomDeviceTypeIndex]}${index}`,
-        type: deviceNames[randomDeviceTypeIndex],
-        location: `${floors[randomFloorIndex]}${rooms[randomRoomIndex]}-${locations[randomLocationIndex]}`,
-        status,
-    };
-});
 
 
-export default function Page() {
+export default async function Page() {
     const totalPages = 50;
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/`);
+    const data = await response.json();
+
+    if (!response.ok) {
+        return (
+            <h1 className="text-red-500">Error fetching device list</h1>
+        );
+    }
+
+    const devices: Device[] = data.results;
 
     return (
         <div className="p-4 grid content-center">
@@ -49,7 +39,7 @@ export default function Page() {
                         <div className="card bordered shadow-md">
                             <div className="card-body">
                                 <h2 className="text-2xl">{device.name}</h2>
-                                <p>Type: {device.type}</p>
+                                <p>Type: {device.device_type}</p>
                                 <p>Location: {device.location}</p>
                                 <p>Status: {device.status ? "On" : "Off"}</p>
                                 <div className="justify-end card-actions">
