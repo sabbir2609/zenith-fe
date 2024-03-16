@@ -1,16 +1,16 @@
 import Link from "next/link";
-import { FcOpenedFolder } from "react-icons/fc";
+import { FcElectricalSensor, FcOpenedFolder, FcGenealogy } from "react-icons/fc";
 
 interface SidebarItem {
     id: number;
     text: string;
     link: string;
+    icon?: any;
 }
 
 const sidebarDataSectionOne: SidebarItem[] = [
-    { id: 1, text: "Guests", link: "/dashboard/guests" },
-    { id: 2, text: "Rooms", link: "/dashboard/rooms" },
-    { id: 3, text: "Devices", link: "/dashboard/devices" }
+    { id: 1, text: "Guests", link: "/dashboard/guests", icon: FcOpenedFolder },
+    { id: 2, text: "Rooms", link: "/dashboard/rooms", icon: FcGenealogy },
 
 ];
 
@@ -60,8 +60,9 @@ export default function Sidebar() {
             <ul className="menu px-4 py-0">
 
                 {sidebarDataSectionOne.map((item) => (
-                    <li key={item.id} className="m-2 font-semibold">
+                    <li key={item.id} className="m-2 font-semibold gap-1">
                         <Link href={item.link}>
+                            <item.icon className="inline-block" size={25} />
                             {item.text}
                         </Link>
                     </li>
@@ -72,23 +73,26 @@ export default function Sidebar() {
                 <li>
                     <details>
                         <summary className="m-2 font-semibold">
-                            <FcOpenedFolder className="inline-block mr-2" />
-                            Sidebar Item 3
+                            <FcElectricalSensor
+                                className="inline-block"
+                                size={25}
+                            />
+                            Devices
                         </summary>
                         <ul className="menu">
                             <li className="m-2 font-semibold">
-                                <Link href="#">
-                                    Sidebar Item 3.1
+                                <Link href="/dashboard/devices">
+                                    All Devices
                                 </Link>
                             </li>
                             <li className="m-2 font-semibold">
                                 <Link href="#">
-                                    Sidebar Item 3.2
+                                    Room Devices
                                 </Link>
                             </li>
                             <li className="m-2 font-semibold">
                                 <Link href="#">
-                                    Sidebar Item 3.3
+                                    Facility Devices
                                 </Link>
                             </li>
                         </ul>
