@@ -20,27 +20,27 @@ export default function Pagination({ totalPages }: PaginationProps) {
         <div className="join">
             {prevPage && (
                 <Link href={`/dashboard/devices?page=${prevPage}`}>
-                    <div className="join-item btn btn-square" onClick={() => setActive(prevPage)}>
+                    <div className="join-item btn btn-square btn-sm lg:btn-md" onClick={() => setActive(prevPage)}>
                         «
                     </div>
                 </Link>
             )}
 
-            {startPage > 1 && <div className="join-item btn btn-square">...</div>}
+            {startPage > 1 && <div className="join-item btn btn-square btn-sm lg:btn-md">...</div>}
 
             {[...Array(endPage - startPage + 1)].map((_, i) => (
                 <Link href={`/dashboard/devices?page=${startPage + i}`} key={i}>
-                    <div className={`join-item btn btn-square ${active === startPage + i ? 'btn-active' : ''}`} onClick={() => setActive(startPage + i)}>
+                    <div className={`join-item btn btn-square btn-sm lg:btn-md ${active === startPage + i ? 'btn-active' : ''}`} onClick={() => setActive(startPage + i)}>
                         {startPage + i}
                     </div>
                 </Link>
             ))}
 
-            {endPage < totalPages && <div className="join-item btn btn-square">...</div>}
+            {endPage < totalPages && <div className="join-item btn btn-square btn-sm lg:btn-md">...</div>}
 
             {nextPage && (
                 <Link href={`/dashboard/devices?page=${nextPage}`}>
-                    <div className="join-item btn btn-square" onClick={() => setActive(nextPage)}>
+                    <div className="join-item btn btn-square btn-sm lg:btn-md" onClick={() => setActive(nextPage)}>
                         »
                     </div>
                 </Link>
