@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { cookies } from "next/headers";
 import Link from "next/link";
-import { userIcon } from "@/static";
+import { userIcon } from "@/public/static";
 
 interface Guests {
     id: number;

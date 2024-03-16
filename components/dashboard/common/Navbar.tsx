@@ -2,12 +2,12 @@
 
 import Theme from "./Theme";
 import Image from "next/image";
-import userIcon from "./../../../static/image/user_icon.png";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux/hooks";
 import { useLogoutMutation } from "@/redux/features/authApiSlice";
 import { logout as setLogout } from "@/redux/features/authSlice";
+import { userIcon } from "@/public/static";
 
 export default function Navbar() {
   const router = useRouter();

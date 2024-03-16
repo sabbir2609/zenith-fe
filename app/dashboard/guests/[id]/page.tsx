@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import Image from "next/image";
-import { userIcon } from "@/static";
+import { userIcon } from "@/public/static";
 
 
 interface Guest {

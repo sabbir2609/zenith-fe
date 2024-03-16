@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { cookies } from 'next/headers'
-import { RoomImage } from '@/static';
+import { RoomImage } from '@/public/static';
 
 interface RoomType {
     id: number;
