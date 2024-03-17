@@ -1,6 +1,4 @@
-import { Pagination } from "@/components/dashboard/common";
-import Link from "next/link";
-
+import { DeviceCard, Pagination } from "@/components/dashboard/common";
 
 interface Device {
     id: string;
@@ -10,9 +8,6 @@ interface Device {
     location: string;
     status: boolean;
 }
-
-
-
 
 export default async function Page() {
     const totalPages = 50;
@@ -29,26 +24,14 @@ export default async function Page() {
     const devices: Device[] = data.results;
 
     return (
-        <div className="p-4 grid content-center">
-            <h1 className="text-2xl font-bold mb-4">All Devices</h1>
+        <div className="grid content-center">
+            <h1 className="text-2xl font-bold mb-4 ms-4">All Devices</h1>
 
             {/* devices */}
-            <ul className="space-y-4">
+            <ul>
                 {devices.map((device) => (
                     <li key={device.id} className="p-4">
-                        <div className="card bordered shadow-md">
-                            <div className="card-body">
-                                <h2 className="text-2xl">{device.name}</h2>
-                                <p>Type: {device.device_type}</p>
-                                <p>Location: {device.location}</p>
-                                <p>Status: {device.status ? "On" : "Off"}</p>
-                                <div className="justify-end card-actions">
-                                    <Link href={`/dashboard/devices/${device.id}`} className="btn btn-primary">
-                                        Details
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
+                        <DeviceCard device={device} />
                     </li>
                 ))}
             </ul>
@@ -57,6 +40,7 @@ export default async function Page() {
             <div className="flex justify-center">
                 <Pagination totalPages={totalPages} />
             </div>
+
         </div>
     )
 }

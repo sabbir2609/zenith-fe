@@ -4,9 +4,6 @@ import Navbar from "@/components/dashboard/common/Navbar";
 import Footer from "@/components/dashboard/common/Footer";
 import Breadcrumb from "@/components/dashboard/common/Breadcrumbs";
 import { RequireAuth } from "@/components/utils";
-import { Suspense } from "react";
-import Loading from "./loading";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Zenith System",
@@ -40,13 +37,9 @@ export default function DashboardLayout({
           capitalizeLinks
         />
 
-        <div className="m-1">
+        <div className="px-2">
 
-          <Suspense fallback={<Loading />}>
-
-            {children}
-
-          </Suspense>
+          {children}
 
         </div>
 
