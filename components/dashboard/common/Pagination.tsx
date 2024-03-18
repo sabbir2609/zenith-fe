@@ -8,6 +8,7 @@ interface PaginationProps {
 }
 
 export default function Pagination({ totalPages }: PaginationProps) {
+
     const [active, setActive] = useState(1);
 
     const prevPage = active > 1 ? active - 1 : null;
