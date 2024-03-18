@@ -14,28 +14,6 @@ const sidebarDataSectionOne: SidebarItem[] = [
 
 ];
 
-const sidebarDataSectionTwo: SidebarItem[] = [
-    { id: 4, text: "Sidebar Item 4", link: "#" },
-    { id: 5, text: "Sidebar Item 5", link: "#" },
-    { id: 6, text: "Sidebar Item 6", link: "#" }
-];
-
-const sidebarDataSectionThree: SidebarItem[] = [
-    { id: 7, text: "Sidebar Item 7", link: "#" },
-    { id: 8, text: "Sidebar Item 8", link: "#" },
-    { id: 9, text: "Sidebar Item 9", link: "#" },
-    { id: 10, text: "Sidebar Item 10", link: "#" },
-    { id: 11, text: "Sidebar Item 11", link: "#" },
-    { id: 12, text: "Sidebar Item 12", link: "#" },
-    { id: 13, text: "Sidebar Item 13", link: "#" },
-    { id: 14, text: "Sidebar Item 14", link: "#" },
-    { id: 15, text: "Sidebar Item 15", link: "#" },
-    { id: 16, text: "Sidebar Item 16", link: "#" },
-    { id: 17, text: "Sidebar Item 17", link: "#" },
-    { id: 18, text: "Sidebar Item 18", link: "#" },
-    { id: 19, text: "Sidebar Item 19", link: "#" },
-    { id: 20, text: "Sidebar Item 20", link: "#" }
-];
 
 export default function Sidebar() {
     return (
@@ -81,6 +59,12 @@ export default function Sidebar() {
                         </summary>
                         <ul className="menu">
                             <li className="m-2 font-semibold">
+                                <Link href="/dashboard/devices/type">
+                                    Device Types
+                                </Link>
+                            </li>
+
+                            <li className="m-2 font-semibold">
                                 <Link href="/dashboard/devices">
                                     All Devices
                                 </Link>
@@ -99,25 +83,8 @@ export default function Sidebar() {
                     </details>
 
                 </li>
-                <div className="divider"></div>
-
-                {sidebarDataSectionTwo.map((item) => (
-                    <li key={item.id} className="m-2 font-semibold">
-                        <Link href={item.link}>
-                            {item.text}
-                        </Link>
-                    </li>
-                ))}
 
                 <div className="divider"></div>
-
-                {sidebarDataSectionThree.map((item) => (
-                    <li key={item.id} className="m-2 font-semibold">
-                        <Link href={item.link}>
-                            {item.text}
-                        </Link>
-                    </li>
-                ))}
 
             </ul>
         </aside >

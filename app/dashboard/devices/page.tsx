@@ -10,9 +10,11 @@ interface Device {
 }
 
 export default async function Page() {
-    const totalPages = 50;
+    const pageNumber = 1;
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/?page=${pageNumber}`, {
+        cache: "no-cache",
+    });
     const data = await response.json();
 
     if (!response.ok) {
@@ -21,11 +23,20 @@ export default async function Page() {
         );
     }
 
+    const totalDevices = data.count;
+    const activeDevices = data.results.filter((device: Device) => device.status === true);
+
     const devices: Device[] = data.results;
 
     return (
         <div className="grid content-center">
-            <h1 className="text-2xl font-bold mb-4 ms-4">All Devices</h1>
+            {/* header */}
+            <h1 className="text-2xl font-bold ms-4">All Devices</h1>
+            <div className="text-lg font-semibold ms-4 gap-2">
+                <span className="font-normal">Total Devices:</span> <span className="text-secondary">{totalDevices}</span>
+                <span className="font-normal"> | </span>
+                <span className="font-normal">Active Devices:</span> <span className="text-secondary">{activeDevices.length}</span>
+            </div>
 
             {/* devices */}
             <ul>
@@ -38,8 +49,9 @@ export default async function Page() {
 
             {/* pagination */}
             <div className="flex justify-center">
-                <Pagination totalPages={totalPages} />
+
             </div>
+
 
         </div>
     )
