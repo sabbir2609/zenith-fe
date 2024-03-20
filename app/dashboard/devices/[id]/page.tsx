@@ -1,3 +1,5 @@
+import { Button } from "@/components/dashboard/ui";
+
 interface Topic {
     id: number;
     name: string;
@@ -15,7 +17,21 @@ interface Device {
     topics?: Topic[];
 }
 
-export default async function Page({ params }: { params: { id: number } }) {
+async function deleteDevice(id: string) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+
+        },
+    });
+
+    if (response.status === 200) {
+        window.location.href = "/dashboard/devices";
+    }
+}
+
+export default async function Page({ params }: { params: { id: string } }) {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/${params.id}`, {
             cache: "no-cache",
@@ -68,6 +84,10 @@ export default async function Page({ params }: { params: { id: number } }) {
                         </tbody>
                     </table>
                 </div>
+
+                <Button onClick={() => deleteDevice(device.id)} className="btn btn-error" type="button">
+                    Delete
+                </Button>
 
             </div>
 

@@ -33,7 +33,7 @@ export default function RegisterForm() {
             required: true
         },
         {
-            labelText: "email",
+            labelText: "Email",
             labelId: "email",
             type: "text",
             value: email,
@@ -59,6 +59,7 @@ export default function RegisterForm() {
     ];
 
     return (
+
         <Form
             config={config}
             isLoading={isLoading}
@@ -66,5 +67,6 @@ export default function RegisterForm() {
             onChange={onChange}
             onSubmit={onSubmit}
         />
+
     );
 }

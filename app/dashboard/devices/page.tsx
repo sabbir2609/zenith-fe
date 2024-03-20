@@ -9,11 +9,15 @@ interface Device {
     status: boolean;
 }
 
-export default async function Page({ pageNumber = 1 }: { pageNumber: number }) {
+export default async function Page(context: any) {
     try {
+
+        const pageNumber = context.searchParams.page ? context.searchParams.page : 1;
+
         const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/?page=${pageNumber}`, {
             cache: "no-cache",
         });
+
         const data = await response.json();
 
         if (!response.ok) {
@@ -26,6 +30,7 @@ export default async function Page({ pageNumber = 1 }: { pageNumber: number }) {
         const activeDevices = data.results.filter((device: Device) => device.status === true);
 
         const totalPages = Math.ceil(totalDevices / 10);
+
         const devices: Device[] = data.results;
 
         return (
@@ -60,7 +65,7 @@ export default async function Page({ pageNumber = 1 }: { pageNumber: number }) {
             <div className="flex items-center justify-center">
                 <div className="rounded-lg p-40 shadow-lg text-center">
                     <h1 className="text-3xl font-bold text-red-600">
-                        {(error as Error).message == "fetch failed" ? "Error fetching device details" : "Device not found ! "}
+                        {(error as Error).message == "fetch failed" ? "Error fetching device details" : "Device List not found ! "}
                     </h1>
                 </div>
             </div>

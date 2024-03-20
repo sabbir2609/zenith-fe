@@ -32,6 +32,7 @@ export default function Form({
 }: Props) {
 	return (
 		<form className="space-y-2" onSubmit={onSubmit}>
+
 			{config.map((input) => (
 				<Input
 					key={input.labelId}
@@ -45,6 +46,7 @@ export default function Form({
 				>
 					{input.labelText}
 				</Input>
+
 			))}
 
 			<div>
@@ -56,6 +58,7 @@ export default function Form({
 					{isLoading ? <Spinner sm /> : `${btnText}`}
 				</button>
 			</div>
+
 		</form>
 	);
 }

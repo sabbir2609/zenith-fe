@@ -1,5 +1,10 @@
+"use client";
+
+import { ChangeEvent, useState } from "react";
 import Link from "next/link";
-import { ChangeEvent } from "react";
+import { IoEye } from "react-icons/io5";
+import { IoEyeOff } from "react-icons/io5";
+
 
 interface Props {
     labelId: string;
@@ -25,37 +30,56 @@ export default function Input({
     link,
     required = false
 }: Props) {
-    return (
-        <div>
+    const [showPassword, setShowPassword] = useState(false);
 
-            <div className="flex justify-between align-center">
-                <label htmlFor={labelId} className="block text-sm font-medium leading-6">
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    return (
+
+        <label htmlFor={labelId} className="form-control w-full">
+
+            <div className="label">
+
+                <span className="label-text">
                     {children}
-                </label>
+                </span>
 
                 {link && (
-                    <div className="text-sm">
-                        <Link className="font-semibold text-indigo-600 hover:text-indigo-500" href={link.linkUrl}>
+                    <div className="label-text-alt">
+                        <Link href={link.linkUrl} className="font-semibold text-indigo-600 hover:text-indigo-500">
                             {link.linkText}
                         </Link>
                     </div>
-                )
-                }
+                )}
+
             </div>
 
-            <div className="">
+            <div className="relative">
                 <input
-                    type={type}
+                    type={type === 'password' && !showPassword ? 'password' : 'text'}
                     id={labelId}
                     name={labelId}
                     placeholder={placeholder}
                     autoComplete={labelId}
-                    className="input w-full input-bordered"
+                    className="input w-full input-bordered pr-10"
                     onChange={onChange}
                     value={value}
                     required={required}
                 />
+
+                {type === 'password' && (
+                    <button
+                        type="button"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 me-2 btn btn-sm btn-circle"
+                        onClick={toggleShowPassword}
+                    >
+                        {showPassword ? <IoEyeOff size={20} /> : <IoEye size={25} />}
+                    </button>
+                )}
             </div>
-        </div>
+
+        </label>
     );
 }
