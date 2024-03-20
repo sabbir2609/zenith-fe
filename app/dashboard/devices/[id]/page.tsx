@@ -1,5 +1,3 @@
-import { Button } from "@/components/dashboard/ui";
-
 interface Topic {
     id: number;
     name: string;
@@ -17,32 +15,24 @@ interface Device {
     topics?: Topic[];
 }
 
-async function deleteDevice(id: string) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-
-        },
+async function fetchDeviceDetails(params: { id: string }) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/${params.id}`, {
+        cache: "no-cache",
     });
 
-    if (response.status === 200) {
-        window.location.href = "/dashboard/devices";
+    if (response.status === 404) {
+        throw new Error("Device not found");
     }
+
+    const device: Device = await response.json();
+
+    return device;
+
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/${params.id}`, {
-            cache: "no-cache",
-        });
-
-        if (response.status === 404) {
-            throw new Error("Device not found");
-        }
-
-        const device: Device = await response.json();
-
+        const device = await fetchDeviceDetails({ id: params.id });
         return (
             <div className="border border-primary rounded-lg shadow-lg p-6">
 
@@ -84,13 +74,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                         </tbody>
                     </table>
                 </div>
-
-                <Button onClick={() => deleteDevice(device.id)} className="btn btn-error" type="button">
-                    Delete
-                </Button>
-
             </div>
-
         );
     } catch (error) {
         return (
