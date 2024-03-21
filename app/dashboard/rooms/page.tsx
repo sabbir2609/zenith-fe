@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { cookies } from 'next/headers'
-import { RoomImage } from '@/public/static';
+import { RoomCard } from '@/components/dashboard/ui';
 
 interface RoomType {
     id: number;
@@ -40,7 +40,8 @@ export default async function RoomsPage() {
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
-        }
+        },
+        cache: "no-cache",
     })
 
     if (!response.ok) {
@@ -52,44 +53,22 @@ export default async function RoomsPage() {
     const rooms: Room[] = await response.json()
 
     return (
-        <section>
-            <h1 className="text-3xl font-bold tracking-tight">Rooms:</h1>
+        <section className='grid content-center'>
+            <h1 className="text-2xl font-bold ms-4">Rooms:</h1>
 
             {rooms.length === 0 && (<h1 className="text-red-500">No rooms found</h1>)}
 
-            <div className="m-3 border rounded">
-                <ul role="list" className="divide-y py-1 px-6">
-                    {Array.isArray(rooms) && rooms.map((room) => (
-                        <li key={room.id} className="py-3 sm:py-4">
-                            <div className="flex items-center space-x-4">
-                                <div className="flex-shrink-0">
-                                    <Image
-                                        className="rounded-full w-12 h-12"
-                                        src={room.images.length > 0 ? room.images[0].image : RoomImage.src}
-                                        alt={`${room.room_label} image`}
-                                        width={48}
-                                        height={48}
-                                    />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-medium truncate">
-                                        Room: {room.room_label}
-                                    </p>
-                                    <p className="text-sm truncate">Type: {room.room_type.room_type}</p>
-                                    <p className="text-sm truncate">Price: {room.room_type.price}</p>
-                                    <p className="text-sm truncate">Description: {room.description}</p>
-                                    <p className="text-sm truncate">Capacity: {room.capacity}</p>
-                                    <p className="text-sm truncate">Available: {room.is_available ? "Yes" : "No"}</p>
-                                    <Link href={`/dashboard/rooms/${room.id}`} className="text-blue-500">
-                                        View
-                                    </Link>
-                                </div>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </section>
 
+            <ul role="list">
+                {Array.isArray(rooms) && rooms.map((room) => (
+
+                    <li key={room.id} className="p-4">
+                        <RoomCard {...room} />
+                    </li>
+
+                ))}
+            </ul>
+
+        </section>
     );
 }

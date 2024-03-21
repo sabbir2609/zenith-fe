@@ -6,7 +6,9 @@ interface deviceType {
 
 export default async function Page() {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/device-types/`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/device-types/`, {
+            cache: "no-cache",
+        });
         const data = await response.json();
 
         if (response.status === 404) {
@@ -15,7 +17,18 @@ export default async function Page() {
             );
         }
 
-        const deviceTypes: deviceType[] = data.results;
+        const deviceTypes: deviceType[] = data;
+
+        if (deviceTypes && deviceTypes.length === 0) {
+            return (
+                <div className="flex items-center justify-center">
+                    <div className="rounded-lg shadow-lg p-5 md:p-20 mx-2">
+                        <h1 className="text-red-500 text-center">No device types found</h1>
+                        <h2 className="text-blue-500 text-center">Please add a device type</h2>
+                    </div>
+                </div>
+            );
+        }
 
         return (
             <div className="grid content-center">
@@ -23,11 +36,11 @@ export default async function Page() {
 
                 {/* device types */}
                 <ul>
-                    {deviceTypes.map((deviceType) => (
-                        <li key={deviceType.id} className="p-4">
+                    {deviceTypes && deviceTypes.map(({ id, name, description }) => (
+                        <li key={id} className="p-4">
                             <div className="rounded-lg shadow-md p-4">
-                                <h2 className="text-xl font-bold">{deviceType.name}</h2>
-                                <p>{deviceType.description}</p>
+                                <h2 className="text-xl font-bold">{name}</h2>
+                                <p>{description}</p>
                             </div>
                         </li>
                     ))}
@@ -36,7 +49,10 @@ export default async function Page() {
         )
     } catch (error) {
         return (
-            <h1 className="text-red-500">Error fetching device type list</h1>
+            <>
+                <h1 className="text-red-500">Error fetching device type list</h1>
+                {(error as Error).message}
+            </>
         );
     }
 }

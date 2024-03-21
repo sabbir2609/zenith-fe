@@ -1,4 +1,6 @@
-import { DeviceCard, Pagination } from "@/components/dashboard/common";
+import { Pagination } from "@/components/dashboard/common";
+import { DeviceCard } from "@/components/dashboard/ui";
+
 
 interface Device {
     id: string;
