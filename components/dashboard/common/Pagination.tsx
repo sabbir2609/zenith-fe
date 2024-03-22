@@ -5,9 +5,10 @@ import { useState } from 'react';
 
 interface PaginationProps {
     totalPages: number;
+    baseURL: string;
 }
 
-export default function Pagination({ totalPages }: PaginationProps) {
+export default function Pagination({ totalPages, baseURL }: PaginationProps) {
 
     const [active, setActive] = useState(1);
 
@@ -20,7 +21,7 @@ export default function Pagination({ totalPages }: PaginationProps) {
     return (
         <div className="join">
             {prevPage && (
-                <Link href={`/dashboard/devices?page=${prevPage}`}>
+                <Link href={`${baseURL}?page=${prevPage}`}>
                     <div className="join-item btn btn-square btn-sm lg:btn-md" onClick={() => setActive(prevPage)}>
                         «
                     </div>
@@ -30,7 +31,7 @@ export default function Pagination({ totalPages }: PaginationProps) {
             {startPage > 1 && <div className="join-item btn btn-square btn-sm lg:btn-md">...</div>}
 
             {[...Array(endPage - startPage + 1)].map((_, i) => (
-                <Link href={`/dashboard/devices?page=${startPage + i}`} key={i}>
+                <Link href={`${baseURL}?page=${startPage + i}`} key={i}>
                     <div className={`join-item btn btn-square btn-sm lg:btn-md ${active === startPage + i ? 'btn-active' : ''}`} onClick={() => setActive(startPage + i)}>
                         {startPage + i}
                     </div>
@@ -40,7 +41,7 @@ export default function Pagination({ totalPages }: PaginationProps) {
             {endPage < totalPages && <div className="join-item btn btn-square btn-sm lg:btn-md">...</div>}
 
             {nextPage && (
-                <Link href={`/dashboard/devices?page=${nextPage}`}>
+                <Link href={`${baseURL}?page=${nextPage}`}>
                     <div className="join-item btn btn-square btn-sm lg:btn-md" onClick={() => setActive(nextPage)}>
                         »
                     </div>

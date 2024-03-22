@@ -27,7 +27,7 @@ interface RoomCardProps {
 
 export default function RoomCard({ id, floor, room_label, room_type, capacity, description, is_available, images }: RoomCardProps) {
     return (
-        <div className="card lg:card-side bg-base-100 shadow-xl grid grid-cols-1 lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 lg:grid-flow-col">
+        <div className="card border border-primary lg:card-side bg-base-100 shadow-xl grid grid-cols-1 lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 lg:grid-flow-col">
             <figure className="row-span-1 lg:row-span-1 lg:col-span-1 relative overflow-hidden">
                 <Image
                     src={images[0]?.image || RoomImage}
@@ -37,13 +37,16 @@ export default function RoomCard({ id, floor, room_label, room_type, capacity, d
                 />
             </figure>
             <div className="card-body row-span-1 lg:row-span-1 lg:col-span-3">
-                <h2 className="card-title">Label - {floor} Room - {room_label}</h2>
+                <h2 className="card-title">Label - {floor} | Room - {room_label}</h2>
                 <h3>{room_type.room_type}</h3>
                 <h4>Capacity: {capacity}</h4>
                 <p>{description}</p>
                 <p>Price: BDT {room_type.price}</p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary">{is_available ? 'Book Now' : 'Unavailable'}</button>
+                    <button
+                        className="btn btn-primary"
+                        disabled={!is_available}
+                    >{is_available ? 'Book Now' : 'Unavailable'}</button>
                     <Link href={`/dashboard/rooms/${id}`} className="btn btn-secondary">
                         Details
                     </Link>

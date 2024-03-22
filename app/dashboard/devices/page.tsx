@@ -16,6 +16,7 @@ export default async function Page(context: any) {
 
         const pageNumber = context.searchParams.page ? context.searchParams.page : 1;
 
+        const baseURL = '/dashboard/devices';
         const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/?page=${pageNumber}`, {
             cache: "no-cache",
         });
@@ -56,7 +57,7 @@ export default async function Page(context: any) {
 
                 {/* pagination */}
                 <div className="flex justify-center mb-2">
-                    <Pagination totalPages={totalPages} />
+                    <Pagination totalPages={totalPages} baseURL={baseURL} />
                 </div>
 
 
