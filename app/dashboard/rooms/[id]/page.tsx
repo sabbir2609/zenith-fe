@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import Image from 'next/image';
-import { RoomImage } from '@/public/static';
+import { Carousel } from '@/components/dashboard/ui';
 
 interface RoomType {
     id: number;
@@ -11,7 +11,6 @@ interface RoomType {
 
 interface Image {
     id: number;
-    room: number;
     image: string;
     description: string | null;
 }
@@ -51,7 +50,8 @@ export default async function roomDetailPage(
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
-        }
+        },
+        "cache": "no-cache"
     })
 
 
@@ -64,32 +64,45 @@ export default async function roomDetailPage(
     const room: Room = await response.json()
 
     return (
-        <section>
-            <h1 className="text-3xl font-bold tracking-tight">
-                Room Details for {room.room_label}
+        <section className='container mx-auto'>
+
+            <h1 className="text-3xl font-mono mb-3">
+                Room Details for {room.floor}|{room.room_label}
             </h1>
 
-            <div className="m-3 border rounded p-4">
-                <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0">
-                        <Image
-                            className="rounded-sm w-24"
-                            src={room.images.length > 0 ? room.images[0].image : RoomImage.src}
-                            alt={`${room.room_label} image`}
-                            width={100}
-                            height={100}
-                        />
+            <div className="lg:columns-2 md:columns-2 gap-2">
+
+                <Carousel images={room.images} />
+
+                <div className="p-2 rounded-lg ">
+
+                    <div className="subpixel-antialiased mb-4">
+                        <p className="font-sans text-primary">
+                            {room.room_type.room_type}
+                        </p>
+                        <p className="font-semibold">Floor: {room.floor}</p>
+                        <h1 className="text-3xl font-extrabold">
+                            Label: {room.room_label}
+                        </h1>
                     </div>
-                    <div>
-                        <h2 className="text-2xl font-bold">{room.room_label}</h2>
-                        <p className="text-lg">{room.description}</p>
-                        <p className="text-lg">Capacity: {room.capacity}</p>
-                        <p className="text-lg">Floor: {room.floor}</p>
-                        <p className="text-lg">Room Type: {room.room_type.room_type}</p>
-                        <p className="text-lg">Price: {room.room_type.price}</p>
+
+                    <div className="mb-2">
+                        <p className="font-semibold">Capacity: {room.capacity}</p>
                     </div>
+
+                    <details className="mb-2 menu">
+                        <summary className="font-semibold">Description</summary>
+                        <p>{room.description}</p>
+                    </details>
+                    <div className="divider"></div>
+                    <button className="btn btn-outline">
+                        Check availability
+                    </button>
+
                 </div>
+
             </div>
+
         </section>
     )
 }

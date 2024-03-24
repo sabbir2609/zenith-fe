@@ -58,7 +58,7 @@ export default async function RoomsPage(context: any) {
     }
 
     const totalRooms = data.count;
-    const availableRooms = data.results.filter((rooms: Rooms) => rooms.is_available === true);
+    const availableRooms = data.available_rooms_count;
 
     const totalPages = Math.ceil(totalRooms / 10);
 
@@ -71,7 +71,7 @@ export default async function RoomsPage(context: any) {
             <div className="text-lg font-semibold ms-4 gap-2">
                 <span className="font-normal">Total Rooms:</span> <span className="text-secondary">{totalRooms}</span>
                 <span className="font-normal"> | </span>
-                <span className="font-normal">Current Available Rooms:</span> <span className="text-secondary">{availableRooms.length}</span>
+                <span className="font-normal">Current Available Rooms:</span> <span className="text-secondary">{availableRooms}</span>
             </div>
             {rooms.length === 0 && (
                 <div className="card bg-secondary text-primary-content">

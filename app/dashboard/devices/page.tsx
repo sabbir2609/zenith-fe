@@ -30,7 +30,7 @@ export default async function Page(context: any) {
         }
 
         const totalDevices = data.count;
-        const activeDevices = data.results.filter((device: Device) => device.status === true);
+        const activeDevices = data.available_rooms_count;
 
         const totalPages = Math.ceil(totalDevices / 10);
 
@@ -43,7 +43,7 @@ export default async function Page(context: any) {
                 <div className="text-lg font-semibold ms-4 gap-2">
                     <span className="font-normal">Total Devices:</span> <span className="text-secondary">{totalDevices}</span>
                     <span className="font-normal"> | </span>
-                    <span className="font-normal">Active Devices:</span> <span className="text-secondary">{activeDevices.length}</span>
+                    <span className="font-normal">Active Devices:</span> <span className="text-secondary">{activeDevices}</span>
                 </div>
 
                 {/* devices */}
