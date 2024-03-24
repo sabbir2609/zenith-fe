@@ -28,7 +28,7 @@ interface RoomCardProps {
 export default function RoomCard({ id, floor, room_label, room_type, capacity, description, is_available, images }: RoomCardProps) {
     return (
         <div className="card border border-primary lg:card-side bg-base-100 shadow-xl grid grid-cols-1 lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 lg:grid-flow-col">
-            <figure className="row-span-1 lg:row-span-1 lg:col-span-1 relative overflow-hidden">
+            <figure className="row-span-1 lg:row-span-1 lg:col-span-1 relative overflow-hidden w-full">
                 <Image
                     src={images[0]?.image || RoomImage}
                     alt={room_label}
