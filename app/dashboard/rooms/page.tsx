@@ -38,71 +38,90 @@ export default async function RoomsPage(context: any) {
     }
 
     const pageNumber = context.searchParams.page ? context.searchParams.page : 1;
-
     const baseURL = '/dashboard/rooms';
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/rooms/?page=${pageNumber}`, {
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        cache: "no-cache",
-    });
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/rooms/?page=${pageNumber}`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            cache: "no-cache",
+        });
 
-    const data = await response.json();
+        const data = await response.json();
 
-    if (!response.ok) {
+        if (!response.ok) {
+            throw new Error('Error fetching device list');
+        }
+
+        const totalRooms = data.count;
+        const availableRooms = data.available_rooms_count;
+
+        const totalPages = Math.ceil(totalRooms / 10);
+
+        const rooms: Rooms[] = data.results;
+
         return (
-            <h1 className="text-red-500">Error fetching device list</h1>
-        );
-    }
+            <section className="container mx-auto p-4">
 
-    const totalRooms = data.count;
-    const availableRooms = data.available_rooms_count;
-
-    const totalPages = Math.ceil(totalRooms / 10);
-
-    const rooms: Rooms[] = data.results;
-
-    return (
-        <section className="grid content-center">
-            {/* header */}
-            <h1 className="text-2xl font-bold ms-4">Room List:</h1>
-            <div className="text-lg font-semibold ms-4 gap-2">
-                <span className="font-normal">Total Rooms:</span> <span className="text-secondary">{totalRooms}</span>
-                <span className="font-normal"> | </span>
-                <span className="font-normal">Current Available Rooms:</span> <span className="text-secondary">{availableRooms}</span>
-            </div>
-            {rooms.length === 0 && (
-                <div className="card bg-secondary text-primary-content">
-                    <div className="card-body">
-                        <h2 className="card-title text-5xl">No rooms available!</h2>
-                        <p className="text-xl">Please Add Room</p>
-                        <div className="card-actions justify-end">
-                            <Link href="/dashboard/rooms/add">
-                                <button className="btn btn-primary">Add Room</button>
-                            </Link>
+                {/* header */}
+                <div className="flex justify-between items-center">
+                    <div>
+                        <h1 className="text-xl font-semibold">Room List:</h1>
+                        <div className="text-lg font-semibold gap-2">
+                            <span className="font-normal">Total Rooms:</span> <span className="text-primary">{totalRooms}</span>
+                            <span className="font-normal"> | </span>
+                            <span className="font-normal">Current Available Rooms:</span> <span className="text-primary">{availableRooms}</span>
                         </div>
                     </div>
+
+                    {/* add room button */}
+                    <Link href="/dashboard/rooms/add">
+                        <button className="btn btn-primary">Add Room</button>
+                    </Link>
                 </div>
 
-            )}
+                {/* room list */}
+                {rooms.length === 0 && (
+                    <div className="card bg-blue-500 text-white">
+                        <div className="card-body">
+                            <h2 className="card-title text-5xl">No rooms available!</h2>
+                            <p className="text-xl">Please Add Room</p>
+                            <div className="card-actions justify-end">
+                                <Link href="/dashboard/rooms/add">
+                                    <button className="btn btn-primary">Add Room</button>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
-            <ul role="list">
-                {Array.isArray(rooms) && rooms.map((room) => (
+                {/* room list */}
+                <ul role="list" className="grid grid-cols-1 gap-4 mt-4">
+                    {rooms.map((room) => (
+                        <li key={room.id}>
+                            <RoomCard {...room} />
+                        </li>
+                    ))}
+                </ul>
 
-                    <li key={room.id} className="p-4">
-                        <RoomCard {...room} />
-                    </li>
+                {/* pagination */}
+                <div className="flex justify-end mb-2 mt-2">
+                    <Pagination totalPages={totalPages} baseURL={baseURL} />
+                </div>
 
-                ))}
-            </ul>
-
-            {/* pagination */}
-            <div className="flex justify-center mb-2">
-                <Pagination totalPages={totalPages} baseURL={baseURL} />
+            </section>
+        );
+    } catch (error) {
+        return (
+            <div className="flex items-center justify-center">
+                <div className="rounded-lg p-40 shadow-lg text-center">
+                    <h1 className="text-3xl font-bold text-red-600">
+                        {(error as Error).message == "fetch failed" ? "Error fetching details" : "Not found ! "}
+                    </h1>
+                </div>
             </div>
-
-        </section>
-    );
+        );
+    }
 }

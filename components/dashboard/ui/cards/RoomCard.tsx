@@ -36,11 +36,11 @@ export default function RoomCard({ id, floor, room_label, room_type, capacity, d
                     objectFit="cover"
                 />
             </figure>
-            <div className="card-body row-span-1 lg:row-span-1 lg:col-span-3">
+            <div className="card-body lg:row-span-1 lg:col-span-3">
                 <h2 className="card-title">Label - {floor} | Room - {room_label}</h2>
                 <h3>{room_type.room_type}</h3>
                 <h4>Capacity: {capacity}</h4>
-                <p>{description}</p>
+                <p className='truncate font-serif'>{description}</p>
                 <p>Price: BDT {room_type.price}</p>
                 <div className="card-actions justify-end">
                     <button
