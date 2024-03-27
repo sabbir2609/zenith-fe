@@ -29,6 +29,13 @@ interface Rooms {
 }
 
 
+export function generateMetadata() {
+    return {
+        title: 'Rooms',
+        description: 'List of all rooms',
+    }
+}
+
 export default async function RoomsPage(context: any) {
     const cookieStore = cookies()
     const token = cookieStore.get('access')?.value

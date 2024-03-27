@@ -35,6 +35,14 @@ interface Room {
     amenities: Amenity[];
 }
 
+
+export function generateMetadata() {
+    return {
+        title: 'Room Details',
+        description: 'Room details page',
+    }
+}
+
 export default async function roomDetailPage(
     { params }: { params: { id: number } }
 ) {
@@ -64,39 +72,42 @@ export default async function roomDetailPage(
     const room: Room = await response.json()
 
     return (
-        <section className='container mx-auto'>
+        <section className='container mx-auto mb-2'>
 
             <h1 className="text-3xl font-mono mb-3">
-                Room Details for {room.floor}|{room.room_label}
+                Room Details for {room.floor} | {room.room_label}
             </h1>
 
-            <div className="lg:columns-2 md:columns-2 gap-2">
+            <div className="grid lg:grid-cols-2 md:grid-cols-2 gap-6">
 
                 <Carousel images={room.images} />
 
-                <div className="p-2 rounded-lg ">
-
-                    <div className="subpixel-antialiased mb-4">
-                        <p className="font-sans text-primary">
-                            {room.room_type.room_type}
-                        </p>
-                        <p className="font-semibold">Floor: {room.floor}</p>
-                        <h1 className="text-3xl font-extrabold">
-                            Label: {room.room_label}
-                        </h1>
-                    </div>
+                <div className="container">
 
                     <div className="mb-2">
-                        <p className="font-semibold">Capacity: {room.capacity}</p>
+                        <p className="text-primary font-medium mb-1">
+                            {room.room_type.room_type}
+                        </p>
+                        <p className="text-lg font-semibold">
+                            Floor: {room.floor}
+                        </p>
+                        <p className="text-xl font-bold mb-2">
+                            Label: {room.room_label}
+                        </p>
+                        <div className="mt-2">
+                            <p className="text-lg font-semibold">Capacity: {room.capacity}</p>
+                        </div>
                     </div>
 
-                    <details className="mb-2 menu">
-                        <summary className="font-semibold">Description</summary>
-                        <p>{room.description}</p>
+                    <details className="collapse border collapse-plus mb-2 border-gray-200 rounded-md shadow-sm">
+                        <summary className="collapse-title text-lg font-semibold cursor-pointer">Description</summary>
+                        <p className="collapse-content text-sm">{room.description}</p>
                     </details>
+
                     <div className="divider"></div>
-                    <button className="btn btn-outline">
-                        Check availability
+
+                    <button className="btn btn-primary">
+                        Check Availability
                     </button>
 
                 </div>
@@ -104,5 +115,6 @@ export default async function roomDetailPage(
             </div>
 
         </section>
+
     )
 }

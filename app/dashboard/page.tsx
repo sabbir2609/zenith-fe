@@ -1,56 +1,184 @@
 export default function Page() {
     return (
-        <div className="container">
+        <>
 
-            <div className="stats shadow w-full">
+            {/* <!-- 1st Row --> */}
+            <div className="grid grid-cols-2 gap-2 mb-2">
 
-                <div className="stat">
-                    <div className="stat-figure text-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                    </div>
-                    <div className="stat-title">Total Likes</div>
-                    <div className="stat-value text-primary">25.6K</div>
-                    <div className="stat-desc">21% more than last month</div>
+                <div className="bg-red-500 p-1 ">
+                    <p className="font-mono font-normal">Monday</p>
+                    <h1 className="text-xl font-bold">01/01/2014</h1>
                 </div>
 
-                <div className="stat">
-                    <div className="stat-figure text-secondary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <div className="stat-title">Page Views</div>
-                    <div className="stat-value text-secondary">2.6M</div>
-                    <div className="stat-desc">21% more than last month</div>
-                </div>
+                <div className="bg-blue-500 p-1 ">
 
-                <div className="stat">
-                    <div className="stat-figure text-secondary">
-                        <div className="avatar online">
-                            <div className="w-16 rounded-full">
+                    <p className="font-mono font-normal">56 employee working Today</p>
+
+                    <div className="flex w-8">
+
+                        <div className="avatar">
+                            <div className="w-8">
                                 <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                             </div>
                         </div>
+                        <div className="avatar">
+                            <div className="w-8">
+                                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                            </div>
+                        </div>
+                        <div className="avatar">
+                            <div className="w-8">
+                                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                            </div>
+                        </div>
+                        <div className="avatar placeholder">
+                            <div className="w-8 bg-neutral text-neutral-content">
+                                <span>+99</span>
+                            </div>
+                        </div>
+
                     </div>
-                    <div className="stat-value">86%</div>
-                    <div className="stat-title">Tasks done</div>
-                    <div className="stat-desc text-secondary">31 tasks remaining</div>
+
                 </div>
 
             </div>
 
-            <div className="divider"></div>
+            {/* first row ends here  */}
 
-            <div className="flex flex-col gap-4 w-full p-4">
-                <div className="flex gap-4 items-center">
-                    <div className="skeleton w-16 h-16 rounded-full shrink-0"></div>
-                    <div className="flex flex-col gap-4">
-                        <div className="skeleton h-4 w-20"></div>
-                        <div className="skeleton h-4 w-72"></div>
+
+            {/* <!-- 2nd Row --> */}
+
+            <div className="grid sm:grid-cols-4 gap-2 mb-2">
+
+                {/* sub col 1 */}
+                <div className="col-span-2 bg-green-500 p-2 ">
+                    <p className="font-bold">2nd Row - 1st Column</p>
+                </div>
+
+                {/* sub col 2 */}
+
+                <div className="col-span-2 grid grid-cols-2 gap-2">
+
+                    <div className="bg-yellow-500 p-4 ">
+                        <p className="font-bold">Item 1</p>
+                    </div>
+
+                    <div className="bg-purple-500 p-4 ">
+                        <p className="font-bold">Item 2</p>
+                    </div>
+
+                    <div className="bg-red-500 p-4 ">
+                        <p className="font-bold">Item 3</p>
+                    </div>
+
+                    <div className="bg-blue-500 p-4 ">
+                        <p className="font-bold">Item 4</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            {/* 2nd row ends here */}
+
+
+            {/* <!-- 3rd Row --> */}
+            <div className="mb-2 border border-red-700">
+
+                <div className="grid grid-cols-2 mb-1">
+                    <div className="bg-pink-500 p-2">
+                        <p className="font-bold">Header</p>
+                    </div>
+                    <div className="bg-yellow-500 p-2">
+                        <p className="font-bold">Dropdown</p>
                     </div>
                 </div>
-                <div className="skeleton h-28 w-full"></div>
-                <div className="skeleton h-28 w-full"></div>
+
+                <div className="grid sm:grid-cols-3 gap-2">
+
+                    <div className="card">
+                        <div className="bg-indigo-500 p-2">
+                            <p className="font-bold">3rd Row - Card 1 </p>
+                        </div>
+                    </div>
+
+                    <div className="card">
+                        <div className="bg-indigo-500 p-2">
+                            <p className="font-bold">3rd Row - Card 2 </p>
+                        </div>
+                    </div>
+
+                    <div className="card">
+                        <div className="bg-indigo-500 p-2">
+                            <p className="font-bold">3rd Row - Card 3 </p>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
-        </div>
+
+            {/* 3rd row ends here */}
+
+            {/* <!-- 4th Row --> */}
+            <div className="grid grid-cols-1 mb-2">
+                <div className="bg-blue-500 p-4">
+                    <p className="font-bold">4th Row - Card</p>
+                </div>
+            </div>
+
+            {/* <!-- 5th Row --> */}
+            <div className="mb-2 border border-orange-500">
+
+                <div className="grid grid-cols-2">
+                    <div className="bg-pink-500 p-2">
+                        <p className="font-bold">Header</p>
+                    </div>
+                    <div className="bg-yellow-500 p-2">
+                        <p className="font-bold">Dropdown</p>
+                    </div>
+                </div>
+
+                <div className="card">
+                    <div className="bg-indigo-500 p-2">
+                        <p className="font-bold">5th Row Card</p>
+                    </div>
+                </div>
+
+            </div>
+
+            {/* 5th row ends here */}
+
+            {/* <!-- 6th Row --> */}
+            <div className="mb-2">
+                <div className="bg-yellow-500 p-4 ">
+                    <p className="font-bold">6th Row - Card</p>
+                </div>
+            </div>
+
+            {/* 6th row ends here */}
+
+            {/* <!-- 7th Row --> */}
+            <div className="grid grid-cols-2 gap-2 mb-2">
+                <div>
+                    <div className="bg-purple-500 p-4 ">
+                        <p className="font-bold">7th Row - 1st Column</p>
+                    </div>
+                </div>
+                <div>
+                    <div className="bg-pink-500 p-4 ">
+                        <p className="font-bold">7th Row - 2nd Column</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* <!-- 8th Row --> */}
+            <div className="mb-2">
+                <div className="bg-indigo-500 p-4 ">
+                    <p className="font-bold">8th Row - Card</p>
+                </div>
+            </div>
+
+        </>
     )
-
 }

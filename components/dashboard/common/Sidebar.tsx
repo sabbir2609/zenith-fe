@@ -3,13 +3,6 @@ import React from "react";
 import { FcElectricalSensor, FcOpenedFolder, FcGenealogy, FcEngineering, FcMultipleDevices, FcHome } from "react-icons/fc";
 
 const menuItems = {
-    "Dashboard": {
-        "icon": "FcEngineering",
-        "dashboard": {
-            "title": "Dashboard",
-            "link": "/dashboard"
-        }
-    },
     "Devices": {
         "icon": "FcMultipleDevices",
         "deviceTypes": {
@@ -54,7 +47,7 @@ const icons = {
 
 export default function Sidebar() {
     return (
-        <aside className="bg-base-100 min-h-screen w-80">
+        <aside className="bg-base-100 min-h-screen w-72">
             {/* Logo section */}
             <div className='bg-base-100 sticky top-0 z-20 hidden items-center gap-2 bg-opacity-90 px-4 py-2 backdrop-blur lg:flex shadow-sm'>
                 <Link href="/" className='flex-0 btn btn-ghost px-2'>
@@ -73,6 +66,14 @@ export default function Sidebar() {
                 </div>
             </div>
             <ul className="menu px-4 py-0">
+
+                <li>
+                    <Link href="/dashboard" className="m-2 font-semibold">
+                        <FcEngineering className="inline-block" size={20} />
+                        Dashboard
+                    </Link>
+                </li>
+
                 {Object.entries(menuItems).map(([itemTitle, { icon, ...items }]) => (
                     <li key={itemTitle}>
                         <details>
@@ -92,6 +93,7 @@ export default function Sidebar() {
                         </details>
                     </li>
                 ))}
+
             </ul>
         </aside>
     );
