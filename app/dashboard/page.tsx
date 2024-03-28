@@ -1,3 +1,5 @@
+import { Hero } from "@/components/dashboard/home";
+
 export default function Page() {
     return (
         <>
@@ -51,8 +53,8 @@ export default function Page() {
             <div className="grid sm:grid-cols-4 gap-2 mb-2">
 
                 {/* sub col 1 */}
-                <div className="col-span-2 bg-green-500 p-2 ">
-                    <p className="font-bold">2nd Row - 1st Column</p>
+                <div className="col-span-2 bg-green-500 p-2">
+                    <Hero />
                 </div>
 
                 {/* sub col 2 */}

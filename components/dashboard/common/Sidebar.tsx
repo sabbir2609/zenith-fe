@@ -1,8 +1,9 @@
 import Link from "next/link";
 import React from "react";
 import { FcElectricalSensor, FcOpenedFolder, FcGenealogy, FcEngineering, FcMultipleDevices, FcHome } from "react-icons/fc";
+import { IoSearchSharp } from "react-icons/io5";
 
-const menuItems = {
+const menuItemsOne = {
     "Devices": {
         "icon": "FcMultipleDevices",
         "deviceTypes": {
@@ -32,8 +33,30 @@ const menuItems = {
             "title": "All Rooms",
             "link": "/dashboard/rooms"
         }
+    },
+};
+
+const menuItemsTwo = {
+    "Dummy Items": {
+        "icon": "FcHome",
+        "dummyOne": {
+            "title": "Dummy One",
+            "link": "#"
+        },
+        "dummyTwo": {
+            "title": "Dummy Two",
+            "link": "#"
+        },
+        "dummyThree": {
+            "title": "Dummy Three",
+            "link": "#"
+        },
+        "dummyFour": {
+            "title": "Dummy Four",
+            "link": "#"
+        }
     }
-}
+};
 
 const icons = {
     "FcGenealogy": FcGenealogy,
@@ -58,13 +81,18 @@ export default function Sidebar() {
             </div>
 
             {/* Search section */}
-            <div className='bg-base-200 sticky top-0 z-10 grid grid-row-2 gap-y-2 w-full bg-opacity-90 py-3 px-2 backdrop-blur rounded-sm shadow-sm lg:hidden'>
-                <div className="form-control">
-                    <div className="input-group">
-                        <input type="text" placeholder="Search…" className="input input-bordered" />
+            <div className="bg-base-100 sticky top-0 z-20 lg:hidden items-center gap-2 bg-opacity-90 py-2 backdrop-blur shadow-sm">
+
+                <form role="search" className="relative m-4 lg:hidden">
+                    <div className="form-control">
+                        <input type="search" name="q" className="input input-bordered" />
                     </div>
-                </div>
+                    <button className="btn rounded-l-none absolute right-0 top-0">
+                        <IoSearchSharp size={24} />
+                    </button>
+                </form>
             </div>
+            {/* Menu section */}
             <ul className="menu px-4 py-0">
 
                 <li>
@@ -74,7 +102,29 @@ export default function Sidebar() {
                     </Link>
                 </li>
 
-                {Object.entries(menuItems).map(([itemTitle, { icon, ...items }]) => (
+                {Object.entries(menuItemsOne).map(([itemTitle, { icon, ...items }]) => (
+                    <li key={itemTitle}>
+                        <details>
+                            <summary className="m-2 font-semibold">
+                                {React.createElement(icons[icon as keyof typeof icons], { className: "inline-block", size: 20 })}
+                                {itemTitle}
+                            </summary>
+                            <ul className="menu">
+                                {Object.entries(items).map(([id, { title, link }]) => (
+                                    <li key={id} className="m-2 font-semibold">
+                                        <Link href={link}>
+                                            {title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </details>
+                    </li>
+                ))}
+
+                <div className="divider"></div>
+
+                {Object.entries(menuItemsTwo).map(([itemTitle, { icon, ...items }]) => (
                     <li key={itemTitle}>
                         <details>
                             <summary className="m-2 font-semibold">
