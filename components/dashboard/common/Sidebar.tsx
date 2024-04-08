@@ -5,7 +5,7 @@ import { IoSearchSharp } from "react-icons/io5";
 
 const menuItemsOne = {
     "Devices": {
-        "icon": "FcMultipleDevices",
+        "icon": <FcMultipleDevices size={20} className="inline-block" />,
         "deviceTypes": {
             "title": "Device Types",
             "link": "/dashboard/devices/type"
@@ -24,7 +24,7 @@ const menuItemsOne = {
         }
     },
     "Rooms": {
-        "icon": "FcHome",
+        "icon": <FcHome size={20} className="inline-block" />,
         "roomTypes": {
             "title": "Room Types",
             "link": "/dashboard/rooms/type"
@@ -38,7 +38,7 @@ const menuItemsOne = {
 
 const menuItemsTwo = {
     "Dummy Items": {
-        "icon": "FcHome",
+        "icon": <FcGenealogy size={20} className="inline-block" />,
         "dummyOne": {
             "title": "Dummy One",
             "link": "#"
@@ -58,24 +58,14 @@ const menuItemsTwo = {
     }
 };
 
-const icons = {
-    "FcGenealogy": FcGenealogy,
-    "FcElectricalSensor": FcElectricalSensor,
-    "FcOpenedFolder": FcOpenedFolder,
-    "FcEngineering": FcEngineering, // This is the icon for the Dashboard
-    "FcMultipleDevices": FcMultipleDevices, // This is the icon for the Devices
-    "FcHome": FcHome // This is the icon for the Rooms
-
-};
-
 export default function Sidebar() {
     return (
-        <aside className="bg-base-100 min-h-screen w-72">
+        <aside className="bg-base-300 min-h-screen w-72">
             {/* Logo section */}
-            <div className='bg-base-100 sticky top-0 z-20 hidden items-center gap-2 bg-opacity-90 px-4 py-2 backdrop-blur lg:flex shadow-sm'>
+            <div className='bg-base-200 sticky top-0 z-20 hidden items-center gap-2 px-4 py-2 backdrop-blur lg:flex shadow-sm'>
                 <Link href="/" className='flex-0 btn btn-ghost px-2'>
-                    <div className='font-title text-primary inline-flex text-lg transition-all duration-200 md:text-3xl'>
-                        <span className='text-base-content uppercase'>Zenith</span>
+                    <div className='font-title text-primary inline-flex text-lg transition-all duration-200 md:text-2xl'>
+                        <span className='text-primary uppercase'>Zenith Admin</span>
                     </div>
                 </Link>
             </div>
@@ -93,10 +83,10 @@ export default function Sidebar() {
                 </form>
             </div>
             {/* Menu section */}
-            <ul className="menu px-4 py-0">
+            <ul className="menu gap-2">
 
                 <li>
-                    <Link href="/dashboard" className="m-2 font-semibold">
+                    <Link href="/dashboard" className="font-semibold">
                         <FcEngineering className="inline-block" size={20} />
                         Dashboard
                     </Link>
@@ -105,13 +95,13 @@ export default function Sidebar() {
                 {Object.entries(menuItemsOne).map(([itemTitle, { icon, ...items }]) => (
                     <li key={itemTitle}>
                         <details>
-                            <summary className="m-2 font-semibold">
-                                {React.createElement(icons[icon as keyof typeof icons], { className: "inline-block", size: 20 })}
+                            <summary className="font-semibold">
+                                {icon}
                                 {itemTitle}
                             </summary>
-                            <ul className="menu">
+                            <ul className="menu ms-8 gap-1">
                                 {Object.entries(items).map(([id, { title, link }]) => (
-                                    <li key={id} className="m-2 font-semibold">
+                                    <li key={id} className="font-medium font-sans">
                                         <Link href={link}>
                                             {title}
                                         </Link>
@@ -127,13 +117,13 @@ export default function Sidebar() {
                 {Object.entries(menuItemsTwo).map(([itemTitle, { icon, ...items }]) => (
                     <li key={itemTitle}>
                         <details>
-                            <summary className="m-2 font-semibold">
-                                {React.createElement(icons[icon as keyof typeof icons], { className: "inline-block", size: 20 })}
+                            <summary className="font-semibold">
+                                {icon}
                                 {itemTitle}
                             </summary>
-                            <ul className="menu">
+                            <ul className="menu ms-8 gap-1">
                                 {Object.entries(items).map(([id, { title, link }]) => (
-                                    <li key={id} className="m-2 font-semibold">
+                                    <li key={id} className="font-semibold font-sans">
                                         <Link href={link}>
                                             {title}
                                         </Link>
@@ -145,6 +135,7 @@ export default function Sidebar() {
                 ))}
 
             </ul>
+
         </aside>
     );
 }
