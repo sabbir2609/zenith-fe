@@ -8,6 +8,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { useLogoutMutation } from "@/redux/features/authApiSlice";
 import { logout as setLogout } from "@/redux/features/authSlice";
 import { userIcon } from "@/public/static";
+import Notification from "./Notification";
 
 export default function Navbar() {
   const router = useRouter();
@@ -100,10 +101,10 @@ export default function Navbar() {
               <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
             </svg>
           </div>
-
           <Theme Component={undefined} pageProps={undefined} />
-
         </div>
+
+        <Notification />
 
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
