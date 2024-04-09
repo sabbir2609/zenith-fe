@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Bell, BellDot } from "lucide-react";
+import Link from "next/navigation";
 
 export default function Notification() {
 
@@ -27,22 +28,21 @@ export default function Notification() {
             date: "4 hours ago",
             read: true,
         },
-    ]);
-
-    const data = [
         {
-            id: 66,
+            id: 4,
             title: "New Comment",
             description: "You have a new comment on your post.",
-            date: "2 hours ago",
+            date: "5 hours ago",
+            read: false,
         },
         {
-            id: 22,
+            id: 5,
             title: "New Subscriber",
             description: "You have a new subscriber.",
-            date: "3 hours ago",
+            date: "6 hours ago",
+            read: true,
         },
-    ];
+    ]);
 
     return (
         <div className="dropdown dropdown-end">
@@ -56,14 +56,16 @@ export default function Notification() {
                     </button>
                 }
             </div>
-            <ul tabIndex={0} className="dropdown-content z-[1] px-2 shadow bg-base-100 rounded-md mt-4 w-80">
+            <ul tabIndex={0} className="dropdown-content z-[1] px-2 pt-2 shadow bg-base-100 rounded-md mt-4 w-80">
                 {notifications.map((notification: any) => (
                     <li key={notification.id} className={
-                        `p-2 ${notification.read ? "bg-secondary" : "opacity-100"} rounded-md hover:bg-secondary-100 transition-all duration-200`
+                        `p-2 ${notification.read ? "bg-base-300" : "bg-base-200"} rounded-md mb-2`
                     }>
-                        <h3 className="font-semibold text-base-content-primary">{notification.title}</h3>
-                        <p className="text-xs text-base-content-secondary">{notification.date}</p>
-                        <p className="text-xs text-base-content-secondary">{notification.description}</p>
+                        <div className="card w-80 cursor-pointer">
+                            <h3 className="font-semibold text-base-content-primary">{notification.title}</h3>
+                            <p className="text-xs text-base-content-secondary">{notification.date}</p>
+                            <p className="text-xs text-base-content-secondary">{notification.description}</p>
+                        </div>
                     </li>
                 ))}
             </ul>
