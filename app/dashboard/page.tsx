@@ -1,4 +1,4 @@
-import { DateTimeDisplay, Hero } from "@/components/dashboard/home";
+import { ActivePersonCard, DateTimeDisplay, Hero } from "@/components/dashboard/home";
 
 export default function Page() {
     return (
@@ -9,37 +9,7 @@ export default function Page() {
 
                 <DateTimeDisplay />
 
-
-                <div className="bg-blue-500 p-1 ">
-
-                    <p className="font-mono font-normal">56 employee working Today</p>
-
-                    <div className="flex w-8">
-
-                        <div className="avatar">
-                            <div className="w-8">
-                                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            </div>
-                        </div>
-                        <div className="avatar">
-                            <div className="w-8">
-                                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            </div>
-                        </div>
-                        <div className="avatar">
-                            <div className="w-8">
-                                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            </div>
-                        </div>
-                        <div className="avatar placeholder">
-                            <div className="w-8 bg-neutral text-neutral-content">
-                                <span>+99</span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
+                <ActivePersonCard />
 
             </div>
 
