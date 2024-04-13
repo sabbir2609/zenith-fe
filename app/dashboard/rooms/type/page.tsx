@@ -11,7 +11,7 @@ async function fetchRoomTypes() {
     const token = cookieStore.get('access')?.value
 
     if (!token) {
-        return <h1>You are not logged in</h1>
+        throw new Error("You are not logged in");
     }
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/room-types/`, {
@@ -29,34 +29,36 @@ async function fetchRoomTypes() {
     return await response.json();
 }
 
-
 export default async function Page() {
+    let room_types: RoomType[] = [];
+
     try {
-        const room_types: RoomType[] = await fetchRoomTypes();
+        room_types = await fetchRoomTypes();
+    } catch (error) {
         return (
             <section className='grid content-center'>
-                <h2 className="text-2xl font-semibold font-mono mb-4 text-primary">
-                    Room Types
-                </h2>
-                {room_types.map((room_type) => (
+                <h1>{(error as Error).message}</h1>
+            </section>
+        );
+    }
+
+    return (
+        <section className='grid content-center'>
+            <h2 className="text-2xl font-semibold font-mono mb-4 text-primary">
+                Room Types
+            </h2>
+            {Array.isArray(room_types) ? (
+                room_types.map((room_type) => (
                     <div key={room_type.id} className="card bg-base-100 shadow-sm border mb-2">
                         <div className="card-body">
                             <h5 className="card-title">{room_type.room_type}</h5>
                             <p className="card-text">{room_type.description}</p>
-                        </div></div>
-                ))}
-            </section>
-        );
-    } catch (error) {
-        return (
-            <div className="flex items-center justify-center">
-                <div className="rounded-lg p-40 shadow-lg text-center">
-                    <h1 className="text-3xl font-bold text-red-600">
-                        {(error as Error).message}
-                    </h1>
-                </div>
-            </div>
-        )
-    }
-
+                        </div>
+                    </div>
+                ))
+            ) : (
+                <h1>Invalid data received from the server</h1>
+            )}
+        </section>
+    );
 }
