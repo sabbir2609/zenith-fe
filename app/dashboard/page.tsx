@@ -1,4 +1,4 @@
-import { Hero } from "@/components/dashboard/home";
+import { DateTimeDisplay, Hero } from "@/components/dashboard/home";
 
 export default function Page() {
     return (
@@ -7,10 +7,8 @@ export default function Page() {
             {/* <!-- 1st Row --> */}
             <div className="grid grid-cols-2 gap-2 mb-2">
 
-                <div className="bg-red-500 p-1 ">
-                    <p className="font-mono font-normal">Monday</p>
-                    <h1 className="text-xl font-bold">01/01/2014</h1>
-                </div>
+                <DateTimeDisplay />
+
 
                 <div className="bg-blue-500 p-1 ">
 
