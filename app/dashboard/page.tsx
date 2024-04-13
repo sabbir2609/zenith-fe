@@ -1,4 +1,5 @@
 import { ActivePersonCard, DateTimeDisplay, Hero } from "@/components/dashboard/home";
+import WeatherDisplay from "@/components/dashboard/home/WeatherDisplay";
 
 export default function Page() {
     return (
@@ -21,8 +22,8 @@ export default function Page() {
             <div className="grid sm:grid-cols-4 gap-2 mb-2">
 
                 {/* sub col 1 */}
-                <div className="col-span-2 bg-green-500 p-2">
-                    <Hero />
+                <div className="col-span-2 p-2 border">
+                    <WeatherDisplay />
                 </div>
 
                 {/* sub col 2 */}
