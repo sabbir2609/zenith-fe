@@ -22,7 +22,7 @@ export default function Page() {
             <div className="grid sm:grid-cols-4 gap-2 mb-2">
 
                 {/* sub col 1 */}
-                <div className="col-span-2 p-2 border">
+                <div className="col-span-2 shadow-md">
                     <WeatherDisplay />
                 </div>
 

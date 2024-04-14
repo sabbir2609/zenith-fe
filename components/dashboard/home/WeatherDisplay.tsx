@@ -1,76 +1,91 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import { url } from 'inspector';
+import { useState, useEffect } from 'react';
 
-interface WeatherData {
-    name: string;
-    main: {
-        temp: number;
-    };
-    weather: {
-        description: string;
-    }[];
+interface Weather {
+    id: number;
+    main: string;
+    description: string;
+    icon: string;
 }
 
-function WeatherDisplay() {
-    const [weather, setWeather] = useState<WeatherData | null>(null);
-    const [city, setCity] = useState<string>('');
-    const [greeting, setGreeting] = useState<string>('');
+interface Main {
+    temp: number;
+    feels_like: number;
+}
+
+interface WeatherData {
+    weather: Weather[];
+    main: Main;
+    name: string;
+}
+
+export default function WeatherDisplay() {
+    const [isClient, setIsClient] = useState(false);
+    const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
     useEffect(() => {
-        // Fetch current location
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                fetchWeather(position.coords.latitude, position.coords.longitude);
+        setIsClient(true);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const { latitude, longitude } = position.coords;
+                fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`)
+                    .then(response => response.json())
+                    .then(data => setWeatherData(data));
             });
         } else {
             console.log("Geolocation is not supported by this browser.");
         }
     }, []);
 
-    useEffect(() => {
-        if (weather) {
-            // Set city name
-            setCity(weather.name);
-
-            // Set greeting based on time
-            const hour = new Date().getHours();
-            if (hour >= 5 && hour < 12) {
-                setGreeting('Good morning');
-            } else if (hour >= 12 && hour < 18) {
-                setGreeting('Good afternoon');
-            } else {
-                setGreeting('Good evening');
-            }
-        }
-    }, [weather]);
-
-    async function fetchWeather(latitude: number, longitude: number) {
-        const API_KEY = `${process.env.WEATHER_API_KEY}`;
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
-
-        try {
-            const response = await fetch(url);
-            const data: WeatherData = await response.json();
-            setWeather(data);
-        } catch (error) {
-            console.error('Error fetching weather data:', error);
-        }
-    }
-
-    return (
-        <div>
-            <h1>{greeting}</h1>
-            {city && <p>Current City: {city}</p>}
-            {weather && weather.main && (
-                <div>
-                    <p>Temperature: {weather.main.temp}°C</p>
-                    <p>Weather: {weather.weather[0].description}</p>
+    if (!weatherData) return (
+        <div className="flex flex-col gap-4 p-2">
+            <div className="flex gap-4 items-center">
+                <div className="skeleton w-16 h-16 rounded-full shrink-0"></div>
+                <div className="flex flex-col gap-4">
+                    <div className="skeleton h-4 w-20"></div>
+                    <div className="skeleton h-4 w-28"></div>
                 </div>
-            )}
+            </div>
+            <div className="skeleton h-24 w-full"></div>
         </div>
     );
-}
 
-export default WeatherDisplay;
+    const backgroundImage = `https://source.unsplash.com/1600x900/?${weatherData.weather[0].main}`;
+    console.log(weatherData.weather[0].main);
 
+    return (
+        <div className="flex flex-wrap flex-col p-2 shadow-md bg-base-200 rounded-md bg-cover bg-center bg-no-repeat bg-opacity-50 gap-4"
+            style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}
+        >
+
+            <div className="flex flex-wrap items-center gap-2">
+                <div className="text-2xl font-medium text-base-content mix-blend-luminosity">
+                    {weatherData.name}
+                </div>
+                <img className="h-12 w-12" src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt="Weather icon" loading='lazy' />
+
+            </div>
+
+            <div>
+                <p className="text-base-content capitalize mix-blend-luminosity">
+                    {weatherData.weather[0].description}
+                </p>
+                <p className="text-base-content text-4xl font-bold mix-blend-luminosity">
+                    {Math.round(weatherData.main.temp - 273.15)}°C
+                </p>
+                <p className="text-base-content text-lg font-sans mix-blend-luminosity">
+                    feels like {Math.round(weatherData.main.feels_like - 273.15)}°C
+                </p>
+            </div>
+
+            <div>
+                <p className="flex p-2 text-base-content text-sm bg-blend-saturation">
+                    Today You Have 12 New Resident
+                </p>
+            </div>
+
+        </div>
+    );
+};

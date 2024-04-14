@@ -31,7 +31,7 @@ function DateTimeDisplay() {
       <p>
         {currentDay}
       </p>
-      <p className='text-2xl'>
+      <p className='text-2xl' suppressHydrationWarning>
         {currentTime}
       </p>
     </div>
