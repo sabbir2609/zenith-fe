@@ -1,4 +1,4 @@
-import { Lock, WashingMachine, Coffee, MoveLeft, MoveRight, SquareArrowUpRight, ChevronDown } from 'lucide-react';
+import { Lock, WashingMachine, Coffee, MoveLeft, MoveRight, SquareArrowUpRight, ChevronDown, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AlertDisplay() {
@@ -36,8 +36,8 @@ export default function AlertDisplay() {
             <div className="flex justify-between flex-wrap items-center gap-2">
                 <div className="flex flex-row p-2 items-center gap-2">
                     <p className="text-2xl font-bold">Room Alert</p>
-                    <button className='btn btn-sm btn-ghost rounded-none'>
-                        <SquareArrowUpRight className='text-secondary' />
+                    <button className='btn btn-sm btn-square rounded-none'>
+                        <ChevronRight className='text-secondary' />
                     </button>
                 </div>
                 <div className="flex p-2 gap-2">

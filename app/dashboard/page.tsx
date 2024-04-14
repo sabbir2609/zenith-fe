@@ -1,4 +1,4 @@
-import { ActivePersonCard, AlertDisplay, DateTimeDisplay, Hero, StatCards, WeatherDisplay } from "@/components/dashboard/home";
+import { ActivePersonCard, AlertDisplay, DateTimeDisplay, Hero, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
 
 export default function Page() {
     return (
@@ -33,9 +33,7 @@ export default function Page() {
 
             {/* <!-- 4th Row --> */}
             <div className="grid grid-cols-1 mb-2">
-                <div className="bg-blue-500 p-4">
-                    <p className="font-bold">4th Row - Card</p>
-                </div>
+                <RevenueGraphDisplay />
             </div>
 
             {/* <!-- 5th Row --> */}

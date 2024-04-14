@@ -4,3 +4,4 @@ export { default as ActivePersonCard } from './ActivePersonCard';
 export { default as WeatherDisplay } from './WeatherDisplay';
 export { default as StatCards } from './StatCards';
 export { default as AlertDisplay } from './AlertDisplay';
+export { default as RevenueGraphDisplay } from './RevenueGraphDisplay';
