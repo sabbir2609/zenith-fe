@@ -6,35 +6,21 @@ export default function Page() {
 
             {/* <!-- 1st Row --> */}
             <div className="grid grid-cols-2 gap-2 mb-2">
-
                 <DateTimeDisplay />
-
                 <ActivePersonCard />
-
             </div>
-
             {/* first row ends here  */}
 
 
             {/* <!-- 2nd Row --> */}
-
             <div className="grid sm:grid-cols-4 gap-2 mb-2">
-
-                {/* sub col 1 */}
                 <div className="col-span-2 shadow-md">
                     <WeatherDisplay />
                 </div>
-
-                {/* sub col 2 */}
-
-                <div className="col-span-2 shadow-md">
-
+                <div className="col-span-2">
                     <StatCards />
-
                 </div>
-
             </div>
-
             {/* 2nd row ends here */}
 
 

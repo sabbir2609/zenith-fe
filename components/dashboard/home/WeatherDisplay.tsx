@@ -56,32 +56,33 @@ export default function WeatherDisplay() {
     console.log(weatherData.weather[0].main);
 
     return (
-        <div className="flex flex-wrap flex-col p-2 shadow-md bg-base-200 rounded-md bg-cover bg-center bg-no-repeat bg-opacity-50 gap-4"
+        <div className="flex flex-col p-2 shadow-md bg-base-200 rounded-sm h-full"
             style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}
         >
 
             <div className="flex flex-wrap items-center gap-2">
-                <div className="text-2xl font-medium text-base-content mix-blend-luminosity">
+                <div className="text-2xl font-medium text-base-content mix-blend-normal">
                     {weatherData.name}
                 </div>
-                <img className="h-12 w-12" src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt="Weather icon" loading='lazy' />
+
+                <img className="h-12 w-12 rounded-sm" src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt="Weather icon" loading='lazy' />
 
             </div>
 
-            <div>
-                <p className="text-base-content capitalize mix-blend-luminosity">
+            <div className='flex-grow'>
+                <p className="text-base-content capitalize mix-blend-normal">
                     {weatherData.weather[0].description}
                 </p>
-                <p className="text-base-content text-4xl font-bold mix-blend-luminosity">
+                <p className="text-base-content text-4xl font-bold mix-blend-normal">
                     {Math.round(weatherData.main.temp - 273.15)}°C
                 </p>
-                <p className="text-base-content text-lg font-sans mix-blend-luminosity">
+                <p className="text-base-content text-sm font-sans italic mix-blend-normal">
                     feels like {Math.round(weatherData.main.feels_like - 273.15)}°C
                 </p>
             </div>
 
             <div>
-                <p className="flex p-2 text-base-content text-sm bg-blend-saturation">
+                <p className="flex text-base-content text-lg font-semibold bg-blend-saturation">
                     Today You Have 12 New Resident
                 </p>
             </div>

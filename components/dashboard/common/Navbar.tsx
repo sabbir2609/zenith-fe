@@ -73,7 +73,9 @@ export default function Navbar() {
       </div>
 
       <div className="flex-none gap-2">
+
         <div title="theme-change" className="dropdown dropdown-end ">
+
           <div tabIndex={0} className="btn gap-1 normal-case btn-ghost">
             <svg
               width="20"
@@ -101,7 +103,9 @@ export default function Navbar() {
               <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
             </svg>
           </div>
-          <Theme Component={undefined} pageProps={undefined} />
+
+          <Theme pageProps={undefined} Component={undefined} />
+
         </div>
 
         <Notification />
