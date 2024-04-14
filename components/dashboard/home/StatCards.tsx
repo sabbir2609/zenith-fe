@@ -34,7 +34,7 @@ export default function StatCards() {
                             <p className="font-bold">{item.title}</p>
                             <p className="text-4xl font-bold mt-4">{item.value}</p>
                         </div>
-                        <Link href={item.url} className="text-sm self-start">View All</Link>
+                        <Link href={item.url} className="text-sm self-start text-secondary">View All</Link>
                     </div>
                 </div>
             ))}

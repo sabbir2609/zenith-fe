@@ -29,31 +29,21 @@ export default function ActivePersonCard() {
     const totalEmployees = 56;
 
     return (
-        <div className="flex flex-col justify-end p-2">
-
-            <div className="avatar-group -space-x-6 rtl:space-x-reverse h-12">
-                {employees.map((employee) => {
-                    return (
-                        <div key={employee.id} className="avatar">
-                            <div className="w-12">
-                                <Image src={employee.avatar} alt={employee.name} />
-                            </div>
-                        </div>
-                    );
-                })}
-                <div className="avatar placeholder">
-                    <div className="w-12 bg-neutral text-neutral-content">
-                        <span>
-                            +{totalEmployees}
-                        </span>
+        <div className="avatar-group -space-x-6 rtl:space-x-reverse h-12 me-2">
+            {employees.map((employee) => {
+                return (
+                    <div key={employee.id} className="avatar">
+                        <Image src={employee.avatar} alt={employee.name} />
                     </div>
+                );
+            })}
+            <div className="avatar placeholder">
+                <div className="bg-neutral text-neutral-content">
+                    <span>
+                        {totalEmployees}
+                    </span>
                 </div>
             </div>
-
-            <div className="font-mono font-normal">
-                {totalEmployees} employees working Today
-            </div>
-
         </div>
     );
 }

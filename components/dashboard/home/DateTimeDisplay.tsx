@@ -24,16 +24,16 @@ function DateTimeDisplay() {
   const currentDay = currentDate.charAt(0).toUpperCase() + currentDate.slice(1); // Capitalize the first letter
 
   return (
-    <div className='flex flex-col p-2'>
-      <p className='text-3xl font-semibold text-primary'>
+    <div className='flex flex-col ms-2 p-2'>
+      <p className='text-3xl font-semibold'>
         {currentDateTime.toLocaleDateString(undefined, { weekday: 'long' })}
       </p>
-      <p>
+      <p className='font-semibold'>
         {currentDay}
       </p>
-      <p className='text-2xl' suppressHydrationWarning>
+      {/* <p className='text-2xl' suppressHydrationWarning>
         {currentTime}
-      </p>
+      </p> */}
     </div>
   );
 }

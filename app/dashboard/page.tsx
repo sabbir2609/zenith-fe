@@ -1,11 +1,11 @@
-import { ActivePersonCard, DateTimeDisplay, Hero, StatCards, WeatherDisplay } from "@/components/dashboard/home";
+import { ActivePersonCard, AlertDisplay, DateTimeDisplay, Hero, StatCards, WeatherDisplay } from "@/components/dashboard/home";
 
 export default function Page() {
     return (
         <>
 
             {/* <!-- 1st Row --> */}
-            <div className="grid grid-cols-2 gap-2 mb-2">
+            <div className="flex flex-wrap justify-between items-center mb-2 rounded-sm shadow-sm bg-accent">
                 <DateTimeDisplay />
                 <ActivePersonCard />
             </div>
@@ -25,39 +25,8 @@ export default function Page() {
 
 
             {/* <!-- 3rd Row --> */}
-            <div className="mb-2 border border-red-700">
-
-                <div className="grid grid-cols-2 mb-1">
-                    <div className="bg-pink-500 p-2">
-                        <p className="font-bold">Header</p>
-                    </div>
-                    <div className="bg-yellow-500 p-2">
-                        <p className="font-bold">Dropdown</p>
-                    </div>
-                </div>
-
-                <div className="grid sm:grid-cols-3 gap-2">
-
-                    <div className="card">
-                        <div className="bg-indigo-500 p-2">
-                            <p className="font-bold">3rd Row - Card 1 </p>
-                        </div>
-                    </div>
-
-                    <div className="card">
-                        <div className="bg-indigo-500 p-2">
-                            <p className="font-bold">3rd Row - Card 2 </p>
-                        </div>
-                    </div>
-
-                    <div className="card">
-                        <div className="bg-indigo-500 p-2">
-                            <p className="font-bold">3rd Row - Card 3 </p>
-                        </div>
-                    </div>
-
-                </div>
-
+            <div className="mb-2">
+                <AlertDisplay />
             </div>
 
             {/* 3rd row ends here */}
