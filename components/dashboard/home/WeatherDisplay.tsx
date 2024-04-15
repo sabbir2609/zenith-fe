@@ -1,6 +1,5 @@
 "use client";
 
-import { url } from 'inspector';
 import { useState, useEffect } from 'react';
 
 interface Weather {
@@ -53,7 +52,6 @@ export default function WeatherDisplay() {
     );
 
     const backgroundImage = `https://source.unsplash.com/1600x900/?${weatherData.weather[0].main}`;
-    console.log(weatherData.weather[0].main);
 
     return (
         <div className="flex flex-col p-2 shadow-md bg-base-200 rounded-sm h-full"
