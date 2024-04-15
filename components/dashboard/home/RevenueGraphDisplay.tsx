@@ -1,38 +1,15 @@
 "use client";
 
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import RevenueGraph from "./charts/RevenueGraph";
-import { SetStateAction, useState } from "react";
+import React, { useState } from 'react';
 
 export default function RevenueGraphDisplay() {
-    const years = [
-        {
-            id: 1,
-            year: 2021
-        },
-        {
-            id: 2,
-            year: 2020
-        },
-        {
-            id: 3,
-            year: 2019
-        },
-        {
-            id: 4,
-            year: 2018
-        },
-        {
-            id: 5,
-            year: 2017
-        }
-    ]
-
-    const [selectedYear, setSelectedYear] = useState(years[0].year);
-
-    const handleSelectChange = (yearId: SetStateAction<number>) => {
-        setSelectedYear(yearId);
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    const handleYearChange = (year: number) => {
+        setSelectedYear(year);
     }
+
     return (
         <>
             <div className="flex justify-between flex-wrap items-center gap-2">
@@ -45,14 +22,7 @@ export default function RevenueGraphDisplay() {
                     </button>
                 </div>
                 <div className="flex p-2 gap-2">
-                    <select className="select" onChange={(event) => handleSelectChange(Number(event.target.value))}>
-                        <option disabled defaultValue={2020}>Year</option>
-                        {years.map((year, id) => (
-                            <option key={id} value={year.year}>
-                                {year.year}
-                            </option>
-                        ))}
-                    </select>
+                    <YearSelect selectedYear={selectedYear} onYearChange={handleYearChange} />
                 </div>
             </div>
             <div className="h-[300px] pb-8">
@@ -60,4 +30,20 @@ export default function RevenueGraphDisplay() {
             </div>
         </>
     )
+}
+
+const YearSelect = ({ selectedYear, onYearChange }: { selectedYear: number, onYearChange: (year: number) => void }) => {
+    const years = [2017, 2018, 2020, 2021, 2022, 2023, 2024];
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        onYearChange(parseInt(e.target.value));
+    }
+
+    return (
+        <select className="select select-base-300" value={selectedYear} onChange={handleChange}>
+            {years.map(year => (
+                <option key={year} value={year}>{year}</option>
+            ))}
+        </select>
+    );
 }

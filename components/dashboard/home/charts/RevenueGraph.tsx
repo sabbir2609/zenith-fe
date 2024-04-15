@@ -1,5 +1,3 @@
-"use client";
-
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { curveCardinal } from 'd3-shape';
 import { ArrowUp } from 'lucide-react';
@@ -11,6 +9,7 @@ interface Data {
 
 
 export default function RevenueGraph({ year }: { year: number }) {
+
     const data: Data[] = [
         {
             name: 'Jan',
@@ -62,17 +61,23 @@ export default function RevenueGraph({ year }: { year: number }) {
         },
     ];
 
-    const cardinal = curveCardinal.tension(0.2);
+    const cardinal = curveCardinal.tension(1);
 
     return (
-        <>  <div className="flex flex-wrap justify-between">
-            <p className='text-xl font-semibold ms-14'>
-                Total: ${data.reduce((acc, curr) => acc + curr.earnings, 0) / 1000}k
-            </p>
-            <p className='flex text-xl font-medium italic me-8 items-center'>
-                <span className='flex bg-secondary p-1 rounded-sm items-center'><ArrowUp className='inline' />5.3%</span> Vs Last Year
-            </p>
-        </div>
+        <>
+            <div className="flex flex-wrap justify-between ps-4 pe-4">
+                <p className='text-base font-semibold'>
+                    {year} Revenue: ${data.reduce((acc, curr) => acc + curr.earnings, 0) / 1000}k
+                </p>
+                <div className='flex text-base font-medium italic items-center'>
+                    <div className='flex bg-base-300 p-1 rounded-sm items-center'>
+                        <ArrowUp className='inline' />
+                        5.3%
+                    </div>
+                    Vs Last Year
+                </div>
+            </div>
+
             <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
                     width={500}

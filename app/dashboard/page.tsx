@@ -1,4 +1,4 @@
-import { ActivePersonCard, AlertDisplay, DateTimeDisplay, Hero, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
+import { ActivePersonCard, AlertDisplay, DateTimeDisplay, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
 
 export default function Page() {
     return (
@@ -32,7 +32,7 @@ export default function Page() {
             {/* 3rd row ends here */}
 
             {/* <!-- 4th Row --> */}
-            <div className="grid grid-cols-1 mb-2">
+            <div className="grid grid-cols-1 mb-2 bg-accent rounded-sm shadow-md">
                 <RevenueGraphDisplay />
             </div>
 
