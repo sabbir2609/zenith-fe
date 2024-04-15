@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-function DateTimeDisplay() {
+export default function DateTimeDisplay() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   useEffect(() => {
@@ -17,9 +17,9 @@ function DateTimeDisplay() {
     setCurrentDateTime(new Date());
   }
 
-  // Get date, time, and day
-  const options = { month: 'short', day: 'numeric', year: 'numeric' };
-  const currentDate = currentDateTime.toLocaleDateString(undefined, options); //TODO: Fix this
+  // Define options object with correct type
+  const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' };
+  const currentDate = currentDateTime.toLocaleDateString(undefined, options);
   const currentTime = currentDateTime.toLocaleTimeString();
   const currentDay = currentDate.charAt(0).toUpperCase() + currentDate.slice(1); // Capitalize the first letter
 
@@ -31,11 +31,7 @@ function DateTimeDisplay() {
       <p className='font-semibold'>
         {currentDay}
       </p>
-      {/* <p className='text-2xl' suppressHydrationWarning>
-        {currentTime}
-      </p> */}
     </div>
   );
 }
 
-export default DateTimeDisplay;
