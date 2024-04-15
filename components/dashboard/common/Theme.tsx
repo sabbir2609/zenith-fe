@@ -2,12 +2,6 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { themeChange } from "theme-change";
-import { AppProps } from 'next/app'
-
-interface ComponentProps {
-  Component: any;
-  pageProps: any;
-}
 
 const themes = [
   "light",
@@ -38,7 +32,7 @@ const themes = [
   "lemonade",
   "night",
   "coffee",
-  "winter"
+  "winter",
 ];
 
 const CheckmarkSvg = ({ isVisible }: { isVisible: boolean }) => (
@@ -48,11 +42,7 @@ const CheckmarkSvg = ({ isVisible }: { isVisible: boolean }) => (
 );
 
 export default function Theme() {
-  const [currentTheme, setCurrentTheme] = useState('');
-
-  useEffect(() => {
-    themeChange(false);
-  }, []);
+  const [currentTheme, setCurrentTheme] = useState('')
 
   useEffect(() => {
     const theme = localStorage.getItem('theme');
@@ -64,6 +54,10 @@ export default function Theme() {
   const handleThemeChange = useCallback((theme: string) => {
     localStorage.setItem('theme', theme);
     setCurrentTheme(theme);
+  }, []);
+
+  useEffect(() => {
+    themeChange(false);
   }, []);
 
   return (
