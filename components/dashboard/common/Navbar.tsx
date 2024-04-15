@@ -104,7 +104,7 @@ export default function Navbar() {
             </svg>
           </div>
 
-          <Theme pageProps={undefined} Component={undefined} />
+          <Theme />
 
         </div>
 

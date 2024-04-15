@@ -38,7 +38,7 @@ const themes = [
   "lemonade",
   "night",
   "coffee",
-  "winter",
+  "winter"
 ];
 
 const CheckmarkSvg = ({ isVisible }: { isVisible: boolean }) => (
@@ -47,7 +47,7 @@ const CheckmarkSvg = ({ isVisible }: { isVisible: boolean }) => (
   </svg>
 );
 
-export default function Theme({ Component, pageProps }: AppProps) {
+export default function Theme() {
   const [currentTheme, setCurrentTheme] = useState('');
 
   useEffect(() => {

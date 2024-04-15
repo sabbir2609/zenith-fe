@@ -45,20 +45,17 @@ export default function RevenueGraphDisplay() {
                     </button>
                 </div>
                 <div className="flex p-2 gap-2">
-                    <select className="select">
-                        <option>
-                            Year
-                            <ChevronDown className='text-secondary' />
-                        </option>
+                    <select className="select" onChange={(event) => handleSelectChange(Number(event.target.value))}>
+                        <option disabled defaultValue={2020}>Year</option>
                         {years.map((year, id) => (
-                            <option key={id} onClick={() => handleSelectChange(year.year)}>
+                            <option key={id} value={year.year}>
                                 {year.year}
                             </option>
                         ))}
                     </select>
                 </div>
             </div>
-            <div className="h-[300px] mb-4 mt-2">
+            <div className="h-[300px] pb-8">
                 <RevenueGraph year={selectedYear} />
             </div>
         </>
