@@ -53,34 +53,50 @@ export default function WeatherDisplay() {
 
     const backgroundImage = `https://source.unsplash.com/1600x900/?${weatherData.weather[0].main}`;
 
+    function getGreeting() {
+        const currentHour = new Date().getHours();
+        if (currentHour < 12) {
+            return 'Good morning';
+        } else if (currentHour < 18) {
+            return 'Good afternoon';
+        } else {
+            return 'Good evening';
+        }
+    }
+
     return (
         <div className="flex flex-col p-2 shadow-md bg-base-200 rounded-sm h-full"
             style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}
         >
-
-            <div className="flex flex-wrap items-center gap-2">
-                <div className="text-2xl font-medium text-base-content mix-blend-normal">
-                    {weatherData.name}
+            <div className="flex flex-row items-center justify-between">
+                <div className="text-2xl font-medium text-base-content mix-blend-difference">
+                    {getGreeting()}
                 </div>
 
-                <img className="h-12 w-12 rounded-sm" src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt="Weather icon" loading='lazy' />
+                <div className="flex flex-wrap items-center gap-2 justify-end">
+                    <div className="text-2xl font-medium text-base-content mix-blend-difference">
+                        {weatherData.name}
+                    </div>
 
+                    <img className="h-12 w-12 rounded-sm" src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt="Weather icon" loading='lazy' />
+
+                </div>
             </div>
 
             <div className='flex-grow'>
-                <p className="text-base-content capitalize mix-blend-normal">
+                <p className="text-base-content capitalize mix-blend-difference">
                     {weatherData.weather[0].description}
                 </p>
-                <p className="text-base-content text-4xl font-bold mix-blend-normal">
+                <p className="text-base-content text-4xl font-bold mix-blend-difference">
                     {Math.round(weatherData.main.temp - 273.15)}°C
                 </p>
-                <p className="text-base-content text-sm font-sans italic mix-blend-normal">
+                <p className="text-base-content text-sm font-sans italic mix-blend-difference">
                     feels like {Math.round(weatherData.main.feels_like - 273.15)}°C
                 </p>
             </div>
 
             <div>
-                <p className="flex text-base-content text-lg font-semibold bg-blend-saturation">
+                <p className="flex text-base-content text-lg font-semibold mix-blend-difference">
                     Today You Have 12 New Resident
                 </p>
             </div>

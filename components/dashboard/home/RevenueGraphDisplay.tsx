@@ -25,7 +25,8 @@ export default function RevenueGraphDisplay() {
                     <YearSelect selectedYear={selectedYear} onYearChange={handleYearChange} />
                 </div>
             </div>
-            <div className="h-[300px] pb-8">
+
+            <div className="h-[300px] pb-12 bg-accent rounded-sm">
                 <RevenueGraph year={selectedYear} />
             </div>
         </>
@@ -40,7 +41,7 @@ const YearSelect = ({ selectedYear, onYearChange }: { selectedYear: number, onYe
     }
 
     return (
-        <select className="select select-base-300" value={selectedYear} onChange={handleChange}>
+        <select className="select select-md rounded-sm bg-base-300" value={selectedYear} onChange={handleChange}>
             {years.map(year => (
                 <option key={year} value={year}>{year}</option>
             ))}

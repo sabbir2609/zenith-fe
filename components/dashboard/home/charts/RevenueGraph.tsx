@@ -65,7 +65,7 @@ export default function RevenueGraph({ year }: { year: number }) {
 
     return (
         <>
-            <div className="flex flex-wrap justify-between ps-4 pe-4">
+            <div className="flex flex-wrap justify-between ps-4 pe-4 pt-2">
                 <p className='text-base font-semibold'>
                     {year} Revenue: ${data.reduce((acc, curr) => acc + curr.earnings, 0) / 1000}k
                 </p>

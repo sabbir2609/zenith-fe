@@ -1,4 +1,5 @@
-import { ActivePersonCard, AlertDisplay, DateTimeDisplay, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
+import { ActivePersonCard, AlertDisplay, DateTimeDisplay, GoalAlert, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
+import NpsDataDisplay from "@/components/dashboard/home/NpsDataDisplay";
 
 export default function Page() {
     return (
@@ -28,41 +29,24 @@ export default function Page() {
             <div className="mb-2">
                 <AlertDisplay />
             </div>
-
             {/* 3rd row ends here */}
 
             {/* <!-- 4th Row --> */}
-            <div className="grid grid-cols-1 mb-2 bg-accent rounded-sm shadow-md">
+            <div className="grid grid-cols-1 mb-2 rounded-sm shadow-md">
                 <RevenueGraphDisplay />
             </div>
+            {/* 4th row ends here */}
+
 
             {/* <!-- 5th Row --> */}
-            <div className="mb-2 border border-orange-500">
-
-                <div className="grid grid-cols-2">
-                    <div className="bg-pink-500 p-2">
-                        <p className="font-bold">Header</p>
-                    </div>
-                    <div className="bg-yellow-500 p-2">
-                        <p className="font-bold">Dropdown</p>
-                    </div>
-                </div>
-
-                <div className="card">
-                    <div className="bg-indigo-500 p-2">
-                        <p className="font-bold">5th Row Card</p>
-                    </div>
-                </div>
-
+            <div className="mb-2">
+                <GoalAlert />
             </div>
-
             {/* 5th row ends here */}
 
             {/* <!-- 6th Row --> */}
             <div className="mb-2">
-                <div className="bg-yellow-500 p-4 ">
-                    <p className="font-bold">6th Row - Card</p>
-                </div>
+                <NpsDataDisplay />
             </div>
 
             {/* 6th row ends here */}

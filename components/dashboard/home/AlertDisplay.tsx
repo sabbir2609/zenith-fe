@@ -36,15 +36,15 @@ export default function AlertDisplay() {
             <div className="flex justify-between flex-wrap items-center gap-2">
                 <div className="flex flex-row p-2 items-center gap-2">
                     <p className="text-2xl font-bold">Room Alert</p>
-                    <button className='btn btn-sm btn-square rounded-none'>
+                    <button className='btn btn-sm btn-square rounded-sm'>
                         <ChevronRight className='text-secondary' />
                     </button>
                 </div>
                 <div className="flex p-2 gap-2">
-                    <button className='btn btn-sm rounded-none btn-square'>
+                    <button className='btn btn-sm rounded-sm btn-square'>
                         <MoveLeft className='text-secondary' />
                     </button>
-                    <button className='btn btn-sm rounded-none btn-square'>
+                    <button className='btn btn-sm rounded-sm btn-square'>
                         <MoveRight className='text-secondary' />
                     </button>
                 </div>
@@ -53,7 +53,7 @@ export default function AlertDisplay() {
             <div className="grid sm:grid-cols-3 gap-2">
 
                 {data.map((item, index) => (
-                    <div key={index} className="shadow-md rounded-md p-4 bg-accent">
+                    <div key={index} className="shadow-md rounded-sm p-4 bg-accent">
                         <div className="flex justify-between items-center mb-4">
                             <div className="flex items-center gap-2">
                                 <div>{item.icon}</div>
@@ -61,7 +61,7 @@ export default function AlertDisplay() {
                             </div>
 
                             <div className="dropdown dropdown-end">
-                                <div tabIndex={0} role="button" className="btn btn-sm rounded-none shadow-none">
+                                <div tabIndex={0} role="button" className="btn btn-sm rounded-sm shadow-none">
                                     Actions
                                     <ChevronDown className='text-secondary' />
                                 </div>
