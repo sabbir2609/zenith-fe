@@ -10,12 +10,21 @@ const NpsChart = ({ month }: { month: string }) => {
         { name: 'Detractors', value: 10 },
     ];
 
+    const data = [
+        {
+            name: 'Score',
+            promoters: chartData[0].value,
+            passives: chartData[1].value,
+            detractors: chartData[2].value
+        }
+    ];
+
     return (
         <>
             <div className='flex flex-col lg:flex-row p-2'>
 
                 <div className='lg:flex-grow'>
-                    <div>NPS Score</div>
+                    <p>NPS Score for <b>{month}</b></p>
                     <div className='flex flex-row items-center gap-3'>
                         <h1 className='text-4xl font-bold'>80%</h1>
                         <div className='flex flex-row items-center  text-sm text-gray-400'>
@@ -28,9 +37,9 @@ const NpsChart = ({ month }: { month: string }) => {
                 <div className="flex flex-row gap-3">
                     <div>
                         <div className='flex items-center p-1 gap-2'>
-                            <svg width="10" height="10" viewBox="0 0 10 10">
-                                <rect width="10" height="10" fill="red" />
-                            </svg>
+                            <div className="badge badge-primary badge-xs rounded-none"
+                                style={{ backgroundColor: '#00A878' }}
+                            ></div>
                             {chartData[0].name}
                         </div>
                         <div className='text-xl font-semibold ms-5'>
@@ -40,9 +49,9 @@ const NpsChart = ({ month }: { month: string }) => {
 
                     <div>
                         <div className='flex items-center p-1 gap-2'>
-                            <svg width="10" height="10" viewBox="0 0 10 10">
-                                <rect width="10" height="10" fill="green" />
-                            </svg>
+                            <div className="badge badge-xs rounded-none"
+                                style={{ backgroundColor: '#FCBF49' }}
+                            ></div>
                             {chartData[1].name}
                         </div>
                         <div className='text-xl font-semibold ms-5'>
@@ -51,9 +60,9 @@ const NpsChart = ({ month }: { month: string }) => {
                     </div>
                     <div>
                         <div className='flex items-center p-1 gap-2'>
-                            <svg width="10" height="10" viewBox="0 0 10 10">
-                                <rect width="10" height="10" fill="yellow" />
-                            </svg>
+                            <div className="badge badge-success badge-xs rounded-none"
+                                style={{ backgroundColor: '#C0C0C0' }}
+                            ></div>
                             {chartData[2].name}
                         </div>
                         <div className='text-xl font-semibold ms-5'>
@@ -63,6 +72,25 @@ const NpsChart = ({ month }: { month: string }) => {
                 </div>
 
             </div>
+            <ResponsiveContainer width="100%" height="70%">
+                <BarChart
+                    layout="vertical"
+                    data={data}
+                    margin={{
+                        top: 10,
+                        right: 20,
+                        left: 0,
+                        bottom: 10,
+                    }}
+                >
+                    <Tooltip />
+                    <XAxis type="number" />
+                    <YAxis dataKey="name" type="category" />
+                    <Bar dataKey="promoters" stackId="a" fill="#00A878" />
+                    <Bar dataKey="passives" stackId="a" fill="#FCBF49" />
+                    <Bar dataKey="detractors" stackId="a" fill="#C0C0C0" />
+                </BarChart>
+            </ResponsiveContainer>
         </>
     )
 };

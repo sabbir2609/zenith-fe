@@ -4,22 +4,9 @@ import { useState } from "react";
 import NpsChart from "./charts/NpsGraph";
 
 export default function NpsDataDisplay() {
-    const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ];
-    const currentMonth = months[new Date().getMonth()];
-    const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+    const [selectedMonth, setSelectedMonth] = useState(
+        new Date().toLocaleString('default', { month: 'long' })
+    );
 
     const handleMonthChange = (month: string) => {
         setSelectedMonth(month);
@@ -38,7 +25,7 @@ export default function NpsDataDisplay() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 mb-2 rounded-sm shadow-md h-[300px]">
+            <div className="grid grid-cols-1 mb-2 rounded-sm shadow-md h-80 bg-accent">
                 <NpsChart month={selectedMonth} />
             </div>
         </>
