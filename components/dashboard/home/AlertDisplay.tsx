@@ -33,14 +33,14 @@ export default function AlertDisplay() {
     ]
     return (
         <>
-            <div className="flex justify-between flex-wrap items-center gap-2">
-                <div className="flex flex-row p-2 items-center gap-2">
-                    <p className="text-2xl font-bold">Room Alert</p>
+            <div className="flex flex-row justify-between items-center gap-2 mb-2 pt-2">
+                <div className="flex flex-row items-center gap-2">
+                    <p className="text-lg lg:text-xl font-bold ps-2">Room Alert</p>
                     <button className='btn btn-sm btn-square rounded-sm'>
                         <ChevronRight className='text-secondary' />
                     </button>
                 </div>
-                <div className="flex p-2 gap-2">
+                <div className="flex gap-2">
                     <button className='btn btn-sm rounded-sm btn-square'>
                         <MoveLeft className='text-secondary' />
                     </button>
@@ -53,7 +53,7 @@ export default function AlertDisplay() {
             <div className="grid sm:grid-cols-3 gap-2">
 
                 {data.map((item, index) => (
-                    <div key={index} className="shadow-md rounded-sm p-4 bg-accent">
+                    <div key={index} className="shadow-md rounded-sm p-3 bg-accent">
                         <div className="flex justify-between items-center mb-4">
                             <div className="flex items-center gap-2">
                                 <div>{item.icon}</div>

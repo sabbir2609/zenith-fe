@@ -12,21 +12,21 @@ export default function RevenueGraphDisplay() {
 
     return (
         <>
-            <div className="flex justify-between flex-wrap items-center gap-2">
-                <div className="flex flex-row p-2 items-center gap-2">
-                    <p className="text-2xl font-bold">
+            <div className="flex flex-row justify-between items-center gap-2 m-2">
+                <div className="flex flex-row items-center gap-2">
+                    <p className="text-lg lg:text-xl font-bold">
                         Overall Revenue
                     </p>
                     <button className='btn btn-sm btn-square rounded-none'>
                         <ChevronRight className='text-secondary' />
                     </button>
                 </div>
-                <div className="flex p-2 gap-2">
+                <div className="flex gap-2">
                     <YearSelect selectedYear={selectedYear} onYearChange={handleYearChange} />
                 </div>
             </div>
 
-            <div className="h-[300px] pb-12 bg-accent rounded-sm">
+            <div className="h-[300px] pb-12 bg-accent rounded-b-sm">
                 <RevenueGraph year={selectedYear} />
             </div>
         </>

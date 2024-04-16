@@ -1,5 +1,4 @@
-import { ActivePersonCard, AlertDisplay, DateTimeDisplay, GoalAlert, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
-import NpsDataDisplay from "@/components/dashboard/home/NpsDataDisplay";
+import { ActivePersonCard, AlertDisplay, CustomerSatisfaction, DateTimeDisplay, FeedbackDisplay, GoalAlert, NpsDataDisplay, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
 
 export default function Page() {
     return (
@@ -26,7 +25,7 @@ export default function Page() {
 
 
             {/* <!-- 3rd Row --> */}
-            <div className="mb-2">
+            <div className="mb-2 rounded-sm">
                 <AlertDisplay />
             </div>
             {/* 3rd row ends here */}
@@ -45,23 +44,19 @@ export default function Page() {
             {/* 5th row ends here */}
 
             {/* <!-- 6th Row --> */}
-            <div className="mb-2">
+            <div className="mb-2 rounded-sm shadow-md">
                 <NpsDataDisplay />
             </div>
 
             {/* 6th row ends here */}
 
             {/* <!-- 7th Row --> */}
-            <div className="grid grid-cols-2 gap-2 mb-2">
-                <div>
-                    <div className="bg-purple-500 p-4 ">
-                        <p className="font-bold">7th Row - 1st Column</p>
-                    </div>
+            <div className="grid lg:grid-cols-2 gap-2 mb-2">
+                <div className="mb-2 rounded-sm shadow-md">
+                    <CustomerSatisfaction />
                 </div>
-                <div>
-                    <div className="bg-pink-500 p-4 ">
-                        <p className="font-bold">7th Row - 2nd Column</p>
-                    </div>
+                <div className="mb-2 rounded-sm shadow-md">
+                    <FeedbackDisplay />
                 </div>
             </div>
 

@@ -13,22 +13,15 @@ export default function NpsDataDisplay() {
     }
 
     return (
-        <>
-            <div className="flex flex-row gap-2">
-                <div className="flex-grow p-2 items-center gap-2">
-                    <p className="text-2xl font-bold">
-                        Net Promoter Score
-                    </p>
-                </div>
-                <div className="flex p-2 gap-2">
-                    <MonthSelect selectedMonth={selectedMonth} onMonthChange={handleMonthChange} />
-                </div>
+        <div className="flex flex-col flex-wrap p-2">
+            <div className="flex flex-row justify-between items-center gap-2">
+                <p className="flex-grow text-lg lg:text-xl font-bold">
+                    Net Promoter Score
+                </p>
+                <MonthSelect selectedMonth={selectedMonth} onMonthChange={handleMonthChange} />
             </div>
-
-            <div className="grid grid-cols-1 mb-2 rounded-sm shadow-md h-80 bg-accent">
-                <NpsChart month={selectedMonth} />
-            </div>
-        </>
+            <NpsChart month={selectedMonth} />
+        </div>
     )
 }
 

@@ -21,7 +21,7 @@ const NpsChart = ({ month }: { month: string }) => {
 
     return (
         <>
-            <div className='flex flex-col lg:flex-row p-2'>
+            <div className='flex flex-col lg:flex-row'>
 
                 <div className='lg:flex-grow'>
                     <p>NPS Score for <b>{month}</b></p>
@@ -72,25 +72,27 @@ const NpsChart = ({ month }: { month: string }) => {
                 </div>
 
             </div>
-            <ResponsiveContainer width="100%" height="70%">
-                <BarChart
-                    layout="vertical"
-                    data={data}
-                    margin={{
-                        top: 10,
-                        right: 20,
-                        left: 0,
-                        bottom: 10,
-                    }}
-                >
-                    <Tooltip />
-                    <XAxis type="number" />
-                    <YAxis dataKey="name" type="category" />
-                    <Bar dataKey="promoters" stackId="a" fill="#00A878" />
-                    <Bar dataKey="passives" stackId="a" fill="#FCBF49" />
-                    <Bar dataKey="detractors" stackId="a" fill="#C0C0C0" />
-                </BarChart>
-            </ResponsiveContainer>
+            <div className="h-32">
+                <ResponsiveContainer width="100%" height="70%">
+                    <BarChart
+                        layout="vertical"
+                        data={data}
+                        margin={{
+                            top: 10,
+                            right: 20,
+                            left: 0,
+                            bottom: 0,
+                        }}
+                    >
+                        <Tooltip />
+                        <XAxis type="number" />
+                        <YAxis dataKey="name" type="category" />
+                        <Bar dataKey="promoters" stackId="a" fill="#00A878" />
+                        <Bar dataKey="passives" stackId="a" fill="#FCBF49" />
+                        <Bar dataKey="detractors" stackId="a" fill="#C0C0C0" />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
         </>
     )
 };

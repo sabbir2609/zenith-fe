@@ -2,7 +2,7 @@ import { Info } from "lucide-react";
 
 export default function GoalAlert() {
     return (
-        <div role="alert" className="alert rounded-sm shadow-lg">
+        <div role="alert" className="alert rounded-sm shadow-md">
             <div className="bg-primary p-2 rounded-full shadow-lg">
                 <Info size={26} className="text-white" />
             </div>
