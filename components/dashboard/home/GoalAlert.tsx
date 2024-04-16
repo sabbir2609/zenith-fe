@@ -11,7 +11,7 @@ export default function GoalAlert() {
                 <h3 className="font-bold capitalize">You have reached your goal this month !</h3>
                 <div className="text-xs">Check your goals and make new ones for next month </div>
             </div>
-            <button className="btn btn-sm rounded-full">Ok, got it.</button>
+            <button className="btn btn-sm rounded-full shadow-md">Ok, got it.</button>
         </div>
     )
 }
