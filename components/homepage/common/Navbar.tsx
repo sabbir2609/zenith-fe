@@ -32,6 +32,15 @@ export default function Navbar() {
 
     }
 
+    const navLinksLg = [
+        { name: "Home", path: "/" },
+        { name: "About", path: "/about" },
+        { name: "Mission", path: "/about/mission" },
+        { name: "Vision", path: "/about/vision" },
+        { name: "Contact", path: "/contact" },
+        { name: "Dashboard", path: "/dashboard" }
+    ]
+
     const authLinks = (
         <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -109,25 +118,11 @@ export default function Navbar() {
 
             <div className="navbar-center hidden lg:flex justify-end">
                 <ul className="menu menu-horizontal px-1">
-
-                    <li>
-                        <Link href={"/"}>Home</Link>
-                    </li>
-                    <li>
-                        <Link href={"/about"}>About</Link>
-                    </li>
-                    <li>
-                        <Link href={"/about/mission"}>Mission</Link>
-                    </li>
-                    <li>
-                        <Link href={"/about/vision"}>Vision</Link>
-                    </li>
-                    <li>
-                        <Link href={"/dashboard"}>Dashboard</Link>
-                    </li>
-                    <li>
-                        <Link href={"/dashboard"}>Contact</Link>
-                    </li>
+                    {navLinksLg.map((navLink, index) => (
+                        <li key={index}>
+                            <Link href={navLink.path}>{navLink.name}</Link>
+                        </li>
+                    ))}
                 </ul>
             </div>
 
