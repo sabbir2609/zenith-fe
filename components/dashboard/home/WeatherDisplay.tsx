@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 interface Weather {
@@ -67,7 +68,7 @@ export default function WeatherDisplay() {
             style={{ backgroundImage: "url('/static/image/dashboard/weatherCard-bg.jpg')", backgroundSize: 'cover' }}
         >
             <div className="flex flex-row items-center justify-between">
-                <div className="text-2xl font-medium text-white">
+                <div className="text-4xl font-medium text-white">
                     {getGreeting()}
                 </div>
 
@@ -76,7 +77,7 @@ export default function WeatherDisplay() {
                         {weatherData.name}
                     </div>
 
-                    <img className="h-12 w-12 rounded-sm" src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt="Weather icon" loading='lazy' />
+                    <Image height={50} width={50} src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`} alt="Weather icon" loading='lazy' />
 
                 </div>
             </div>
