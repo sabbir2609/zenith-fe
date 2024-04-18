@@ -1,3 +1,4 @@
+import { View } from "lucide-react"
 import Link from "next/link"
 
 export default function StatCards() {
@@ -19,7 +20,7 @@ export default function StatCards() {
             url: "/dashboard/total"
         },
         {
-            title: "reserved",
+            title: "Reserved",
             value: 3,
             url: "/dashboard/reserved"
         }
@@ -28,13 +29,15 @@ export default function StatCards() {
     return (
         <div className="grid grid-cols-2 gap-2 h-full">
             {overview.map((item, index) => (
-                <div key={index} className="bg-accent rounded-sm p-4 shadow-md flex flex-col justify-between">
-                    <div className="flex justify-between items-start">
+                <div key={index} className="rounded-sm p-4 shadow-md flex flex-col justify-between">
+                    <div className="flex justify-between items-center">
                         <div>
                             <p className="font-bold">{item.title}</p>
                             <p className="text-4xl font-bold mt-4">{item.value}</p>
                         </div>
-                        <Link href={item.url} className="text-sm self-start text-secondary">View All</Link>
+                        <Link href={item.url} className="self-start font-normal">
+                            <View size={20} />
+                        </Link>
                     </div>
                 </div>
             ))}

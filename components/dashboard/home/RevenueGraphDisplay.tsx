@@ -18,7 +18,7 @@ export default function RevenueGraphDisplay() {
                         Overall Revenue
                     </p>
                     <button className='btn btn-sm btn-square rounded-none'>
-                        <ChevronRight className='text-secondary' />
+                        <ChevronRight className='' />
                     </button>
                 </div>
                 <div className="flex gap-2">
@@ -26,7 +26,7 @@ export default function RevenueGraphDisplay() {
                 </div>
             </div>
 
-            <div className="h-[300px] pb-12 bg-accent rounded-b-sm">
+            <div className="h-[300px] pb-12 rounded-b-sm">
                 <RevenueGraph year={selectedYear} />
             </div>
         </>
@@ -41,7 +41,7 @@ const YearSelect = ({ selectedYear, onYearChange }: { selectedYear: number, onYe
     }
 
     return (
-        <select className="select select-md rounded-sm bg-base-300" value={selectedYear} onChange={handleChange}>
+        <select className="select select-md rounded-sm" value={selectedYear} onChange={handleChange}>
             {years.map(year => (
                 <option key={year} value={year}>{year}</option>
             ))}

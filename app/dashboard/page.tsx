@@ -5,7 +5,7 @@ export default function Page() {
         <>
 
             {/* <!-- 1st Row --> */}
-            <div className="flex flex-wrap justify-between items-center mb-2 rounded-sm shadow-sm bg-accent">
+            <div className="flex flex-wrap justify-between items-center mb-2 rounded-sm border border-1 shadow-sm">
                 <DateTimeDisplay />
                 <ActivePersonCard />
             </div>

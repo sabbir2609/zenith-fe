@@ -1,4 +1,4 @@
-import { Airplay, Bath, CalendarCheck2, HelpCircle, LayoutDashboard, LogOut, Search, Settings2, } from "lucide-react";
+import { Airplay, Bath, CalendarCheck2, ChevronRight, HelpCircle, LayoutDashboard, LogOut, Search, Settings2, } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -60,19 +60,17 @@ const menuItemsTwo = {
 
 export default function Sidebar() {
     return (
-        <aside className="bg-base-300 min-h-screen w-72 flex flex-col">
-
+        <aside className="min-h-screen w-72 flex flex-col bg-base-300">
             <div className="flex-grow">
-                <div className='bg-base-200 sticky top-0 z-20 hidden items-center gap-2 px-4 py-2 backdrop-blur lg:flex shadow-sm'>
-                    <Link href="/" className='flex-0 btn btn-ghost px-2'>
-                        <div className='font-title text-primary inline-flex text-lg transition-all duration-200 md:text-2xl'>
-                            <span className='text-justify font-normal text-2xl'>Zenith Admin</span>
-                        </div>
+                {/* Sidebar header */}
+                <div className='sticky top-0 z-20 hidden gap-2 px-4 py-2 lg:flex shadow-sm bg-base-200'>
+                    <Link href="/" className='btn btn-ghost px-2'>
+                        <p className='text-justify font-extrabold text-2xl'>Zenith Admin</p>
                     </Link>
                 </div>
 
                 {/* Search section */}
-                <div className="bg-base-200 sticky top-0 z-20 lg:hidden items-center bg-opacity-90 py-2 backdrop-blur shadow-sm">
+                <div className="sticky top-0 z-20 lg:hidden items-center py-2 bg-base-200 shadow-sm">
                     <form role="search" className="relative m-2 lg:hidden">
                         <div className="form-control">
                             <input type="search" name="q" className="input input-bordered" placeholder="Search..." />
@@ -107,11 +105,11 @@ export default function Sidebar() {
                                     {icon}
                                     {itemTitle}
                                 </summary>
-                                <ul className="menu ms-8 gap-1">
+                                <ul className="menu gap-1 [&_li>*]:rounded-sm">
                                     {Object.entries(items).map(([id, { title, link }]) => (
-                                        <li key={id} className="font-medium font-sans">
-                                            <Link href={link}>
-                                                {title}
+                                        <li key={id}>
+                                            <Link href={link} className="font-medium bg-base-200">
+                                                <ChevronRight size={20} /> {title}
                                             </Link>
                                         </li>
                                     ))}
@@ -129,11 +127,11 @@ export default function Sidebar() {
                                     {icon}
                                     {itemTitle}
                                 </summary>
-                                <ul className="menu ms-8 gap-1">
+                                <ul className="menu gap-1 [&_li>*]:rounded-sm">
                                     {Object.entries(items).map(([id, { title, link }]) => (
-                                        <li key={id} className="font-semibold font-sans">
-                                            <Link href={link}>
-                                                {title}
+                                        <li key={id}>
+                                            <Link href={link} className="font-medium bg-base-200">
+                                                <ChevronRight size={20} /> {title}
                                             </Link>
                                         </li>
                                     ))}
@@ -141,26 +139,21 @@ export default function Sidebar() {
                             </details>
                         </li>
                     ))}
-
                 </ul>
             </div>
 
             {/* sidebar footer action menu sticky bottom */}
-            <div className="z-20 bg-base-200 shadow-sm sticky bottom-0">
-                <div className="grid grid-cols-3">
-
-                    <Link href="/settings" className="btn btn-ghost m-2">
+            <div className="p-1 sticky bottom-0 bg-base-200">
+                <div className="grid grid-cols-3 gap-2">
+                    <Link href="/settings" className="btn btn-ghost rounded-sm">
                         <Settings2 size={20} />
                     </Link>
-
-                    <Link href="/support" className="btn btn-ghost m-2">
+                    <Link href="/support" className="btn btn-ghost rounded-sm">
                         <HelpCircle size={20} />
                     </Link>
-
-                    <Link href="/logout" className="btn btn-ghost m-2">
+                    <Link href="/logout" className="btn btn-ghost rounded-sm">
                         <LogOut size={20} />
                     </Link>
-
                 </div>
             </div>
         </aside>

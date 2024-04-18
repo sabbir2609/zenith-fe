@@ -2,10 +2,11 @@ import { Lock, WashingMachine, Coffee, MoveLeft, MoveRight, SquareArrowUpRight, 
 import Link from 'next/link';
 
 export default function AlertDisplay() {
+    const iconColor = '';
     const data = [
         {
             id: 1,
-            icon: <WashingMachine className='text-secondary' />,
+            icon: <WashingMachine className={iconColor} />,
             task: 'Laundry',
             taskId: 31234,
             description: 'Request From Guest, room 101',
@@ -14,7 +15,7 @@ export default function AlertDisplay() {
         },
         {
             id: 2,
-            icon: <Coffee className='text-secondary' />,
+            icon: <Coffee className={iconColor} />,
             task: 'Coffee',
             taskId: 31235,
             description: 'Request From Guest, room 102',
@@ -23,7 +24,7 @@ export default function AlertDisplay() {
         },
         {
             id: 3,
-            icon: <Lock className='text-secondary' />,
+            icon: <Lock className={iconColor} />,
             task: 'Locked Door',
             taskId: 31236,
             description: 'Request From Guest, room 103',
@@ -37,15 +38,15 @@ export default function AlertDisplay() {
                 <div className="flex flex-row items-center gap-2">
                     <p className="text-lg lg:text-xl font-bold ps-2">Room Alert</p>
                     <button className='btn btn-sm btn-square rounded-sm'>
-                        <ChevronRight className='text-secondary' />
+                        <ChevronRight className={iconColor} />
                     </button>
                 </div>
                 <div className="flex gap-2">
                     <button className='btn btn-sm rounded-sm btn-square'>
-                        <MoveLeft className='text-secondary' />
+                        <MoveLeft className={iconColor} />
                     </button>
                     <button className='btn btn-sm rounded-sm btn-square'>
-                        <MoveRight className='text-secondary' />
+                        <MoveRight className={iconColor} />
                     </button>
                 </div>
             </div>
@@ -53,7 +54,7 @@ export default function AlertDisplay() {
             <div className="grid sm:grid-cols-3 gap-2">
 
                 {data.map((item, index) => (
-                    <div key={index} className="shadow-md rounded-sm p-3 bg-accent">
+                    <div key={index} className="shadow-md rounded-sm p-3">
                         <div className="flex justify-between items-center mb-4">
                             <div className="flex items-center gap-2">
                                 <div>{item.icon}</div>
@@ -63,7 +64,7 @@ export default function AlertDisplay() {
                             <div className="dropdown dropdown-end">
                                 <div tabIndex={0} role="button" className="btn btn-sm rounded-sm shadow-none">
                                     Actions
-                                    <ChevronDown className='text-secondary' />
+                                    <ChevronDown className={iconColor} />
                                 </div>
                                 <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 w-52">
                                     <li>

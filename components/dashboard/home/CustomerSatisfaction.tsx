@@ -44,8 +44,8 @@ export default function CustomerSatisfaction() {
             </div>
 
             <div className="flex flex-col mb-2">
-                <p className="text-sm font-normal">
-                    Overall Score - {selectedMonth}
+                <p>
+                    Overall Score for <b>{selectedMonth}</b>
                 </p>
                 <div className="flex flex-row items-baseline gap-2">
                     <p className="text-4xl font-bold">
@@ -112,7 +112,7 @@ const MonthSelect = ({ selectedMonth, onMonthChange }: { selectedMonth: string, 
     }
 
     return (
-        <select className="select select-md rounded-sm bg-base-300" value={selectedMonth} onChange={handleChange}>
+        <select className="select select-md rounded-sm" value={selectedMonth} onChange={handleChange}>
             {months.map(month => (
                 <option key={month} value={month}>{month}</option>
             ))}

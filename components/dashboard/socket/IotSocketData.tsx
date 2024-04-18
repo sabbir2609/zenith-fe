@@ -41,7 +41,7 @@ export default function IoTSocketData({ client_id, topic }: IoTProps) {
             socket.close();
         };
 
-    }, []);
+    }, [client_id, topic]);
 
     return (
         <div>

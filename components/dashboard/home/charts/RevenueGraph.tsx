@@ -69,12 +69,13 @@ export default function RevenueGraph({ year }: { year: number }) {
                 <p className='text-base font-semibold'>
                     {year} Revenue: ${data.reduce((acc, curr) => acc + curr.earnings, 0) / 1000}k
                 </p>
-                <div className='flex text-base font-medium italic items-center'>
-                    <div className='flex bg-base-300 p-1 rounded-sm items-center'>
-                        <ArrowUp className='inline' />
-                        5.3%
+                <div className="flex flex-wrap items-center">
+                    <div className="flex flex-row items-center p-0 rounded-sm bg-base-200">
+                        <ArrowUp size={16} /> +5%
                     </div>
-                    Vs Last Year
+                    <p className="text-sm font-serif font-semibold text-green-500 ml-2">
+                        vs last year
+                    </p>
                 </div>
             </div>
 

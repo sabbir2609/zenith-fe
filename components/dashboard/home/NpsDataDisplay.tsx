@@ -46,7 +46,7 @@ const MonthSelect = ({ selectedMonth, onMonthChange }: { selectedMonth: string, 
     }
 
     return (
-        <select className="select select-md rounded-sm bg-base-300" value={selectedMonth} onChange={handleChange}>
+        <select className="select select-md rounded-sm" value={selectedMonth} onChange={handleChange}>
             {months.map(month => (
                 <option key={month} value={month}>{month}</option>
             ))}
