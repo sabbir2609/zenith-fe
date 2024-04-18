@@ -9,3 +9,4 @@ export { default as GoalAlert } from './GoalAlert';
 export { default as NpsDataDisplay } from './NpsDataDisplay';
 export { default as CustomerSatisfaction } from './CustomerSatisfaction';
 export { default as FeedbackDisplay } from './FeedbackDisplay';
+export { default as Footer } from './Footer';

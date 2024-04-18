@@ -5,7 +5,7 @@ export default function Page() {
     <main>
       {/* Hero Section */}
       <section
-        className="bg-fixed bg-center bg-cover bg-no-repeat h-screen flex items-center justify-center text-white" style={{ backgroundImage: "url('https://source.unsplash.com/1600x900/?hotel')" }}
+        className="bg-fixed bg-center bg-cover bg-no-repeat h-screen flex items-center justify-center text-white" style={{ backgroundImage: "url('/static/image/homepage/bg-1.jpg')" }}
       >
         <div className="text-center text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">Hotel Management System</h1>

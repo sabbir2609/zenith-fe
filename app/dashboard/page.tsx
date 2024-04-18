@@ -1,4 +1,4 @@
-import { ActivePersonCard, AlertDisplay, CustomerSatisfaction, DateTimeDisplay, FeedbackDisplay, GoalAlert, NpsDataDisplay, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
+import { ActivePersonCard, AlertDisplay, CustomerSatisfaction, DateTimeDisplay, FeedbackDisplay, Footer, GoalAlert, NpsDataDisplay, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
 
 export default function Page() {
     return (
@@ -61,11 +61,7 @@ export default function Page() {
             </div>
 
             {/* <!-- 8th Row --> */}
-            <div className="mb-2">
-                <div className="bg-indigo-500 p-4 ">
-                    <p className="font-bold">8th Row - Card</p>
-                </div>
-            </div>
+            <Footer />
 
         </>
     )

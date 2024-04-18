@@ -8,5 +8,5 @@ export { default as person3 } from "./image/user/person (3).jpg"
 export { default as person4 } from "./image/user/person (4).jpg"
 
 
-export { default as layer1 } from "./image/homepage/layer1.jpg"
-export { default as layer2 } from "./image/homepage/layer2.jpg"
+export { default as homeBgImg } from "./image/homepage/bg-1.jpg"
+export { default as weatherCardBgImg } from "./image/dashboard/weatherCard-bg.jpg"

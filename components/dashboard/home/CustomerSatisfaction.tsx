@@ -70,8 +70,8 @@ export default function CustomerSatisfaction() {
                 ))}
             </div>
             <div className="flex flex-row justify-between gap-2 p-2">
-                {satisfactionRate.map(rate => (
-                    <div className="flex flex-col gap-3">
+                {satisfactionRate.map((rate, index) => (
+                    <div key={index} className="flex flex-col gap-3">
                         <div className="flex flex-row items-center gap-1">
                             {rate.icon}
                             <p className="text-sm font-normal">{rate.type}</p>

@@ -51,8 +51,6 @@ export default function WeatherDisplay() {
         </div>
     );
 
-    const backgroundImage = `https://source.unsplash.com/1600x900/?${weatherData.weather[0].main}`;
-
     function getGreeting() {
         const currentHour = new Date().getHours();
         if (currentHour < 12) {
@@ -66,15 +64,15 @@ export default function WeatherDisplay() {
 
     return (
         <div className="flex flex-col p-2 shadow-md bg-base-200 rounded-sm h-full"
-            style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover' }}
+            style={{ backgroundImage: "url('/static/image/dashboard/weatherCard-bg.jpg')", backgroundSize: 'cover' }}
         >
             <div className="flex flex-row items-center justify-between">
-                <div className="text-2xl font-medium text-base-content mix-blend-difference">
+                <div className="text-2xl font-medium text-white">
                     {getGreeting()}
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2 justify-end">
-                    <div className="text-2xl font-medium text-base-content mix-blend-difference">
+                    <div className="text-2xl font-medium text-white">
                         {weatherData.name}
                     </div>
 
@@ -84,19 +82,19 @@ export default function WeatherDisplay() {
             </div>
 
             <div className='flex-grow'>
-                <p className="text-base-content capitalize mix-blend-difference">
+                <p className="capitalize text-white">
                     {weatherData.weather[0].description}
                 </p>
-                <p className="text-base-content text-4xl font-bold mix-blend-difference">
+                <p className="text-4xl font-bold text-white">
                     {Math.round(weatherData.main.temp - 273.15)}°C
                 </p>
-                <p className="text-base-content text-sm font-sans italic mix-blend-difference">
+                <p className="text-sm font-sans italic text-white">
                     feels like {Math.round(weatherData.main.feels_like - 273.15)}°C
                 </p>
             </div>
 
             <div>
-                <p className="flex text-base-content text-lg font-semibold mix-blend-difference">
+                <p className="flex text-lg font-semibold text-white">
                     Today You Have 12 New Resident
                 </p>
             </div>
