@@ -45,10 +45,10 @@ export default function FeedbackDisplay() {
                     <MoveRight className="cursor-pointer" />
                 </Link>
             </div>
-            <div className="flex flex-col p-2">
+            <div className="flex flex-col">
                 {feedback.map((item) => (
                     <div key={item.id} className="flex flex-row items-center p-2">
-                        <Image src={item.img} alt="user" className="w-16 h-16 rounded-full" />
+                        <Image src={item.img} alt="user" className="w-14 h-14 rounded-full" />
 
                         <div className="flex flex-col ps-2">
                             <h1 className="text-lg font-bold">{item.user}</h1>
