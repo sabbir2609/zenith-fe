@@ -3,13 +3,14 @@
 import { ChevronRight } from "lucide-react";
 import RevenueGraph from "./charts/RevenueGraph";
 import React, { useState } from 'react';
+import { Select } from "../ui";
 
 export default function RevenueGraphDisplay() {
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     const handleYearChange = (year: number) => {
         setSelectedYear(year);
     }
-
+    const years = [2017, 2018, 2020, 2021, 2022, 2023, 2024];
     return (
         <>
             <div className="flex flex-row justify-between items-center gap-2 m-2">
@@ -22,7 +23,7 @@ export default function RevenueGraphDisplay() {
                     </button>
                 </div>
                 <div className="flex gap-2">
-                    <YearSelect selectedYear={selectedYear} onYearChange={handleYearChange} />
+                    <Select options={years} selectedOption={selectedYear} onOptionChange={handleYearChange} />
                 </div>
             </div>
 
@@ -31,20 +32,4 @@ export default function RevenueGraphDisplay() {
             </div>
         </>
     )
-}
-
-const YearSelect = ({ selectedYear, onYearChange }: { selectedYear: number, onYearChange: (year: number) => void }) => {
-    const years = [2017, 2018, 2020, 2021, 2022, 2023, 2024];
-
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        onYearChange(parseInt(e.target.value));
-    }
-
-    return (
-        <select className="select select-md rounded-sm" value={selectedYear} onChange={handleChange}>
-            {years.map(year => (
-                <option key={year} value={year}>{year}</option>
-            ))}
-        </select>
-    );
 }

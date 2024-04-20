@@ -3,6 +3,7 @@
 import { ArrowUp, Frown, Meh, Smile } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
+import { Select } from "../ui";
 
 export default function CustomerSatisfaction() {
     const [selectedMonth, setSelectedMonth] = useState(
@@ -12,6 +13,10 @@ export default function CustomerSatisfaction() {
     const handleMonthChange = (month: string) => {
         setSelectedMonth(month);
     }
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
     const satisfactionRate = [
         {
             type: "Satisfied",
@@ -39,7 +44,7 @@ export default function CustomerSatisfaction() {
             <div className="flex flex-row justify-between items-center gap-2">
                 <p className="font-bold text-lg lg:text-xl">Customer Satisfaction</p>
                 <div className="ml-">
-                    <MonthSelect selectedMonth={selectedMonth} onMonthChange={handleMonthChange} />
+                    <Select selectedOption={selectedMonth} onOptionChange={handleMonthChange} options={months} />
                 </div>
             </div>
 
@@ -87,35 +92,4 @@ export default function CustomerSatisfaction() {
             <Link href={"#"} className="btn mt-2 rounded-sm text-base self-start">See Report</Link>
         </div>
     )
-}
-
-
-// month select dropdown
-const MonthSelect = ({ selectedMonth, onMonthChange }: { selectedMonth: string, onMonthChange: (Month: string) => void }) => {
-    const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ];
-
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        onMonthChange(e.target.value);
-    }
-
-    return (
-        <select className="select select-md rounded-sm" value={selectedMonth} onChange={handleChange}>
-            {months.map(month => (
-                <option key={month} value={month}>{month}</option>
-            ))}
-        </select>
-    );
 }

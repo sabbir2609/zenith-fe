@@ -1,4 +1,4 @@
-import { ActivePersonCard, AlertDisplay, CustomerSatisfaction, DateTimeDisplay, FeedbackDisplay, Footer, GoalAlert, NpsDataDisplay, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
+import { ActivePersonCard, AlertDisplay, CustomerSatisfaction, DateTimeDisplay, FeedbackDisplay, Footer, GoalAlert, NpsDataDisplay, ReservationDataDisplay, RevenueGraphDisplay, StatCards, WeatherDisplay } from "@/components/dashboard/home";
 
 export default function Page() {
     return (
@@ -22,6 +22,8 @@ export default function Page() {
                 </div>
             </div>
             {/* 2nd row ends here */}
+
+            <ReservationDataDisplay />
 
 
             {/* <!-- 3rd Row --> */}
