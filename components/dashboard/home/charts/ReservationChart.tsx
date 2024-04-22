@@ -72,8 +72,7 @@ export default function ReservationChart({
                 <div className="flex items-center">
                     <span className="label-text mr-2">Yearly</span>
                     <label className="switch">
-                        <input type="checkbox" onChange={handleToggle} />
-                        <span className="slider round"></span>
+                        <input type="checkbox" onChange={handleToggle} className='checkbox' />
                     </label>
                 </div>
             </div>

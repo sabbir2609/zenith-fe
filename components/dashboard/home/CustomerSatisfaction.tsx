@@ -35,9 +35,7 @@ export default function CustomerSatisfaction() {
         }
     ]
 
-    const percentage = 70;
-    const totalDivs = 50;
-    const filledDivs = Math.round((percentage / 100) * totalDivs);
+    const percentage = 60;
 
     return (
         <div className="flex flex-col flex-wrap m-2">
@@ -66,13 +64,23 @@ export default function CustomerSatisfaction() {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-row items-center w-full h-[50px] mb-2 p-1 gap-1 overflow-hidden">
-                {[...Array(totalDivs)].map((_, i) => (
+            <div className="m-2">
+                <div
+                    className="h-16 w-full bg-orange-200"
+                    style={{
+                        backgroundImage: `repeating-linear-gradient(90deg, white, white 5px, rgba(0, 0, 0, 0.1) 5px, rgba(0, 0, 0, 0.1) 10px)`
+                    }}
+                >
                     <div
-                        key={i}
-                        className={`h-[50px] w-1/12 ${i < filledDivs ? 'bg-orange-500' : 'bg-orange-100'}`}
-                    />
-                ))}
+                        className="h-16 bg-orange-500"
+                        style={{
+                            width: `${percentage}%`,
+                            backgroundImage: `repeating-linear-gradient(90deg, white, white 5px, rgba(0, 0, 0, 0.1) 5px, rgba(0, 0, 0, 0.1) 10px)`
+                        }}
+                    >
+
+                    </div>
+                </div>
             </div>
             <div className="flex flex-row justify-between gap-2 p-2">
                 {satisfactionRate.map((rate, index) => (

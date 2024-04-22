@@ -3,10 +3,11 @@ import Link from 'next/link';
 
 export default function AlertDisplay() {
     const iconColor = '';
+    const iconSize = 20;
     const data = [
         {
             id: 1,
-            icon: <WashingMachine className={iconColor} />,
+            icon: <WashingMachine className={iconColor} size={iconSize} />,
             task: 'Laundry',
             taskId: 31234,
             description: 'Request From Guest, room 101',
@@ -15,7 +16,7 @@ export default function AlertDisplay() {
         },
         {
             id: 2,
-            icon: <Coffee className={iconColor} />,
+            icon: <Coffee className={iconColor} size={iconSize} />,
             task: 'Coffee',
             taskId: 31235,
             description: 'Request From Guest, room 102',
@@ -24,11 +25,11 @@ export default function AlertDisplay() {
         },
         {
             id: 3,
-            icon: <Lock className={iconColor} />,
+            icon: <Lock className={iconColor} size={iconSize} />,
             task: 'Locked Door',
             taskId: 31236,
             description: 'Request From Guest, room 103',
-            status: 'in progress',
+            status: 'completed',
             assignee: 'John Doe'
         }
     ]
@@ -52,18 +53,15 @@ export default function AlertDisplay() {
             </div>
 
             <div className="grid sm:grid-cols-3 gap-2">
-
                 {data.map((item, index) => (
-                    <div key={index} className="shadow-md rounded-sm p-3">
-                        <div className="flex justify-between items-center mb-4">
+                    <div key={index} className="border rounded-sm p-2">
+                        <div className="flex justify-between items-center mb-1">
                             <div className="flex items-center gap-2">
                                 <div>{item.icon}</div>
-                                <div className="text-xl font-bold">{item.task}</div>
+                                <div className="text-md font-bold">{item.task}</div>
                             </div>
-
                             <div className="dropdown dropdown-end">
-                                <div tabIndex={0} role="button" className="btn btn-sm rounded-sm shadow-none">
-                                    Actions
+                                <div tabIndex={0} role="button" className="btn btn-sm btn-ghost rounded-sm shadow-none">
                                     <ChevronDown className={iconColor} />
                                 </div>
                                 <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 w-52">
@@ -84,25 +82,22 @@ export default function AlertDisplay() {
                                     </li>
                                 </ul>
                             </div>
-
                         </div>
-
-                        <div className="flex flex-row mb-2 items-center justify-between">
-                            <div className="text-xl font-bold">#{item.taskId}</div>
-                            <div className="text-sm">{item.description}</div>
+                        <div className="flex flex-col md:flex-col lg:flex-row lg:justify-between lg:items-center">
+                            <div className="font-bold">#{item.taskId}</div>
+                            <div className="text-base">{item.description}</div>
                         </div>
-                        <div className="flex flex-row mb-2 items-center justify-between">
+                        <div className="flex flex-row items-center justify-between">
                             <div className="text-sm">Status</div>
-                            <div className="text-lg">{item.status}</div>
+                            {item.status === 'in progress' ? <div className="text-sm text-primary">In Progress</div> : <div className="text-sm text-success">Completed</div>}
                         </div>
                         <div className="flex flex-row items-center justify-between">
                             <div className="text-sm">Assignee</div>
-                            <div className="text-lg">{item.assignee}</div>
+                            <div className="text-sm">{item.assignee}</div>
                         </div>
 
                     </div>
                 ))}
-
             </div>
         </>
     )
