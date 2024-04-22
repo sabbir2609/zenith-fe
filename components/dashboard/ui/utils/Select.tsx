@@ -4,7 +4,7 @@ interface SelectProps {
     options: string[];
 }
 
-export default function ({ selectedOption, onOptionChange, options }: SelectProps) {
+export default function Select({ selectedOption, onOptionChange, options }: SelectProps) {
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         onOptionChange(e.target.value);
     }
