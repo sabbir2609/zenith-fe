@@ -22,27 +22,27 @@ export default function Pagination({ totalPages, baseURL }: PaginationProps) {
         <div className="join">
             {prevPage && (
                 <Link href={`${baseURL}?page=${prevPage}`}>
-                    <div className="join-item btn btn-square btn-sm lg:btn-md" onClick={() => setActive(prevPage)}>
+                    <div className="join-item btn btn-square btn-md" onClick={() => setActive(prevPage)}>
                         «
                     </div>
                 </Link>
             )}
 
-            {startPage > 1 && <div className="join-item btn btn-square btn-sm lg:btn-md">...</div>}
+            {startPage > 1 && <div className="join-item btn btn-square btn-md">...</div>}
 
             {[...Array(endPage - startPage + 1)].map((_, i) => (
                 <Link href={`${baseURL}?page=${startPage + i}`} key={i}>
-                    <div className={`join-item btn btn-square btn-sm lg:btn-md ${active === startPage + i ? 'btn-active' : ''}`} onClick={() => setActive(startPage + i)}>
+                    <div className={`join-item btn btn-square btn-md ${active === startPage + i ? 'btn-active' : ''}`} onClick={() => setActive(startPage + i)}>
                         {startPage + i}
                     </div>
                 </Link>
             ))}
 
-            {endPage < totalPages && <div className="join-item btn btn-square btn-sm lg:btn-md">...</div>}
+            {endPage < totalPages && <div className="join-item btn btn-square btn-md">...</div>}
 
             {nextPage && (
                 <Link href={`${baseURL}?page=${nextPage}`}>
-                    <div className="join-item btn btn-square btn-sm lg:btn-md" onClick={() => setActive(nextPage)}>
+                    <div className="join-item btn btn-square btn-md" onClick={() => setActive(nextPage)}>
                         »
                     </div>
                 </Link>
