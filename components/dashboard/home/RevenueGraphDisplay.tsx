@@ -6,11 +6,14 @@ import React, { useState } from 'react';
 import { Select } from "../ui";
 
 export default function RevenueGraphDisplay() {
-    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-    const handleYearChange = (year: number) => {
+    const [selectedYear, setSelectedYear] = useState(
+        new Date().getFullYear().toString()
+    );
+    const handleYearChange = (year: string) => {
         setSelectedYear(year);
     }
-    const years = [2017, 2018, 2020, 2021, 2022, 2023, 2024];
+    const years = ["2021", "2022", "2023", "2024", "2025"];
+
     return (
         <>
             <div className="flex flex-row justify-between items-center gap-2 m-2">

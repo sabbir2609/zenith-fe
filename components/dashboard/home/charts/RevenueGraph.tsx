@@ -8,7 +8,7 @@ interface Data {
 }
 
 
-export default function RevenueGraph({ year }: { year: number }) {
+export default function RevenueGraph({ year }: { year: string }) {
 
     const data: Data[] = [
         {
