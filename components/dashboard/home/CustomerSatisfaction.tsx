@@ -68,14 +68,14 @@ export default function CustomerSatisfaction() {
                 <div
                     className="h-16 w-full bg-orange-200"
                     style={{
-                        backgroundImage: `repeating-linear-gradient(90deg, white, white 5px, rgba(0, 0, 0, 0.1) 5px, rgba(0, 0, 0, 0.1) 10px)`
+                        backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 5px, rgba(0, 0, 0, 0.1) 5px, rgba(0, 0, 0, 0.1) 10px)`
                     }}
                 >
                     <div
                         className="h-16 bg-orange-500"
                         style={{
                             width: `${percentage}%`,
-                            backgroundImage: `repeating-linear-gradient(90deg, white, white 5px, rgba(0, 0, 0, 0.1) 5px, rgba(0, 0, 0, 0.1) 10px)`
+                            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 5px, rgba(0, 0, 0, 0.1) 5px, rgba(0, 0, 0, 0.1) 10px)`
                         }}
                     >
 
