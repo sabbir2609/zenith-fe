@@ -123,7 +123,7 @@ export default function Users() {
                                 <td>
                                     <td>
                                         <Link href={`/dashboard/users/${user.id}`}>
-                                            <FileSymlink size={18} className="hover:text-primary" />
+                                            <FileSymlink />
                                         </Link>
                                     </td>
                                 </td>
