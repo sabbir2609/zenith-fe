@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { cookies } from 'next/headers'
-import { RoomCard } from '@/components/dashboard/ui';
 import { Pagination } from '@/components/dashboard/common';
+import { FileSymlink } from 'lucide-react';
 
 interface RoomType {
     id: number;
@@ -10,22 +9,13 @@ interface RoomType {
     price: string;
 }
 
-interface Image {
-    id: number;
-    image: string;
-    description: string | null;
-}
-
-
 interface Rooms {
     id: number;
     floor: number;
     room_label: string;
     room_type: RoomType;
     capacity: number;
-    description: string;
     is_available: boolean;
-    images: Image[];
 }
 
 
@@ -37,98 +27,107 @@ export function generateMetadata() {
 }
 
 export default async function RoomsPage(context: any) {
-    const cookieStore = cookies()
-    const token = cookieStore.get('access')?.value
+    async function fetchRooms(page: number) {
+        const cookieStore = cookies()
+        const token = cookieStore.get('access')?.value
 
-    if (!token) {
-        return <h1>You are not logged in</h1>
-    }
+        if (!token) {
+            throw new Error("You are not logged in");
+        }
 
-    const pageNumber = context.searchParams.page ? context.searchParams.page : 1;
-    const baseURL = '/dashboard/rooms';
-
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/rooms/?page=${pageNumber}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/rooms/?page=${page}`, {
+            cache: "no-cache",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            cache: "no-cache",
+                'Authorization': `Bearer ${token}`
+            }
         });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch data");
+        }
 
         const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error('Error fetching device list');
-        }
+        return data;
+    }
 
-        const totalRooms = data.count;
-        const availableRooms = data.available_rooms_count;
+    const page = context.searchParams.page ? context.searchParams.page : 1;
+    const data = await fetchRooms(page);
 
-        const totalPages = Math.ceil(totalRooms / 10);
+    const baseURL = '/dashboard/rooms';
+    const totalRooms = data.count;
+    const availableRooms = data.available_rooms_count;
+    const totalPages = Math.ceil(totalRooms / 10);
+    const rooms: Rooms[] = data.results;
 
-        const rooms: Rooms[] = data.results;
-
-        return (
-            <section className="container mx-auto p-4">
-
-                {/* header */}
-                <div className="flex justify-between items-center">
-                    <div>
-                        <h1 className="text-xl font-semibold">Room List:</h1>
-                        <div className="text-lg font-semibold gap-2">
-                            <span className="font-normal">Total Rooms:</span> <span className="text-primary">{totalRooms}</span>
-                            <span className="font-normal"> | </span>
-                            <span className="font-normal">Current Available Rooms:</span> <span className="text-primary">{availableRooms}</span>
+    return (
+        <div className="flex flex-col">
+            {rooms.length === 0 && (
+                <div className="card text-white">
+                    <div className="card-body">
+                        <h2 className="card-title text-5xl">No rooms available!</h2>
+                        <p className="text-xl">Please Add Room</p>
+                        <div className="card-actions justify-end">
+                            <Link href="/dashboard/rooms/add">
+                                <button className="btn btn-primary">Add Room</button>
+                            </Link>
                         </div>
                     </div>
-
-                    {/* add room button */}
-                    <Link href="/dashboard/rooms/add">
-                        <button className="btn btn-primary">Add Room</button>
-                    </Link>
                 </div>
+            )}
 
-                {/* room list */}
-                {rooms.length === 0 && (
-                    <div className="card bg-blue-500 text-white">
-                        <div className="card-body">
-                            <h2 className="card-title text-5xl">No rooms available!</h2>
-                            <p className="text-xl">Please Add Room</p>
-                            <div className="card-actions justify-end">
-                                <Link href="/dashboard/rooms/add">
-                                    <button className="btn btn-primary">Add Room</button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* room list */}
-                <ul role="list" className="grid grid-cols-1 gap-4 mt-4">
-                    {rooms.map((room) => (
-                        <li key={room.id}>
-                            <RoomCard {...room} />
-                        </li>
-                    ))}
-                </ul>
-
-                {/* pagination */}
-                <div className="flex justify-end mb-2 mt-2">
-                    <Pagination totalPages={totalPages} baseURL={baseURL} />
-                </div>
-
-            </section>
-        );
-    } catch (error) {
-        return (
-            <div className="flex items-center justify-center">
-                <div className="rounded-lg p-40 shadow-lg text-center">
-                    <h1 className="text-3xl font-bold text-red-600">
-                        {(error as Error).message == "fetch failed" ? "Error fetching details" : "Not found ! "}
-                    </h1>
+            <div className="flex flex-row items-center">
+                <h1 className="p-2 text-2xl font-semibold whitespace-nowrap">Room List</h1>
+                <div className="flex flex-wrap gap-2 p-2 place-content-end">
+                    <p className="font-normal">
+                        Total Rooms: <span className="text-primary">{totalRooms}</span>
+                    </p>
+                    <p className="font-normal">Currently Available Rooms: <span className="text-primary">{availableRooms}</span>
+                    </p>
                 </div>
             </div>
-        );
-    }
+
+            <div className="overflow-x-auto mb-16">
+                <table className="table">
+                    <thead>
+                        <tr className="text-base">
+                            <th>ID</th>
+                            <th>Floor</th>
+                            <th>Label</th>
+                            <th>Type</th>
+                            <th>Capacity</th>
+                            <th>Is Available</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rooms.map(room => (
+                            <tr className='whitespace-nowrap' key={room.id}>
+                                <td>{room.id}-{room.floor}{room.room_label}</td>
+                                <td>{room.floor}</td>
+                                <td>{room.room_label}</td>
+                                <td>{room.room_type.room_type}</td>
+                                <td>{room.capacity}</td>
+                                <td>
+                                    <button
+                                        className="btn btn-sm rounded-sm"
+                                        disabled={!room.is_available}
+                                    >{room.is_available ? 'Book Now' : 'Unavailable'}</button>
+                                </td>
+                                <td>
+                                    <Link href={`/dashboard/rooms/${room.id}`}>
+                                        <FileSymlink />
+                                    </Link>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="fixed bottom-4 right-4">
+                <Pagination baseURL={baseURL} totalPages={totalPages} />
+            </div>
+        </div>
+    )
 }

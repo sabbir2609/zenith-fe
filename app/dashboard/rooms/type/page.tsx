@@ -1,3 +1,4 @@
+import { Pencil, Trash } from "lucide-react";
 import { cookies } from "next/headers";
 
 interface RoomType {
@@ -6,59 +7,67 @@ interface RoomType {
     description: string;
 }
 
-async function fetchRoomTypes() {
-    const cookieStore = cookies()
-    const token = cookieStore.get('access')?.value
-
-    if (!token) {
-        throw new Error("You are not logged in");
-    }
-
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/room-types/`, {
-        cache: "no-cache",
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
-        }
-    });
-
-    if (!response.ok) {
-        throw new Error("Failed to fetch data");
-    }
-
-    return await response.json();
-}
-
 export default async function Page() {
-    let room_types: RoomType[] = [];
 
-    try {
-        room_types = await fetchRoomTypes();
-    } catch (error) {
-        return (
-            <section className='grid content-center'>
-                <h1>{(error as Error).message}</h1>
-            </section>
-        );
+    async function fetchRoomTypes() {
+        const cookieStore = cookies()
+        const token = cookieStore.get('access')?.value
+
+        if (!token) {
+            throw new Error("You are not logged in");
+        }
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/room-types/`, {
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch data");
+        }
+
+        const data = await response.json();
+
+        return data;
     }
+
+    const room_types: RoomType[] = await fetchRoomTypes();
 
     return (
-        <section className='grid content-center'>
-            <h2 className="text-2xl font-semibold font-mono mb-4 text-primary">
-                Room Types
-            </h2>
-            {Array.isArray(room_types) ? (
-                room_types.map((room_type) => (
-                    <div key={room_type.id} className="card bg-base-100 shadow-sm border mb-2">
-                        <div className="card-body">
-                            <h5 className="card-title">{room_type.room_type}</h5>
-                            <p className="card-text">{room_type.description}</p>
-                        </div>
-                    </div>
-                ))
-            ) : (
-                <h1>Invalid data received from the server</h1>
-            )}
-        </section>
+        <div className="flex flex-col">
+            <h1 className="p-2 text-2xl font-semibold">Room Types:</h1>
+            <table className="table">
+                <thead>
+                    <tr className="text-base">
+                        <th>ID</th>
+                        <th>Room Type</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {room_types.map((room_type: RoomType) => (
+                        <tr key={room_type.id}>
+                            <td>{room_type.id}</td>
+                            <td>{room_type.room_type}</td>
+                            <td>{room_type.description}</td>
+                            <td>
+                                <div className="join join-vertical lg:join-horizontal items-center">
+                                    <button className="btn btn-sm join-item">
+                                        <Pencil size={18} />
+                                    </button>
+                                    <button className="btn btn-sm join-item">
+                                        <Trash size={18} />
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 }
