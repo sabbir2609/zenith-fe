@@ -37,15 +37,19 @@ export default function Sidebar() {
     ]
 
     const menuItemsOne = {
-        "Customer": {
+        "Users": {
             "icon": <UsersRound size={20} className="inline-block" />,
             "customerGroups": {
-                "title": "Guests",
-                "link": "/dashboard/customers/guests"
+                "title": "Users",
+                "link": "/dashboard/users"
             },
-            "allCustomers": {
-                "title": "All Customers",
-                "link": "/dashboard/customers"
+            "guests": {
+                "title": "Guests",
+                "link": "/dashboard/users/guests"
+            },
+            "allCustomer": {
+                "title": "Customers",
+                "link": "/dashboard/customers/types"
             },
             "customerTypes": {
                 "title": "Customer Types",
