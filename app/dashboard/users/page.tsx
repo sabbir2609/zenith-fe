@@ -98,7 +98,7 @@ export default function Users() {
 
     return (
         <div className="flex flex-col">
-            <h1 className="p-2 text-2xl font-semibold">Reservations</h1>
+            <h1 className="p-2 text-2xl font-semibold">User List</h1>
 
             <div className="overflow-x-auto mb-16">
                 <table className="table w-full">
@@ -116,16 +116,14 @@ export default function Users() {
                         {users.map(user => (
                             <tr key={user.id}>
                                 <td>{user.id}</td>
-                                <td>{user.first_name} {user.last_name}</td>
+                                <td className="whitespace-nowrap">{user.first_name} {user.last_name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.username}</td>
                                 <td>{user.phone_number}</td>
                                 <td>
-                                    <td>
-                                        <Link href={`/dashboard/users/${user.id}`}>
-                                            <FileSymlink />
-                                        </Link>
-                                    </td>
+                                    <Link href={`/dashboard/users/${user.id}`}>
+                                        <FileSymlink />
+                                    </Link>
                                 </td>
                             </tr>
                         ))}
