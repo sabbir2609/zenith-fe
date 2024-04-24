@@ -1,0 +1,1 @@
+export { default as fetchRooms } from './fetch-room-data';

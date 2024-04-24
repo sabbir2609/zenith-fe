@@ -21,7 +21,7 @@ export default function RegisterForm() {
             labelId: "first_name",
             type: "text",
             value: first_name,
-            placeholder: "ie: John",
+            placeholder: "John",
             required: true
         },
         {
@@ -29,7 +29,7 @@ export default function RegisterForm() {
             labelId: "last_name",
             type: "text",
             value: last_name,
-            placeholder: "ie: Smith",
+            placeholder: "Smith",
             required: true
         },
         {
@@ -37,7 +37,7 @@ export default function RegisterForm() {
             labelId: "email",
             type: "text",
             value: email,
-            placeholder: "ie: john.smith@example.com",
+            placeholder: "john.smith@example.com",
             required: true
         },
         {

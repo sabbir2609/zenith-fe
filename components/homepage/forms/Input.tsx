@@ -72,10 +72,10 @@ export default function Input({
                 {type === 'password' && (
                     <button
                         type="button"
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 me-2 btn btn-sm btn-circle"
+                        className="absolute inset-y-0 right-0 flex items-center px-3 text-sm font-semibold text-gray-600 hover:text-gray-400 focus:outline-none"
                         onClick={toggleShowPassword}
                     >
-                        {showPassword ? <IoEyeOff size={20} /> : <IoEye size={25} />}
+                        {showPassword ? "Hide" : "Show"}
                     </button>
                 )}
             </div>

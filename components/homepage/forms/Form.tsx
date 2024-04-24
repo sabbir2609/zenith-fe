@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent } from "react";
 import { Input } from "@/components/homepage/forms";
 import { Spinner } from "@/components/utils";
+import Link from "next/link";
 
 interface Config {
 	labelText: string;
@@ -49,14 +50,17 @@ export default function Form({
 
 			))}
 
-			<div>
+			<div className="flex flex-row justify-between">
 				<button
 					type="submit"
-					className="btn btn-block font-semibold"
+					className="btn w-1/2 font-semibold"
 					disabled={isLoading}
 				>
 					{isLoading ? <Spinner sm /> : `${btnText}`}
 				</button>
+				<Link href="/" className="btn font-semibold">
+					Cancel
+				</Link>
 			</div>
 
 		</form>

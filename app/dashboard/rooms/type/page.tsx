@@ -1,3 +1,4 @@
+import { Button } from "@/components/dashboard/ui";
 import { Pencil, Trash } from "lucide-react";
 import { cookies } from "next/headers";
 
@@ -5,6 +6,13 @@ interface RoomType {
     id: number;
     room_type: string;
     description: string;
+}
+
+export function generateMetadata() {
+    return {
+        title: 'Room Types',
+        description: 'Manage room types',
+    }
 }
 
 export default async function Page() {
@@ -34,6 +42,30 @@ export default async function Page() {
         return data;
     }
 
+    async function deleteRoomType(id: number) {
+        const cookieStore = cookies()
+        const token = cookieStore.get('access')?.value
+
+        if (!token) {
+            throw new Error("You are not logged in");
+        }
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/room-types/${id}/`, {
+            method: "DELETE",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to delete room type");
+        }
+
+        return Promise.resolve();
+    }
+
     const room_types: RoomType[] = await fetchRoomTypes();
 
     return (
@@ -59,9 +91,9 @@ export default async function Page() {
                                     <button className="btn btn-sm join-item">
                                         <Pencil size={18} />
                                     </button>
-                                    <button className="btn btn-sm join-item">
+                                    <Button className="btn btn-sm join-item">
                                         <Trash size={18} />
-                                    </button>
+                                    </Button>
                                 </div>
                             </td>
                         </tr>

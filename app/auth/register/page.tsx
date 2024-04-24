@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { RegisterForm } from "@/components/homepage/forms";
 import { Metadata } from "next";
-import { CloseButton } from "@/components/common";
 
 export const metadata: Metadata = {
   title: "Zenith | Register",
@@ -10,8 +9,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="relative p-2 flex flex-col justify-center ">
-      <CloseButton url="/" />
+    <div className="flex flex-col justify-center max-h-full">
       <div className="w-full mt-4 p-6 m-auto  rounded-md shadow-md ring-2 ring-gray-800/50 lg:max-w-xl">
         <h1 className="text-3xl font-semibold text-center">Register</h1>
 

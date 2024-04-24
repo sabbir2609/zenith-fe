@@ -12,8 +12,10 @@ export const metadata: Metadata = {
 
 export default function DashboardLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
 
@@ -41,6 +43,7 @@ export default function DashboardLayout({
         <div className="px-1">
 
           {children}
+          {modal}
 
         </div>
 

@@ -54,12 +54,12 @@ export default async function RoomsPage(context: any) {
 
     const page = context.searchParams.page ? context.searchParams.page : 1;
     const data = await fetchRooms(page);
+    const rooms: Rooms[] = data.results;
 
     const baseURL = '/dashboard/rooms';
     const totalRooms = data.count;
     const availableRooms = data.available_rooms_count;
     const totalPages = Math.ceil(totalRooms / 10);
-    const rooms: Rooms[] = data.results;
 
     return (
         <div className="flex flex-col">
@@ -77,7 +77,7 @@ export default async function RoomsPage(context: any) {
                 </div>
             )}
 
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center justify-between">
                 <h1 className="p-2 text-2xl font-semibold whitespace-nowrap">Room List</h1>
                 <div className="flex flex-wrap gap-2 p-2 place-content-end">
                     <p className="font-normal">
@@ -86,6 +86,12 @@ export default async function RoomsPage(context: any) {
                     <p className="font-normal">Currently Available Rooms: <span className="text-primary">{availableRooms}</span>
                     </p>
                 </div>
+            </div>
+
+            <div className="flex flex-row items-center justify-end me-6">
+                <Link href="/dashboard/rooms/new">
+                    <button className="btn btn-sm rounded-sm btn-primary">Add Room</button>
+                </Link>
             </div>
 
             <div className="overflow-x-auto mb-16">
