@@ -1,69 +1,131 @@
-"use client";
-
-import { useState } from 'react';
+import { Fetch, Post } from '@/app/lib';
+import Loading from '@/app/loading';
+import { redirect } from 'next/navigation';
 
 interface Room {
     floor: number;
     room_label: string;
-    room_type: string;
+    room_type: number;
     capacity: number;
     description: string;
     is_available: boolean;
 }
 
-export default function AddRoomPage() {
-    const [room, setRoom] = useState<Partial<Room>>({});
+export default async function AddRoomPage() {
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setRoom({
-            ...room,
-            [event.target.name]: event.target.value,
-        });
-    };
+    const floors = await Fetch({ endpoint: 'main/floors/' });
+    const roomTypes = await Fetch({ endpoint: 'main/room-types/' });
 
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        // Handle form submission
-    };
+    if (!floors || !roomTypes) {
+        return <Loading />;
+    }
+
+    async function createRoom(formData: FormData) {
+        'use server'
+
+        const room: Room = {
+            floor: Number(formData.get('floor')),
+            room_label: formData.get('room_label') as string,
+            room_type: Number(formData.get('room_type')),
+            capacity: Number(formData.get('capacity')),
+            description: formData.get('description') as string,
+            is_available: formData.get('is_available') === '1',
+        };
+
+        const response = await Post('main/rooms/', room);
+
+        if (!response) {
+            <Loading />
+        }
+
+        if (response.ok) {
+            const { id } = await response.json();
+            console.log('Room created successfully');
+            redirect(`/dashboard/rooms/${id}`)
+        } else {
+            console.error('Failed to create room');
+            throw new Error('Failed to create Room');
+        }
+    }
 
     return (
         <div className="flex items-center justify-center">
-            <form onSubmit={handleSubmit} className="space-y-4 p-2 w-full lg:w-1/2">
-                <div>
-                    <label htmlFor="floor" className="block text-sm font-medium text-gray-700">Floor</label>
-                    <select id="floor" name="floor" onChange={handleInputChange} className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
+            <form className="space-y-2 p-2 w-full lg:w-1/2" action={createRoom}>
+                <div className="flex flex-row gap-2">
+
+                    <label className="form-control w-full">
+                        <div className="label">
+                            <span className="label-text">Floor</span>
+                        </div>
+                        <select name='floor' className="select select-bordered w-full">
+                            {floors.map((floor: { id: number, level: number }) => (
+                                <option key={floor.id} value={floor.id}>{floor.level}</option>
+                            ))}
+                        </select>
+                    </label>
+
+                    <label className="form-control w-full">
+                        <div className="label">
+                            <span className="label-text">Room Type</span>
+                        </div>
+                        <select name='room_type' className="select select-bordered w-full">
+                            {roomTypes.map((roomType: { id: number, room_type: string }) => (
+                                <option key={roomType.id} value={roomType.id}>{roomType.room_type}</option>
+                            ))}
+                        </select>
+                    </label>
+
                 </div>
-                <div>
-                    <label htmlFor="room_type" className="block text-sm font-medium text-gray-700">Room Type</label>
-                    <select id="room_type" name="room_type" onChange={handleInputChange} className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option value="single">Single</option>
-                        <option value="double">Double</option>
-                        <option value="suite">Suite</option>
-                    </select>
+
+                <div className="flex flex-row gap-2">
+
+                    <label className="form-control w-full">
+                        <div className="label">
+                            <span className="label-text">Label</span>
+                        </div>
+                        <input
+                            name='room_label'
+                            type="text"
+                            placeholder=""
+                            className="input input-bordered w-full"
+                            maxLength={1}
+                            pattern="[A-Z]"
+                            title="Please enter a single capital letter"
+                        />
+                    </label>
+
+                    <label className="form-control w-full">
+                        <div className="label">
+                            <span className="label-text">Capacity</span>
+                        </div>
+                        <input
+                            name='capacity'
+                            type="number"
+                            placeholder=""
+                            className="input input-bordered w-full"
+                            min={1}
+                            max={10}
+                        />
+                    </label>
+
                 </div>
-                <div>
-                    <label htmlFor="room_label" className="block text-sm font-medium text-gray-700">Room Label</label>
-                    <input type="text" id="room_label" name="room_label" onChange={handleInputChange} className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                </div>
-                <div>
-                    <label htmlFor="capacity" className="block text-sm font-medium text-gray-700">Capacity</label>
-                    <input type="number" id="capacity" name="capacity" onChange={handleInputChange} className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                </div>
-                <div>
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
-                    <textarea id="description" name="description" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
-                </div>
-                <div>
-                    <div className="flex items-center">
-                        <input id="is_available" name="is_available" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
-                        <label htmlFor="is_available" className="ml-2 block text-sm text-gray-900">Is Available</label>
+
+                <label className="form-control w-full">
+                    <div className="label">
+                        <span className="label-text">Description</span>
                     </div>
+                    <textarea name='description' placeholder="" className="textarea textarea-bordered w-full"></textarea>
+                </label>
+
+                <div className="flex flex-row justify-between">
+                    <label className="cursor-pointer form-control">
+                        <div className="label">
+                            <span className="label-text">Is Available</span>
+                        </div>
+                        <input name="is_available" value="1" type="checkbox" className="toggle toggle-primary" />
+                    </label>
+                    <button type="submit" className="btn rounded-sm btn-primary mt-3">Submit</button>
                 </div>
-                <button type="submit" className="mt-3 btn btn-primary">Submit</button>
             </form>
         </div>
     );

@@ -1,6 +1,9 @@
+"use server"
+
 import { cookies } from "next/headers";
 
-export default async function fetchRooms() {
+export default async function Fetch({ endpoint }: { endpoint: string }) {
+    'use server';
     const cookieStore = cookies()
     const token = cookieStore.get('access')?.value
 
@@ -8,7 +11,7 @@ export default async function fetchRooms() {
         throw new Error("You are not logged in");
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/rooms/`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/${endpoint}`, {
         cache: "no-cache",
         headers: {
             "Content-Type": "application/json",

@@ -115,8 +115,8 @@ export default function Navbar() {
             <div className="w-10 rounded-full">
               <Image
                 alt="User Profile Pic"
-                width={200}
-                height={200}
+                width={48}
+                height={48}
                 src={userIcon}
               />
             </div>

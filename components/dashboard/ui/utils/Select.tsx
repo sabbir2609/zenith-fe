@@ -1,16 +1,19 @@
 interface SelectProps {
     selectedOption: string;
-    onOptionChange: (option: string) => void;
+    onOptionChange?: (option: string) => void; // Make this optional
     options: string[];
+    style?: string;
 }
 
-export default function Select({ selectedOption, onOptionChange, options }: SelectProps) {
+export default function Select({ selectedOption, onOptionChange, options, style }: SelectProps) {
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        onOptionChange(e.target.value);
+        if (onOptionChange) {
+            onOptionChange(e.target.value);
+        }
     }
 
     return (
-        <select className="select select-md rounded-sm" value={selectedOption} onChange={handleChange}>
+        <select className={`select ${style}`} value={selectedOption} onChange={handleChange}>
             {options.map(option => (
                 <option key={option} value={option}>{option}</option>
             ))}

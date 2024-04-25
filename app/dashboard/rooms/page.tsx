@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { cookies } from 'next/headers'
 import { Pagination } from '@/components/dashboard/common';
 import { FileSymlink } from 'lucide-react';
+import { Fetch } from '@/app/lib';
 
 interface RoomType {
     id: number;
@@ -27,39 +28,15 @@ export function generateMetadata() {
 }
 
 export default async function RoomsPage(context: any) {
-    async function fetchRooms(page: number) {
-        const cookieStore = cookies()
-        const token = cookieStore.get('access')?.value
-
-        if (!token) {
-            throw new Error("You are not logged in");
-        }
-
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/rooms/?page=${page}`, {
-            cache: "no-cache",
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to fetch data");
-        }
-
-        const data = await response.json();
-
-        return data;
-    }
-
     const page = context.searchParams.page ? context.searchParams.page : 1;
-    const data = await fetchRooms(page);
+    const data = await Fetch({ endpoint: `main/rooms/?page=${page}` });
     const rooms: Rooms[] = data.results;
 
     const baseURL = '/dashboard/rooms';
     const totalRooms = data.count;
     const availableRooms = data.available_rooms_count;
     const totalPages = Math.ceil(totalRooms / 10);
+
 
     return (
         <div className="flex flex-col">
@@ -136,4 +113,4 @@ export default async function RoomsPage(context: any) {
             </div>
         </div>
     )
-}
+} 

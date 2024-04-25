@@ -22,7 +22,7 @@ export default function Error({
                 <div>
                     <Image className="mx-auto w-auto" src={errorImage} alt="Workflow" />
                     <h2 className="mt-6 text-center text-3xl font-extrabold">
-                        Something went wrong!
+                        {error.message}
                     </h2>
                 </div>
                 <div>
