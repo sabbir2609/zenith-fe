@@ -1,31 +1,39 @@
-"use client";
+'use client';
 
-import type { FC, ReactNode } from "react";
-import { useRouter } from "next/navigation";
+import { type ElementRef, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { createPortal } from 'react-dom';
+import { CircleX } from 'lucide-react';
 
-interface ModalProps {
-    children: ReactNode;
-}
-
-const Modal: FC<ModalProps> = ({ children }) => {
+export function Modal({ children }: { children: React.ReactNode }) {
     const router = useRouter();
+    const dialogRef = useRef<ElementRef<'dialog'>>(null);
 
-    const handleOnOpenChange = (open: boolean) => {
-        if (!open) {
-            router.back();
+    useEffect(() => {
+        if (!dialogRef.current?.open) {
+            dialogRef.current?.showModal();
         }
-    };
+    }, []);
 
-    return (
-        <dialog id="my_modal" className="modal">
-            <div className="modal-box">
-                {children}
-            </div>
-            <form method="dialog" className="modal-backdrop">
-                <button>close</button>
-            </form>
-        </dialog>
+    function onDismiss() {
+        router.back();
+    }
+
+    return createPortal(
+        <div className="modal">
+            <dialog ref={dialogRef} className="modal" onClose={onDismiss}>
+                <div className="modal-box">
+                    <div>
+                        <button onClick={onDismiss} className="btn btn-sm btn-ghost btn-circle">
+                            <CircleX />
+                        </button>
+                    </div>
+                    <div className="mt-4">
+                        {children}
+                    </div>
+                </div>
+            </dialog>
+        </div>,
+        document.getElementById('modal-root')!
     );
-};
-
-export default Modal;
+}

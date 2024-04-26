@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import Image from 'next/image';
 import { Carousel } from '@/components/dashboard/ui';
+import { Fetch } from '@/app/lib';
 
 interface RoomType {
     id: number;
@@ -46,33 +47,9 @@ export function generateMetadata() {
 export default async function roomDetailPage(
     { params }: { params: { id: number } }
 ) {
-    const cookieStore = cookies()
-    const token = cookieStore.get('access')?.value
-
-    if (!token) {
-        return <h1>You are not logged in</h1>
-    }
-
-    const id = params.id
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/rooms/${id}`, {
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        "cache": "no-cache"
-    })
-
-
-    if (!response.ok) {
-        return (
-            <h1 className="text-red-500">Error fetching room </h1>
-        )
-    }
-
-    const room: Room = await response.json()
-
+    const room: Room = await Fetch({ endpoint: `main/rooms/${params.id}/` });
     return (
-        <section className='container mx-auto mb-2'>
+        <div className='container mx-auto mb-2'>
 
             <h1 className="text-3xl font-mono mb-3">
                 Room Details for {room.floor} | {room.room_label}
@@ -114,7 +91,7 @@ export default async function roomDetailPage(
 
             </div>
 
-        </section>
+        </div>
 
     )
 }

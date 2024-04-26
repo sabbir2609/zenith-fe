@@ -10,9 +10,14 @@ interface RoomType {
     price: string;
 }
 
+interface Floor {
+    id: number;
+    level: number;
+}
+
 interface Rooms {
     id: number;
-    floor: number;
+    floor: Floor;
     room_label: string;
     room_type: RoomType;
     capacity: number;
@@ -79,6 +84,7 @@ export default async function RoomsPage(context: any) {
                             <th>Floor</th>
                             <th>Label</th>
                             <th>Type</th>
+                            <th>Price</th>
                             <th>Capacity</th>
                             <th>Is Available</th>
                             <th>Action</th>
@@ -87,10 +93,11 @@ export default async function RoomsPage(context: any) {
                     <tbody>
                         {rooms.map(room => (
                             <tr className='whitespace-nowrap' key={room.id}>
-                                <td>{room.id}-{room.floor}{room.room_label}</td>
-                                <td>{room.floor}</td>
+                                <td>{room.id}-{room.floor.level}{room.room_label}</td>
+                                <td>{room.floor.level}</td>
                                 <td>{room.room_label}</td>
                                 <td>{room.room_type.room_type}</td>
+                                <td>{room.room_type.price}</td>
                                 <td>{room.capacity}</td>
                                 <td>
                                     <button
