@@ -29,16 +29,18 @@ export default function ActivePersonCard() {
     const totalEmployees = 56;
 
     return (
-        <div className="avatar-group -space-x-6 rtl:space-x-reverse h-12 me-2">
+        <div className="avatar-group -space-x-6 rtl:space-x-reverse pe-2">
             {employees.map((employee) => {
                 return (
                     <div key={employee.id} className="avatar">
-                        <Image src={employee.avatar} alt={employee.name} />
+                        <div className="w-12">
+                            <Image src={employee.avatar} alt={employee.name} height={48} width={48} />
+                        </div>
                     </div>
                 );
             })}
             <div className="avatar placeholder">
-                <div className="bg-neutral text-neutral-content">
+                <div className="w-12 bg-neutral text-neutral-content">
                     <span>
                         {totalEmployees}
                     </span>

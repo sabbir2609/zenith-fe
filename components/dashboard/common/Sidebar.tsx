@@ -1,4 +1,4 @@
-import { Airplay, Bath, CalendarCheck2, ChevronRight, HandPlatter, HelpCircle, LayoutDashboard, LogOut, NotebookPen, Search, Settings2, UsersRound, } from "lucide-react";
+import { Airplay, Bath, Building2, CalendarCheck2, ChevronRight, CircleCheckBig, Fence, HandPlatter, HelpCircle, LayoutDashboard, LogOut, NotebookPen, Search, Settings2, UserRoundCog, UsersRound, Warehouse, } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -37,12 +37,9 @@ export default function Sidebar() {
     ]
 
     const menuItemsOne = {
+
         "Accounts": {
             "icon": <UsersRound size={20} className="inline-block" />,
-            "userTypes": {
-                "title": "User Types",
-                "link": "/dashboard/customers/types"
-            },
             "users": {
                 "title": "Users",
                 "link": "/dashboard/users"
@@ -52,6 +49,19 @@ export default function Sidebar() {
                 "link": "/dashboard/users/guests"
             }
         },
+
+        "Tasks": {
+            "icon": <CircleCheckBig size={20} className="inline-block" />,
+            "addTask": {
+                "title": "New Task",
+                "link": "/dashboard/tasks/new"
+            },
+            "allTasks": {
+                "title": "All Tasks",
+                "link": "/dashboard/tasks"
+            }
+        },
+
         "Devices": {
             "icon": <Airplay size={20} className="inline-block" />,
             "deviceTypes": {
@@ -72,6 +82,18 @@ export default function Sidebar() {
             }
         },
 
+        "Floors": {
+            "icon": <Building2 size={20} className="inline-block" />,
+            "addFloor": {
+                "title": "New Floor",
+                "link": "/dashboard/floors/new"
+            },
+            "allFloors": {
+                "title": "All Floors",
+                "link": "/dashboard/floors"
+            }
+        },
+
         "Rooms": {
             "icon": <Bath size={20} className="inline-block" />,
             "roomTypes": {
@@ -83,6 +105,47 @@ export default function Sidebar() {
                 "link": "/dashboard/rooms"
             },
         },
+
+        "Facilities": {
+            "icon": <Fence size={20} className="inline-block" />,
+            "addFacility": {
+                "title": "Add Facility ",
+                "link": "/dashboard/facilities/new"
+            },
+            "allFacilities": {
+                "title": "All Facilities",
+                "link": "/dashboard/facilities"
+            },
+        },
+
+        "Inventory": {
+            "icon": <Warehouse size={20} className="inline-block" />,
+            "addInventory": {
+                "title": "Add Inventory",
+                "link": "/dashboard/inventory/new"
+            },
+            "Inventory": {
+                "title": "Inventory",
+                "link": "/dashboard/inventory"
+            }
+        },
+
+        "Staff Management": {
+            "icon": <UserRoundCog size={20} className="inline-block" />,
+            "addStaff": {
+                "title": "Add Staff",
+                "link": "/dashboard/staffs/new"
+            },
+            "allStaff": {
+                "title": "All Staff",
+                "link": "/dashboard/staffs"
+            },
+            "Roles": {
+                "title": "Roles",
+                "link": "/dashboard/staffs/roles"
+            }
+        },
+
         "Restaurant": {
             "icon": <HandPlatter size={20} className="inline-block" />,
             "reservation": {

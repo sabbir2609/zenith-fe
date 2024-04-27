@@ -84,7 +84,7 @@ export default function ReservationChart({
                         margin={{
                             top: 5,
                             right: 10,
-                            left: 0,
+                            left: -30,
                             bottom: 5,
                         }}
                     >

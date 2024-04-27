@@ -25,6 +25,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+}
+
 .parallax {
   transform: translateZ(0);
   background-size: 100% auto;

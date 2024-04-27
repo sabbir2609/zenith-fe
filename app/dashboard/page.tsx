@@ -3,7 +3,7 @@ import { ActivePersonCard, AlertDisplay, CustomerSatisfaction, DateTimeDisplay, 
 export default function Page() {
     return (
         <>
-            <div className="flex flex-wrap justify-between items-center mb-2 rounded-sm border border-1 shadow-sm">
+            <div className="flex flex-row justify-between items-center mb-2 rounded-sm border border-1 shadow-sm">
                 <DateTimeDisplay />
                 <ActivePersonCard />
             </div>

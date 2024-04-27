@@ -1,7 +1,8 @@
+
 export default function Page() {
     return (
         <div>
-            <h1>Page</h1>
+            This is dashboard\guests\[id]\edit page
         </div>
-    )
+    );
 }

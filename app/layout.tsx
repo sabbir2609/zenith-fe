@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <SpeedInsights />
-      <body className={inter.className}>
+      <body className={`!scroll-smooth ${inter.className}`}>
         <Provider>
           <Setup />
           {children}
