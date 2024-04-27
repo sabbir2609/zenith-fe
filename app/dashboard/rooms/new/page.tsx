@@ -87,7 +87,7 @@ export default async function AddRoomPage() {
                             name='room_label'
                             type="text"
                             placeholder=""
-                            className="input input-bordered w-full"
+                            className="input input-bordered w-full uppercase"
                             maxLength={1}
                             pattern="[A-Z]"
                             title="Please enter a single capital letter"

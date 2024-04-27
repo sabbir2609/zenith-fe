@@ -1,7 +1,14 @@
-import { cookies } from 'next/headers'
 import Image from 'next/image';
 import { Carousel } from '@/components/dashboard/ui';
 import { Fetch } from '@/app/lib';
+import { CircleCheck, CircleX } from 'lucide-react';
+import Link from 'next/link';
+
+interface Floor {
+    id: number;
+    level: number;
+    description: string;
+}
 
 interface RoomType {
     id: number;
@@ -26,7 +33,7 @@ interface Amenity {
 
 interface Room {
     id: number;
-    floor: number;
+    floor: Floor;
     room_label: string;
     room_type: RoomType;
     capacity: number;
@@ -48,50 +55,73 @@ export default async function roomDetailPage(
     { params }: { params: { id: number } }
 ) {
     const room: Room = await Fetch({ endpoint: `main/rooms/${params.id}/` });
+
     return (
-        <div className='container mx-auto mb-2'>
-
-            <h1 className="text-3xl font-mono mb-3">
-                Room Details for {room.floor} | {room.room_label}
-            </h1>
-
-            <div className="grid lg:grid-cols-2 md:grid-cols-2 gap-6">
-
-                <Carousel images={room.images} />
-
-                <div className="container">
-
-                    <div className="mb-2">
-                        <p className="text-primary font-medium mb-1">
-                            {room.room_type.room_type}
-                        </p>
-                        <p className="text-lg font-semibold">
-                            Floor: {room.floor}
-                        </p>
-                        <p className="text-xl font-bold mb-2">
-                            Label: {room.room_label}
-                        </p>
-                        <div className="mt-2">
-                            <p className="text-lg font-semibold">Capacity: {room.capacity}</p>
-                        </div>
+        <div className="container">
+            <div className="p-4 shadow-sm rounded-sm mb-2">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+                    <div className="flex flex-col">
+                        <Carousel images={room.images} />
                     </div>
+                    <div className="flex flex-col justify-between gap-2 px-2">
 
-                    <details className="collapse border collapse-plus mb-2 border-gray-200 rounded-md shadow-sm">
-                        <summary className="collapse-title text-lg font-semibold cursor-pointer">Description</summary>
-                        <p className="collapse-content text-sm">{room.description}</p>
-                    </details>
+                        <div className="flex flex-col gap-2">
+                            <h2 className="text-xl font-bold"><span>Label: </span>{room.room_label}</h2>
+                            <p className="text-lg"><span className='font-semibold'>Floor:</span> {room.floor.level}</p>
+                            <p className="text-lg"><span className='font-semibold'>Room Type:</span> {room.room_type.room_type}</p>
+                            <p className="text-lg"><span className='font-semibold'>Capacity:</span> {room.capacity}</p>
+                            <p className="text-lg"><span className='font-semibold'>Price:</span> {room.room_type.price}</p>
+                        </div>
 
-                    <div className="divider"></div>
+                        <div className="flex flex-col gap-2 py-2">
+                            <h1 className='text-lg font-semibold'>
+                                Actions
+                            </h1>
+                            <div className='flex flex-row justify-between gap-2'>
+                                <div className='flex gap-2'>
+                                    <button className='btn btn-primary rounded-sm'>
+                                        {room.is_available ? 'Book Now' : 'Not Available'}
+                                    </button>
+                                    <button className='btn btn-secondary rounded-sm'>
+                                        Check Availability
+                                    </button>
+                                </div>
+                                <Link href={`/dashboard/rooms/${room.id}/edit`} className='btn btn-accent rounded-sm me-5'>
+                                    Edit
+                                </Link>
+                            </div>
+                        </div>
 
-                    <button className="btn btn-primary">
-                        Check Availability
-                    </button>
-
+                    </div>
                 </div>
-
+                <div>
+                    <h2 className="text-xl font-bold py-2">Description</h2>
+                    <p className="text-lg">{room.description}</p>
+                </div>
             </div>
-
+            <div className="p-4 shadow-sm rounded-sm border border-indigo-500 mb-2">
+                <h2 className="text-xl font-bold py-2">Amenities</h2>
+                <div className="overflow-x-auto">
+                    <table className="table">
+                        <thead>
+                            <tr className='bg-base-200'>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Available</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {room.amenities.map((amenity: Amenity) => (
+                                <tr key={amenity.id}>
+                                    <td>{amenity.title}</td>
+                                    <td>{amenity.description}</td>
+                                    <td>{amenity.is_available ? <CircleCheck className='text-success' /> : <CircleX className='text-error' />}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-
     )
 }

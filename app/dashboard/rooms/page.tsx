@@ -93,7 +93,7 @@ export default async function RoomsPage(context: any) {
                     <tbody>
                         {rooms.map(room => (
                             <tr className='whitespace-nowrap' key={room.id}>
-                                <td>{room.id}-{room.floor.level}{room.room_label}</td>
+                                <td>{room.id}</td>
                                 <td>{room.floor.level}</td>
                                 <td>{room.room_label}</td>
                                 <td>{room.room_type.room_type}</td>
@@ -106,7 +106,7 @@ export default async function RoomsPage(context: any) {
                                     >{room.is_available ? 'Book Now' : 'Unavailable'}</button>
                                 </td>
                                 <td>
-                                    <Link href={`/dashboard/rooms/${room.id}`}>
+                                    <Link href={`/dashboard/rooms/${room.id}/`}>
                                         <FileSymlink />
                                     </Link>
                                 </td>
