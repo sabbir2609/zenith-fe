@@ -1,4 +1,3 @@
-import { Button } from "@/components/dashboard/ui";
 import { Pencil, Trash } from "lucide-react";
 import { cookies } from "next/headers";
 
@@ -91,9 +90,9 @@ export default async function Page() {
                                     <button className="btn btn-sm join-item">
                                         <Pencil size={18} />
                                     </button>
-                                    <Button className="btn btn-sm join-item">
+                                    <button className="btn btn-sm join-item">
                                         <Trash size={18} />
-                                    </Button>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
