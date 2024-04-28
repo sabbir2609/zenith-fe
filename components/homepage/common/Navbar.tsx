@@ -81,7 +81,7 @@ export default function Navbar() {
     )
 
     return (
-        <div className="navbar sticky top-0 z-10 backdrop-filter backdrop-blur-lg bg-opacity-30">
+        <div className="navbar sticky top-0 z-10 bg-transparent backdrop-filter backdrop-blur-lg bg-opacity-30">
             <div className="navbar-start">
 
                 <div className="dropdown dropdown-hover">
