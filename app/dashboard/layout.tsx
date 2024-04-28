@@ -38,7 +38,7 @@ export default function DashboardLayout({
           capitalizeLinks
         />
 
-        <div className="px-1 min-h-screen">
+        <div className="container">
 
           {children}
 
