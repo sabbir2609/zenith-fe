@@ -1,6 +1,6 @@
-export default function Loading() {
+export default function Page() {
     return (
-        <div className="flex flex-col gap-4 w-full min-h-screen p-10">
+        <div className="flex flex-col gap-4 w-full p-10">
             <div className="skeleton h-32 w-full"></div>
             <div className="skeleton h-4 w-28"></div>
             <div className="skeleton h-4 w-full"></div>
@@ -11,5 +11,6 @@ export default function Loading() {
             <div className="skeleton h-4 w-full"></div>
             <div className="skeleton h-4 w-full"></div>
         </div>
-    )
+
+    );
 }
