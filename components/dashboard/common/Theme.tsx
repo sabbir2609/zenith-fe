@@ -1,64 +1,50 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { themeChange } from "theme-change";
-
-const themes = [
-  "light",
-  "dark",
-  "cupcake",
-  "bumblebee",
-  "emerald",
-  "corporate",
-  "synthwave",
-  "retro",
-  "cyberpunk",
-  "valentine",
-  "halloween",
-  "garden",
-  "forest",
-  "aqua",
-  "lofi",
-  "pastel",
-  "fantasy",
-  "wireframe",
-  "black",
-  "luxury",
-  "dracula",
-  "cmyk",
-  "autumn",
-  "business",
-  "acid",
-  "lemonade",
-  "night",
-  "coffee",
-  "winter",
-];
-
-const CheckmarkSvg = ({ isVisible }: { isVisible: boolean }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className={`${isVisible ? 'visible' : 'invisible'} h-3 w-3 shrink-0`}>
-    <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
-  </svg>
-);
+import { ThemeContext } from "@/context/ThemeContext";
+import React, { useContext } from "react";
 
 export default function Theme() {
-  const [currentTheme, setCurrentTheme] = useState('')
+  const themes = [
+    "light",
+    "dark",
+    "cupcake",
+    "bumblebee",
+    "emerald",
+    "corporate",
+    "synthwave",
+    "retro",
+    "cyberpunk",
+    "valentine",
+    "halloween",
+    "garden",
+    "forest",
+    "aqua",
+    "lofi",
+    "pastel",
+    "fantasy",
+    "wireframe",
+    "black",
+    "luxury",
+    "dracula",
+    "cmyk",
+    "autumn",
+    "business",
+    "acid",
+    "lemonade",
+    "night",
+    "coffee",
+    "winter",
+  ];
 
-  useEffect(() => {
-    const theme = localStorage.getItem('theme');
-    if (themes.includes(theme ?? '')) {
-      setCurrentTheme(theme ?? '');
-    }
-  }, []);
+  const CheckmarkSvg = ({ isVisible }: { isVisible: boolean }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className={`${isVisible ? 'visible' : 'invisible'} h-3 w-3 shrink-0`}>
+      <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
+    </svg>
+  );
 
-  const handleThemeChange = useCallback((theme: string) => {
-    localStorage.setItem('theme', theme);
-    setCurrentTheme(theme);
-  }, []);
+  const currentTheme = localStorage.getItem("theme") || "light";
+  const { changeTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    themeChange(false);
-  }, []);
 
   return (
     <div className="dropdown-content bg-base-200 text-base-content rounded-t-box rounded-b-box top-px max-h-96 h-[70vh] w-56 overflow-y-auto shadow-2xl mt-16">
@@ -67,7 +53,7 @@ export default function Theme() {
           <button
             className="outline-base-content text-start outline-offset-4"
             data-set-theme={value}
-            onClick={() => handleThemeChange(value)}
+            onClick={() => changeTheme(value)}
           >
             <span
               data-theme={value}
