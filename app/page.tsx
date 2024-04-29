@@ -23,7 +23,7 @@ export default function Page() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 md:py-20 p-2"
+      <section id="features" className="py-16 md:py-20 p-2 h-screen justify-center items-center flex flex-col text-white"
         style={{ backgroundImage: "url('/static/image/homepage/bg-2.jpg')" }}
       >
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-white">Key Features</h2>
