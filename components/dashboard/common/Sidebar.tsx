@@ -71,14 +71,6 @@ export default function Sidebar() {
             "allDevices": {
                 "title": "All Devices",
                 "link": "/dashboard/devices"
-            },
-            "roomDevices": {
-                "title": "Room Devices",
-                "link": "#"
-            },
-            "facilityDevices": {
-                "title": "Facility Devices",
-                "link": "#"
             }
         },
 
