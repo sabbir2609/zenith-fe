@@ -45,6 +45,7 @@ export default async function RoomsPage(context: any) {
 
     return (
         <div className="flex flex-col">
+
             {rooms.length === 0 && (
                 <div className="card text-white">
                     <div className="card-body">
@@ -59,27 +60,28 @@ export default async function RoomsPage(context: any) {
                 </div>
             )}
 
-            <div className="flex flex-row items-center justify-between">
-                <h1 className="p-2 text-2xl font-semibold whitespace-nowrap">Room List</h1>
-                <div className="flex flex-wrap gap-2 p-2 place-content-end">
-                    <p className="font-normal">
-                        Total Rooms: <span className="text-primary">{totalRooms}</span>
-                    </p>
-                    <p className="font-normal">Currently Available Rooms: <span className="text-primary">{availableRooms}</span>
-                    </p>
+            <div className="grid grid-cols-2 px-2 pb-2">
+                <div>
+                    <h1 className="text-2xl font-semibold whitespace-nowrap">Room List</h1>
+                    <div className="flex flex-wrap md:gap-2 lg:gap-2">
+                        <p className="font-normal">
+                            Total Rooms: <span className="text-primary">{totalRooms}</span>
+                        </p>
+                        <p className="font-normal whitespace-nowrap">Currently Available Rooms: <span className="text-primary">{availableRooms}</span>
+                        </p>
+                    </div>
                 </div>
-            </div>
-
-            <div className="flex flex-row items-center justify-end me-6">
-                <Link href="/dashboard/rooms/new">
-                    <button className="btn btn-sm rounded-sm btn-primary">Add Room</button>
-                </Link>
+                <div className="justify-self-end">
+                    <Link href="/dashboard/rooms/new" className="btn btn-sm rounded-sm btn-primary">
+                        New Room
+                    </Link>
+                </div>
             </div>
 
             <div className="overflow-x-auto mb-16">
                 <table className="table">
                     <thead>
-                        <tr className="text-base">
+                        <tr className="bg-base-200">
                             <th>ID</th>
                             <th>Floor</th>
                             <th>Label</th>

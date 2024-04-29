@@ -33,7 +33,7 @@ export default function DashboardLayout({
             homeElement={'Home'}
             separator={<span> {"/"} </span>}
             activeClasses='text-amber-500'
-            containerClasses='flex py-5 text-sm'
+            containerClasses='flex py-2 px-1 text-sm'
             listClasses='hover:underline mx-2 font-bold'
             capitalizeLinks
           />

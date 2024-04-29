@@ -1,5 +1,7 @@
+import { Fetch } from "@/app/lib";
 import { Pagination } from "@/components/dashboard/common";
-import { DeviceCard } from "@/components/dashboard/ui";
+import { FileSymlink } from "lucide-react";
+import Link from "next/link";
 
 
 interface Device {
@@ -12,66 +14,101 @@ interface Device {
 }
 
 export default async function Page(context: any) {
-    try {
+    const pageNumber = context.searchParams.page ? context.searchParams.page : 1;
 
-        const pageNumber = context.searchParams.page ? context.searchParams.page : 1;
+    const baseURL = '/dashboard/devices';
 
-        const baseURL = '/dashboard/devices';
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/?page=${pageNumber}`, {
-            cache: "no-cache",
-        });
+    const data = await Fetch({ endpoint: `iot/devices/?page=${pageNumber}` });
 
-        const data = await response.json();
+    const totalDevices = data.count;
+    const activeDevices = data.active_devices_count;
 
-        if (!response.ok) {
-            return (
-                <h1 className="text-red-500">Error fetching device list</h1>
-            );
-        }
+    const totalPages = Math.ceil(totalDevices / 10);
 
-        const totalDevices = data.count;
-        const activeDevices = data.available_rooms_count;
+    const devices: Device[] = data.results;
 
-        const totalPages = Math.ceil(totalDevices / 10);
-
-        const devices: Device[] = data.results;
-
-        return (
-            <div className="grid content-center">
-                {/* header */}
-                <h1 className="text-2xl font-bold ms-4">All Devices</h1>
-                <div className="text-lg font-semibold ms-4 gap-2">
-                    <span className="font-normal">Total Devices:</span> <span className="text-secondary">{totalDevices}</span>
-                    <span className="font-normal"> | </span>
-                    <span className="font-normal">Active Devices:</span> <span className="text-secondary">{activeDevices}</span>
+    return (
+        <div className="flex flex-col">
+            {/* header */}
+            {devices.length === 0 && (
+                <div className="card text-white">
+                    <div className="card-body">
+                        <h2 className="card-title text-5xl">No device available!</h2>
+                        <p className="text-xl">Please Add Device</p>
+                        <div className="card-actions justify-end">
+                            <Link href="/dashboard/devices/add">
+                                <button className="btn btn-primary">Add Device</button>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
+            )}
 
-                {/* devices */}
-                <ul>
-                    {devices.map((device) => (
-                        <li key={device.id} className="p-4">
-                            <DeviceCard device={device} />
-                        </li>
-                    ))}
-                </ul>
-
-                {/* pagination */}
-                <div className="flex justify-center mb-2">
-                    <Pagination totalPages={totalPages} baseURL={baseURL} />
+            <div className="grid grid-cols-2 px-2 pb-2">
+                <div>
+                    <h1 className="text-2xl font-semibold whitespace-nowrap">Device List</h1>
+                    <div className="flex flex-wrap md:gap-2 lg:gap-2">
+                        <p className="font-normal">
+                            Total Devices: <span className="text-primary">{totalDevices}</span>
+                        </p>
+                        <p className="font-normal whitespace-nowrap"> Active Devices: <span className="text-primary">{activeDevices}</span>
+                        </p>
+                    </div>
                 </div>
-
-
-            </div>
-        )
-    } catch (error) {
-        return (
-            <div className="flex items-center justify-center">
-                <div className="rounded-lg p-40 shadow-lg text-center">
-                    <h1 className="text-3xl font-bold text-red-600">
-                        {(error as Error).message == "fetch failed" ? "Error fetching device details" : "Device List not found ! "}
-                    </h1>
+                <div className="justify-self-end">
+                    <Link href="/dashboard/devices/new" className="btn btn-sm rounded-sm btn-primary">
+                        New Device
+                    </Link>
                 </div>
             </div>
-        );
-    }
-}
+
+            {/* devices */}
+            <div className="overflow-x-auto mb-16">
+                <table className="table w-full">
+                    <thead>
+                        <tr className="bg-base-200">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Device Type</th>
+                            <th>Client ID</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {devices.map((device: Device) => (
+                            <tr key={device.id} className="hover">
+                                <td>
+                                    <Link className="text-blue-800 hover:underline hover:text-blue-500" href={`/dashboard/devices/${device.id}`}>
+                                        {device.id}
+                                    </Link>
+                                </td>
+                                <td className="whitespace-nowrap">{device.name}</td>
+                                <td>{device.device_type}</td>
+                                <td>{device.client_id}</td>
+                                <td className="whitespace-nowrap">{device.location}</td>
+                                <td>{device.status ? "Active" : "Inactive"}</td>
+                                <td>
+                                    <div className="flex items-center space-x-2">
+                                        <Link className="hover:underline hover:text-blue-700" href={`/dashboard/devices/${device.id}`}>
+                                            <FileSymlink />
+                                        </Link>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* pagination */}
+            {totalPages > 1 && (
+                <div className="fixed bottom-4 right-4">
+                    <Pagination baseURL={baseURL} totalPages={totalPages} />
+                </div>
+            )}
+
+        </div>
+    )
+} 

@@ -79,7 +79,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                         </table>
                     </div>
                     <div className="mt-4">
-                        <Link href={`/dashboard/devices/${device.id}/edit`} className="btn btn-primary">Edit</Link>
+                        <Link href={`/dashboard/devices/${device.id}/edit`} className="btn btn-sm rounded-sm btn-primary">Edit</Link>
                     </div>
                 </div>
                 <div className="border border-primary rounded-lg shadow-lg p-6 mb-3">

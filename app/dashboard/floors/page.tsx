@@ -13,11 +13,10 @@ export default async function Page() {
     return (
         <div className="flex flex-col">
             <div className="flex items-center justify-between mb-2 px-2">
-                <h1 className="text-3xl font-semibold">Floors List</h1>
-                <p className="text-base-100">List of all floors</p>
+                <h1 className="text-3xl font-semibold">Floor List</h1>
                 <div className="flex justify-end">
                     <Link className="btn btn-sm btn-primary rounded-sm" href="/dashboard/floors/new">
-                        Add Floor
+                        Add New
                     </Link>
                 </div>
             </div>
