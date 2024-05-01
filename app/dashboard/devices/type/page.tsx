@@ -27,10 +27,10 @@ export default async function Page() {
     return (
         <div className="flex flex-col">
             <div className="flex items-center justify-between mb-2 px-2">
-                <h1 className="text-3xl font-semibold">Device Type List</h1>
+                <h1 className="text-2xl font-semibold whitespace-nowrap">Device Type List</h1>
                 <p className="text-base-100">List of all floors</p>
                 <div className="flex justify-end">
-                    <Link className="btn btn-sm btn-primary rounded-sm" href="/dashboard/device/type/new">
+                    <Link className="btn btn-sm btn-primary rounded-sm" href="/dashboard/devices/type/create">
                         Add New
                     </Link>
                 </div>

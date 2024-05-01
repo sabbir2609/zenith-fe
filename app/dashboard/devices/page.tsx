@@ -56,7 +56,7 @@ export default async function Page(context: any) {
                     </div>
                 </div>
                 <div className="justify-self-end">
-                    <Link href="/dashboard/devices/new" className="btn btn-sm rounded-sm btn-primary">
+                    <Link href="/dashboard/devices/create" className="btn btn-sm rounded-sm btn-primary">
                         New Device
                     </Link>
                 </div>
@@ -67,10 +67,9 @@ export default async function Page(context: any) {
                 <table className="table w-full">
                     <thead>
                         <tr className="bg-base-200">
-                            <th>ID</th>
+                            <th>Client ID</th>
                             <th>Name</th>
                             <th>Device Type</th>
-                            <th>Client ID</th>
                             <th>Location</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -80,19 +79,30 @@ export default async function Page(context: any) {
                         {devices.map((device: Device) => (
                             <tr key={device.id} className="hover">
                                 <td>
-                                    <Link className="text-blue-800 hover:underline hover:text-blue-500" href={`/dashboard/devices/${device.id}`}>
-                                        {device.id}
+                                    <Link className="text-blue-800 hover:underline hover:text-blue-500 whitespace-nowrap" href={`/dashboard/devices/${device.id}`}>
+                                        {device.client_id}
                                     </Link>
                                 </td>
                                 <td className="whitespace-nowrap">{device.name}</td>
                                 <td>{device.device_type}</td>
-                                <td>{device.client_id}</td>
-                                <td className="whitespace-nowrap">{device.location}</td>
-                                <td>{device.status ? "Active" : "Inactive"}</td>
+                                <td className="whitespace-nowrap">
+                                    {device.location ? device.location : <span className="text-red-500">Not Set</span>}
+                                </td>
+                                <td>
+                                    {device.status ?
+                                        <span className="text-success">
+                                            Active
+                                        </span>
+                                        :
+                                        <span className="text-error">
+                                            Inactive
+                                        </span>
+                                    }
+                                </td>
                                 <td>
                                     <div className="flex items-center space-x-2">
                                         <Link className="hover:underline hover:text-blue-700" href={`/dashboard/devices/${device.id}`}>
-                                            <FileSymlink />
+                                            <FileSymlink size={20} />
                                         </Link>
                                     </div>
                                 </td>

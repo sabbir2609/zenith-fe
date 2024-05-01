@@ -50,7 +50,7 @@ export default async function AddRoomPage() {
 
     return (
         <div className="flex items-center justify-center">
-            <form className="space-y-2 p-2 w-full lg:w-1/2" action={createRoom}>
+            <form className="space-y-2 p-2 w-full lg:w-2/3" action={createRoom}>
                 <div className="flex flex-row gap-2">
 
                     <label className="form-control w-full">
@@ -124,7 +124,7 @@ export default async function AddRoomPage() {
                         </div>
                         <input name="is_available" value="1" type="checkbox" className="toggle toggle-primary" />
                     </label>
-                    <button type="submit" className="btn rounded-sm btn-primary mt-3">Submit</button>
+                    <button type="submit" className="btn rounded-sm btn-primary mt-3">Create</button>
                 </div>
             </form>
         </div>
