@@ -7,9 +7,10 @@ interface InputProps {
     pattern?: string;
     title?: string;
     label?: string;
+    required?: boolean;
 }
 
-export default function Input({ name, type, placeholder, className, maxLength, pattern, title, label }: InputProps) {
+export default function Input({ name, type, placeholder, className, maxLength, pattern, title, label, required = false }: InputProps) {
     return (
         <label className="form-control w-full">
             {label && (
@@ -25,6 +26,7 @@ export default function Input({ name, type, placeholder, className, maxLength, p
                 maxLength={maxLength}
                 pattern={pattern}
                 title={title}
+                required={required}
             />
         </label>
     );

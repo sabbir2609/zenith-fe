@@ -39,8 +39,8 @@ export default async function CreateDeviceTypePage() {
                 <h1 className="text-2xl font-semibold">Create Device Type</h1>
                 <Input name="name" type="text" label="Name" placeholder="Smart AC" />
                 <TextArea name="description" label="Description" placeholder="Smart Air Conditioner" />
-                <div className="flex justify-end">
-                    <button type="submit" className="btn btn-md btn-primary rounded-sm mt-3">Create</button>
+                <div className="flex justify-end mt-3">
+                    <button type="submit" className="btn btn-md btn-primary rounded-sm">Create</button>
                 </div>
             </form>
         </div>
