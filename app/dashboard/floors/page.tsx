@@ -15,7 +15,7 @@ export default async function Page() {
             <div className="flex items-center justify-between mb-2 px-2">
                 <h1 className="text-3xl font-semibold">Floor List</h1>
                 <div className="flex justify-end">
-                    <Link className="btn btn-sm btn-primary rounded-sm" href="/dashboard/floors/new">
+                    <Link className="btn btn-sm btn-primary rounded-sm" href="/dashboard/floors/create">
                         Add New
                     </Link>
                 </div>

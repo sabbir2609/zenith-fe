@@ -38,9 +38,9 @@ export default function Page() {
     }
 
     return (
-        <div className="flex flex-col p-4">
-            <h1 className="text-3xl font-semibold">New Floor</h1>
-            <form className="form-control space-y-4" action={createFloor}>
+        <div className="flex items-center justify-center">
+            <form className="space-y-2 p-2 w-full md:w-4/5 lg:w-3/4" action={createFloor}>
+                <h1 className="text-2xl font-semibold">Add New Floor</h1>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Level</span>
