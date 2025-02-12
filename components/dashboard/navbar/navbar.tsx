@@ -24,28 +24,23 @@ export default function Navbar() {
         <Separator orientation="vertical" className="mr-2 h-4" />
         <Breadcrumb>
           <BreadcrumbList className="flex items-center">
-            <BreadcrumbItem className="hidden md:block">
-              <BreadcrumbLink asChild>
-                <Link href="/" className="hover:underline">
-                  Home
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            {pathSegments.map((segment, index) => {
-              const href = "/" + pathSegments.slice(0, index + 1).join("/");
-              return (
-                <React.Fragment key={href}>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbLink asChild>
-                      <Link href={href} className="hover:underline capitalize">
-                        {segment}
-                      </Link>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                </React.Fragment>
-              );
-            })}
+            {pathSegments.map((segment, index) => (
+              <React.Fragment key={segment}>
+                {index > 0 && (
+                  <BreadcrumbSeparator className="mx-2" />
+                )}
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link 
+                      href={`/${pathSegments.slice(0, index + 1).join("/")}`}
+                      className="hover:underline capitalize"
+                    >
+                      {segment}
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </React.Fragment>
+            ))}
           </BreadcrumbList>
         </Breadcrumb>
       </div>

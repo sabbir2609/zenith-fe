@@ -2,17 +2,23 @@
 
 import * as React from "react";
 import {
+  LayoutDashboard,
+  CalendarCheck2,
+  UsersRound,
+  CircleCheckBig,
+  Airplay,
+  Building2,
+  Bath,
+  Fence,
+  Warehouse,
+  UserRoundCog,
+  HandPlatter,
+  NotebookPen,
   AudioWaveform,
-  BookOpen,
-  Bot,
   Command,
-  Frame,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
 } from "lucide-react";
+
 
 
 import {
@@ -24,16 +30,17 @@ import {
 } from "@/components/ui/sidebar";
 import { TeamSwitcher } from "./team-switcher";
 import { NavMain } from "./nav-main";
-import { NavProjects } from "./nav-projects";
+// import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
 
-// This is sample data.
 const data = {
+
   user: {
     name: "shadcn",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
+
   teams: [
     {
       name: "Acme Inc",
@@ -51,110 +58,186 @@ const data = {
       plan: "Free",
     },
   ],
+
   navMain: [
     {
-      title: "Playground",
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      title: "Reservations",
+      url: "/dashboard/reservations",
+      icon: CalendarCheck2,
+    },
+    {
+      title: "Accounts",
       url: "#",
-      icon: SquareTerminal,
-      isActive: true,
+      icon: UsersRound,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "Users",
+          url: "/dashboard/users",
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
+          title: "Guests",
+          url: "/dashboard/users/guests",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Tasks",
       url: "#",
-      icon: Bot,
+      icon: CircleCheckBig,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "New Task",
+          url: "/dashboard/tasks/new",
         },
         {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
+          title: "All Tasks",
+          url: "/dashboard/tasks",
         },
       ],
     },
     {
-      title: "Documentation",
+      title: "Devices",
       url: "#",
-      icon: BookOpen,
+      icon: Airplay,
       items: [
         {
-          title: "Introduction",
-          url: "#",
+          title: "Device Types",
+          url: "/dashboard/devices/type",
         },
         {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
+          title: "All Devices",
+          url: "/dashboard/devices",
         },
       ],
     },
     {
-      title: "Settings",
+      title: "Floors",
       url: "#",
-      icon: Settings2,
+      icon: Building2,
       items: [
         {
-          title: "General",
-          url: "#",
+          title: "New Floor",
+          url: "/dashboard/floors/new",
         },
         {
-          title: "Team",
-          url: "#",
+          title: "All Floors",
+          url: "/dashboard/floors",
+        },
+      ],
+    },
+    {
+      title: "Rooms",
+      url: "#",
+      icon: Bath,
+      items: [
+        {
+          title: "Room Types",
+          url: "/dashboard/rooms/type",
         },
         {
-          title: "Billing",
-          url: "#",
+          title: "All Rooms",
+          url: "/dashboard/rooms",
+        },
+      ],
+    },
+    {
+      title: "Facilities",
+      url: "#",
+      icon: Fence,
+      items: [
+        {
+          title: "Add Facility",
+          url: "/dashboard/facilities/new",
         },
         {
-          title: "Limits",
-          url: "#",
+          title: "All Facilities",
+          url: "/dashboard/facilities",
+        },
+      ],
+    },
+    {
+      title: "Inventory",
+      url: "#",
+      icon: Warehouse,
+      items: [
+        {
+          title: "Add Inventory",
+          url: "/dashboard/inventory/new",
+        },
+        {
+          title: "Inventory",
+          url: "/dashboard/inventory",
+        },
+      ],
+    },
+    {
+      title: "Staff Management",
+      url: "#",
+      icon: UserRoundCog,
+      items: [
+        {
+          title: "Add Staff",
+          url: "/dashboard/staffs/new",
+        },
+        {
+          title: "All Staff",
+          url: "/dashboard/staffs",
+        },
+        {
+          title: "Roles",
+          url: "/dashboard/staffs/roles",
+        },
+      ],
+    },
+    {
+      title: "Restaurant",
+      url: "#",
+      icon: HandPlatter,
+      items: [
+        {
+          title: "Reservations",
+          url: "/dashboard/restaurant/reservations",
+        },
+        {
+          title: "Menu",
+          url: "/dashboard/restaurant/menu",
+        },
+        {
+          title: "Orders",
+          url: "/dashboard/restaurant/orders",
+        },
+        {
+          title: "Tables",
+          url: "/dashboard/restaurant/tables",
+        },
+      ],
+    },
+    {
+      title: "Reports",
+      url: "#",
+      icon: NotebookPen,
+      items: [
+        {
+          title: "Daily Report",
+          url: "/dashboard/reports/daily",
+        },
+        {
+          title: "Monthly Report",
+          url: "/dashboard/reports/monthly",
+        },
+        {
+          title: "Yearly Report",
+          url: "/dashboard/reports/yearly",
         },
       ],
     },
   ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -165,7 +248,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
