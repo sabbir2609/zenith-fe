@@ -9,7 +9,7 @@ export default async function AuthGuard({ children }: AuthGuardProps) {
   const isAuthenticated = await getServerAuthStatus();
 
   if (!isAuthenticated) {
-    redirect("/login");
+    redirect("/auth/login");
   }
 
   return <>{children}</>;

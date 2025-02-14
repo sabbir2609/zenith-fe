@@ -1,4 +1,4 @@
-import { Pagination } from "@/components/dashboard/common"
+import { Pagination } from "@/components/dashboard"
 import { FileSymlink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"

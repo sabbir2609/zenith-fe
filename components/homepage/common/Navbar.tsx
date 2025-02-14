@@ -14,19 +14,13 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import { useAuth } from "@/hooks/useAuth";
 import { userIcon } from "@/public";
 import { ChevronDown, Menu } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function Navbar() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const router = useRouter();
-  const isAuthenticated = false; // Replace with your auth logic
-
-  const handleLogout = () => {
-    // Logout logic here
-  };
+  const { isAuthenticated, user, loading, logout } = useAuth();
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -39,8 +33,12 @@ export default function Navbar() {
       ],
     },
     { name: "Contact", path: "homepage/contact" },
-    { name: "Dashboard", path: "homepage/dashboard" },
+    { name: "Dashboard", path: "/dashboard" },
   ];
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <header className="sticky top-0 z-10 bg-background shadow-sm">
@@ -133,14 +131,17 @@ export default function Navbar() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
+                <DropdownMenuItem>Welcome, {user?.email}</DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/dashboard/profile">Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/dashboard">Dashboard</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleLogout}>
-                  Logout
+                <DropdownMenuItem>
+                  <Button onClick={logout}>
+                    Logout
+                  </Button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
