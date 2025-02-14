@@ -1,6 +1,6 @@
+import { userIcon } from "@/public";
 import { cookies } from "next/headers";
 import Image from "next/image";
-import { userIcon } from "@/public/static";
 
 
 interface Guest {
@@ -21,7 +21,7 @@ interface Guest {
 
 export default async function Page({ params }: { params: { id: number } }) {
     const cookieStore = cookies();
-    const token = cookieStore.get('access')?.value;
+    const token = (await cookieStore).get('access')?.value;
 
     if (!token) {
         return <h1>You are not logged in</h1>
@@ -29,15 +29,15 @@ export default async function Page({ params }: { params: { id: number } }) {
 
     const id = params.id
     const guest: Guest = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/main/guests/${id}`,
-        {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }
+      `${process.env.NEXT_PUBLIC_API_URL}/api/main/guests/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     )
-        .then((res) => res.json())
-        .catch((err) => console.error(err));
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
 
     if (!guest) {
         return <h1>Guest not found</h1>

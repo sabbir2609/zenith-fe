@@ -52,8 +52,8 @@ export default function Page() {
         <div className="text-center lg:text-start lg:ms-20">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Contact Us</h2>
           <p className="mb-8">Ready to streamline your hotel management? Reach out to us for more information.</p>
-          <Link href="contact"
-            className=" -primary -lg rounded-sm md:text-xl hover:scale-105 transition duration-300 ease-in-out">
+          <Link href="homepage/contact"
+            className="md:text-xl hover:scale-105 transition duration-300 ease-in-out bg-emerald-400 p-4">
             Contact Now
           </Link>
         </div>

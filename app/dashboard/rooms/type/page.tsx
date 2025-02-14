@@ -18,19 +18,22 @@ export default async function Page() {
 
     async function fetchRoomTypes() {
         const cookieStore = cookies()
-        const token = cookieStore.get('access')?.value
+        const token = (await cookieStore).get('access')?.value
 
         if (!token) {
             throw new Error("You are not logged in");
         }
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/room-types/`, {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/main/room-types/`,
+          {
             cache: "no-cache",
             headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${token}`
-            }
-        });
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
             throw new Error("Failed to fetch data");
@@ -41,29 +44,6 @@ export default async function Page() {
         return data;
     }
 
-    async function deleteRoomType(id: number) {
-        const cookieStore = cookies()
-        const token = cookieStore.get('access')?.value
-
-        if (!token) {
-            throw new Error("You are not logged in");
-        }
-
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/main/room-types/${id}/`, {
-            method: "DELETE",
-            cache: "no-cache",
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to delete room type");
-        }
-
-        return Promise.resolve();
-    }
 
     const room_types: RoomType[] = await fetchRoomTypes();
 

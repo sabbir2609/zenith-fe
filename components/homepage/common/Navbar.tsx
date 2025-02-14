@@ -28,23 +28,23 @@ export default function Navbar() {
     // Logout logic here
   };
 
-  const navLinksLg = [
+  const navLinks = [
     { name: "Home", path: "/" },
     {
       name: "About",
       path: "/about",
       subLinks: [
-        { name: "Mission", path: "/about/mission" },
-        { name: "Vision", path: "/about/vision" },
+        { name: "Mission", path: "homepage/about/mission" },
+        { name: "Vision", path: "homepage/about/vision" },
       ],
     },
-    { name: "Contact", path: "/contact" },
-    { name: "Dashboard", path: "/dashboard" },
+    { name: "Contact", path: "homepage/contact" },
+    { name: "Dashboard", path: "homepage/dashboard" },
   ];
 
   return (
     <header className="sticky top-0 z-10 bg-background shadow-sm">
-      <div className="container flex items-center justify-between p-3">
+      <div className="flex items-center justify-between p-3">
         {/* Mobile Navigation */}
         <div className="flex items-center lg:hidden">
           <DropdownMenu>
@@ -55,7 +55,7 @@ export default function Navbar() {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="m-2 w-48">
-              {navLinksLg.map((link, index) => (
+              {navLinks.map((link, index) => (
                 <DropdownMenuItem key={index}>
                   {link.subLinks ? (
                     <DropdownMenu>
@@ -80,7 +80,7 @@ export default function Navbar() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Link href="/" className="ml-2 text-xl font-bold">
+          <Link href="/" className="text-xl font-bold">
             Zenith
           </Link>
         </div>
@@ -92,7 +92,7 @@ export default function Navbar() {
           </Link>
           <NavigationMenu>
             <NavigationMenuList className="flex space-x-4">
-              {navLinksLg.map((link, index) => (
+              {navLinks.map((link, index) => (
                 <NavigationMenuItem key={index}>
                   {link.subLinks ? (
                     <DropdownMenu>

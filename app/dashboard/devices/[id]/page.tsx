@@ -1,4 +1,4 @@
-import { IoTSocketData } from "@/components/dashboard/socket";
+// import { IoTSocketData } from "@/components/dashboard/socket";
 import Link from "next/link";
 
 interface Topic {
@@ -19,9 +19,12 @@ interface Device {
 }
 
 async function fetchDeviceDetails(params: { id: string }) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/iot/devices/${params.id}`, {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/iot/devices/${params.id}`,
+      {
         cache: "no-cache",
-    });
+      }
+    );
 
     if (response.status === 404) {
         throw new Error("Device not found");
@@ -113,7 +116,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                         Live Data
                     </h1>
                     <div className="grid grid-cols-2 gap-4 mb-4">
-                        <IoTSocketData client_id={device.client_id} topic={{ name: "device" }} />
+                        {/* <IoTSocketData client_id={device.client_id} topic={{ name: "device" }} /> */}
                     </div>
                 </div>
 
