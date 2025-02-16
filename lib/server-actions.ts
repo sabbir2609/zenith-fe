@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 export async function fetchData(endpoint: string) {
   const cookieStore = cookies();
-  const accessToken = (await cookieStore).get("access_token");
+  const accessToken = (await cookieStore).get("access");
 
   try {
     const response = await fetch(
@@ -32,7 +32,7 @@ export async function fetchData(endpoint: string) {
 
 export async function postData<T>(endpoint: string, data: T) {
   const cookieStore = cookies();
-  const accessToken = (await cookieStore).get("access_token");
+  const accessToken = (await cookieStore).get("access");
 
   try {
     const response = await fetch(

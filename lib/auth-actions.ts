@@ -10,7 +10,7 @@ export async function serverLogin(data: { access: string; refresh: string }) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax", // Changed to match Django settings
     path: "/",
-    maxAge: 60 * 15, // 15 minutes
+    maxAge: 60 * 24 * 3 // 3 days
   });
 
   cookieStore.set("refresh", data.refresh, {
@@ -18,7 +18,7 @@ export async function serverLogin(data: { access: string; refresh: string }) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax", // Changed to match Django settings
     path: "/",
-    maxAge: 60 * 60 * 24 * 7, // 1 week
+    maxAge: 60 * 60 * 24 * 10, // 10 days
   });
 }
 
