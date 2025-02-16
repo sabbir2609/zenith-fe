@@ -29,3 +29,32 @@ export async function fetchData(endpoint: string) {
     throw error;
   }
 }
+
+export async function postData<T>(endpoint: string, data: T) {
+  const cookieStore = cookies();
+  const accessToken = (await cookieStore).get("access_token");
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}${endpoint}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken?.value}`,
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(data),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("API request failed");
+    }
+
+    return response;
+  } catch (error) {
+    console.error("Fetch error:", error);
+    throw error;
+  }
+}

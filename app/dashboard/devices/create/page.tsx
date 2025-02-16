@@ -1,82 +1,175 @@
-import { Fetch, Post } from "@/app/lib";
 import Loading from "@/app/loading";
-import { FormSelect, Input, TextArea } from "@/components/dashboard/ui";
 import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { fetchData, postData } from "@/lib/server-actions";
 
-interface CreateDevice {
-    name: string,
-    client_id: string,
-    qos: string,
-    status: boolean,
-    description: string,
-    installation_date: string,
-    device_type: number,
+interface DeviceType {
+  id: number;
+  name: string;
+  description?: string;
 }
 
+interface QoSChoice {
+  value: number;
+  label: string;
+}
 
+interface CreateDevice {
+  name: string;
+  client_id: string;
+  qos: string;
+  status: boolean;
+  description: string;
+  installation_date: string;
+  device_type: number;
+}
 
 export default async function CreateDevicePage() {
+  const deviceTypes = (await fetchData("/iot/device-types/")) as DeviceType[];
+  const qosChoices = (await fetchData(
+    "/iot/devices/qos_choices/"
+  )) as QoSChoice[];
 
-    const deviceTypes = await Fetch({ endpoint: 'iot/device-types/' });
-    const qosChoices = await Fetch({ endpoint: 'iot/devices/qos_choices/' });
+  if (!deviceTypes || !qosChoices) {
+    return <Loading />;
+  }
 
-    if (!deviceTypes || !qosChoices) {
-        <Loading />
+  async function createDevice(formData: FormData) {
+    "use server";
+
+    const device: CreateDevice = {
+      name: formData.get("name") as string,
+      client_id: formData.get("client_id") as string,
+      qos: formData.get("qos") as string,
+      status: Boolean(formData.get("status")),
+      description: (formData.get("description") as string) || "",
+      installation_date: formData.get("installation_date") as string,
+      device_type: parseInt(formData.get("device_type") as string, 10),
+    };
+
+    const response = await postData("/iot/devices/", device);
+
+    if (!response) {
+      throw new Error("No response from server");
     }
 
-    async function createDevice(formData: FormData) {
-        'use server'
-
-        const device: CreateDevice = {
-            name: formData.get('name') as string,
-            client_id: formData.get('client_id') as string,
-            qos: formData.get('qos') as string,
-            status: Boolean(formData.get('status')),
-            description: formData.get('description') as string,
-            installation_date: formData.get('installation_date') as string,
-            device_type: formData.get('device_type') as unknown as number,
-        };
-
-        const response = await Post('iot/devices/', device);
-
-        if (!response) {
-            <Loading />
-        }
-
-        if (response.ok) {
-            const { id } = await response.json();
-            console.log('Device created successfully');
-            redirect(`/dashboard/devices/${id}`)
-        } else {
-            console.error('Failed to create Device');
-            throw new Error('Failed to create Device');
-        }
+    if (response.ok) {
+      const { id } = await response.json();
+      redirect(`/dashboard/devices/${id}`);
+    } else {
+      throw new Error("Failed to create Device");
     }
+  }
 
-    return (
-        <div className="flex items-center justify-center">
-            <form className="space-y-2 p-2 w-full md:w-4/5 lg:w-3/4" action={createDevice}>
-                <h1 className="text-2xl font-semibold">Add a Device</h1>
-                <div className="flex flex-col md:flex-row lg:flex-row gap-2">
-                    <Input name="name" type="text" label="Name" placeholder="Smart AC" required={true} />
-                    <Input name="client_id" type="text" label="Client ID" placeholder="client_id" required={true} />
-                </div>
-                <div className="flex flex-col md:flex-row lg:flex-row gap-2">
-                    <FormSelect name="qos" options={qosChoices} label="QoS" required={true} />
-                    <FormSelect name="device_type" options={deviceTypes} label="Device Type" required={true} />
-                </div>
-                <Input name="installation_date" type="date" label="Installation Date" required={true} />
-                <TextArea name="description" label="Description" placeholder="Description" />
-                <div className="flex justify-between px-2">
-                    <label className="cursor-pointer form-control">
-                        <div className="label">
-                            <span className="label-text">Status</span>
-                        </div>
-                        <input name="status" value="1" type="checkbox" className="toggle toggle-primary" />
-                    </label>
-                    <button type="submit" className="btn btn-primary btn-md rounded-sm mt-3">Create</button>
-                </div>
-            </form>
+  return (
+    <div className="max-w-2xl mx-auto p-6">
+      <form className="space-y-6" action={createDevice}>
+        {/* Basic Info Section */}
+        <div className="space-y-2">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Add a Device
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Fill in the details to create a new device
+          </p>
         </div>
-    );
+
+        {/* Name and Client ID */}
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="name">Name</Label>
+            <Input id="name" name="name" placeholder="Smart AC" required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="client_id">Client ID</Label>
+            <Input
+              id="client_id"
+              name="client_id"
+              placeholder="client_id"
+              required
+            />
+          </div>
+        </div>
+
+        {/* QoS and Device Type */}
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="qos">QoS</Label>
+            <Select name="qos" required>
+              <SelectTrigger>
+                <SelectValue placeholder="Select QoS" />
+              </SelectTrigger>
+              <SelectContent>
+                {qosChoices.map((choice) => (
+                  <SelectItem
+                    key={choice.value}
+                    value={choice.value.toString()}
+                  >
+                    {choice.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="device_type">Device Type</Label>
+            <Select name="device_type" required>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Device Type" />
+              </SelectTrigger>
+              <SelectContent>
+                {deviceTypes.map((type) => (
+                  <SelectItem key={type.id} value={type.id.toString()}>
+                    {type.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Installation Date */}
+        <div className="space-y-2">
+          <Label htmlFor="installation_date">Installation Date</Label>
+          <Input
+            id="installation_date"
+            name="installation_date"
+            type="date"
+            required
+          />
+        </div>
+
+        {/* Description */}
+        <div className="space-y-2">
+          <Label htmlFor="description">Description</Label>
+          <Textarea
+            id="description"
+            name="description"
+            placeholder="Enter device description"
+            className="min-h-[100px]"
+          />
+        </div>
+
+        {/* Status and Submit */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Checkbox id="status" name="status" />
+            <Label htmlFor="status">Active Status</Label>
+          </div>
+          <Button type="submit">Create Device</Button>
+        </div>
+      </form>
+    </div>
+  );
 }

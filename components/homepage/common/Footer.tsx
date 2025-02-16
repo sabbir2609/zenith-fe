@@ -1,5 +1,6 @@
 import React from "react";
 import { MountainSnow } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -16,24 +17,24 @@ export default function Footer() {
           <h3 className="text-lg font-semibold">Services</h3>
           <ul className="mt-2 space-y-2">
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 Branding
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 Design
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 Marketing
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 Advertisement
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -41,24 +42,24 @@ export default function Footer() {
           <h3 className="text-lg font-semibold">Company</h3>
           <ul className="mt-2 space-y-2">
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 About us
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 Contact
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 Jobs
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 Press kit
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -66,19 +67,19 @@ export default function Footer() {
           <h3 className="text-lg font-semibold">Legal</h3>
           <ul className="mt-2 space-y-2">
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 Terms of use
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 Privacy policy
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link href="#" className="hover:underline">
                 Cookie policy
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

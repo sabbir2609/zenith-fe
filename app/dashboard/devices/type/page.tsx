@@ -1,75 +1,96 @@
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { fetchData } from "@/lib/server-actions";
-import { FileSymlink } from "lucide-react";
+import { FileSymlink, PlusCircle } from "lucide-react";
 import Link from "next/link";
 
-interface deviceType {
+interface DeviceType {
   id: string;
   name: string;
   description: string;
 }
 
 export default async function Page() {
-  const deviceTypes = (await fetchData("/iot/device-types/")) as deviceType[];
+  const deviceTypes = (await fetchData("/iot/device-types/")) as DeviceType[];
 
   if (deviceTypes && deviceTypes.length === 0) {
     return (
-      <div className="flex items-center justify-center">
-        <div className="rounded-lg shadow-lg p-5 md:p-20 mx-2">
-          <h1 className="text-red-500 text-center">No device types found</h1>
-          <h2 className="text-blue-500 text-center">
-            Please add a device type
-          </h2>
+      <div className="flex h-[450px] shrink-0 items-center justify-center rounded-md border border-dashed">
+        <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center text-center">
+          <h3 className="mt-4 text-lg font-semibold">No device types found</h3>
+          <p className="mb-4 mt-2 text-sm text-muted-foreground">
+            Add a device type to get started.
+          </p>
+          <Button asChild>
+            <Link href="/dashboard/devices/type/create">
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Add Device Type
+            </Link>
+          </Button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center justify-between mb-2 px-2">
-        <h1 className="text-2xl font-semibold whitespace-nowrap">
-          Device Type List
-        </h1>
-        <p className="text-base-100">List of all floors</p>
-        <div className="flex justify-end">
-          <Link
-            className="btn btn-sm btn-primary rounded-sm"
-            href="/dashboard/devices/type/create"
-          >
-            Add New
-          </Link>
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Device Types
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Manage your device types here
+          </p>
         </div>
+        <Button asChild>
+          <Link href="/dashboard/devices/type/create">
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Add Device Type
+          </Link>
+        </Button>
       </div>
-      <div className="overflow-x-auto">
-        <table className="table">
-          <thead>
-            <tr className="bg-base-200">
-              <th>Device Type</th>
-              <th>Description</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {deviceTypes.map((deviceType: deviceType) => (
-              <tr key={deviceType.id}>
-                <td>{deviceType.name}</td>
-                <td>
-                  {deviceType.description
-                    ? deviceType.description
-                    : "No description"}
-                </td>
-                <td>
-                  <Link
-                    href={`/dashboard/devices/type/${deviceType.id}`}
-                    className="hover:underline hover:text-blue-700"
+
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Device Type</TableHead>
+              <TableHead>Description</TableHead>
+              <TableHead className="w-[100px]">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {deviceTypes.map((deviceType: DeviceType) => (
+              <TableRow key={deviceType.id}>
+                <TableCell className="font-medium">{deviceType.name}</TableCell>
+                <TableCell>
+                  {deviceType.description || "No description"}
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    asChild
+                    className="h-8 w-8"
                   >
-                    <FileSymlink size={20} />
-                  </Link>
-                </td>
-              </tr>
+                    <Link href={`/dashboard/devices/type/${deviceType.id}`}>
+                      <FileSymlink className="h-4 w-4" />
+                      <span className="sr-only">View details</span>
+                    </Link>
+                  </Button>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
