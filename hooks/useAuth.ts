@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { logout } from "@/lib/auth-client";
+import { useCallback, useEffect, useState } from "react";
 
 export interface User {
   id: number;
@@ -17,7 +16,7 @@ export function useAuth() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/users/me/`,
@@ -44,18 +43,26 @@ export function useAuth() {
     } finally {
       setLoading(false);
     }
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout/`, {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      setUser(null);
+      setIsAuthenticated(false);
+      router.push("/auth/login");
+    }
   };
 
   useEffect(() => {
     checkAuth();
-  }, []);
-
-  const handleLogout = async () => {
-    await logout();
-    setUser(null);
-    setIsAuthenticated(false);
-    router.push("/auth/login");
-  };
+  }, [checkAuth]);
 
   return {
     isAuthenticated,

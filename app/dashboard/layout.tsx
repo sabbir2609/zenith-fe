@@ -4,14 +4,14 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <AuthGuard>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <Navbar />
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <Navbar />
+        <AuthGuard>
           <main className="flex-1 px-6 py-4">{children}</main>
-        </SidebarInset>
-      </SidebarProvider>
-    </AuthGuard>
+        </AuthGuard>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

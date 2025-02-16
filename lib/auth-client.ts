@@ -22,7 +22,8 @@ export async function login(email: string, password: string): Promise<boolean> {
     );
 
     if (!response.ok) {
-      throw new Error("Login failed");
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Login failed");
     }
 
     const data: AuthTokens = await response.json();
@@ -35,5 +36,9 @@ export async function login(email: string, password: string): Promise<boolean> {
 }
 
 export async function logout(): Promise<void> {
-  await serverLogout();
+  try {
+    await serverLogout();
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
 }

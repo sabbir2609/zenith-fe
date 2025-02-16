@@ -139,9 +139,7 @@ export default function Navbar() {
                   <Link href="/dashboard">Dashboard</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Button onClick={logout}>
-                    Logout
-                  </Button>
+                  <Button onClick={logout}>Logout</Button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

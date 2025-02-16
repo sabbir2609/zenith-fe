@@ -1,5 +1,5 @@
-import { Fetch } from "@/app/lib";
-import { Pagination } from "@/components/dashboard/common";
+import { Pagination } from "@/components/dashboard";
+import { fetchData } from "@/lib/server-actions";
 import { FileSymlink } from "lucide-react";
 import Link from "next/link";
 
@@ -13,13 +13,15 @@ interface Device {
     status: boolean;
 }
 
-export default async function Page(context: any) {
-    const pageNumber = context.searchParams.page ? context.searchParams.page : 1;
+export default async function Page({
+    searchParams,
+}: {
+    searchParams: { page?: string };
+}) {
 
+    const pageNumber = searchParams.page ? parseInt(searchParams.page) : 1;
     const baseURL = '/dashboard/devices';
-
-    const data = await Fetch({ endpoint: `iot/devices/?page=${pageNumber}` });
-
+    const data = await fetchData(`/devices?page=${pageNumber}`);
     const totalDevices = data.count;
     const activeDevices = data.active_devices_count;
 
