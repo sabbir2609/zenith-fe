@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import useSWR from "swr";
 
 export interface User {
   id: number;
@@ -12,40 +12,33 @@ export interface User {
   avatar: string;
 }
 
+const fetcher = async (url: string) => {
+  const res = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch user data");
+  }
+
+  return res.json();
+};
+
 export function useAuth() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [userdata, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const checkAuth = useCallback(async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/users/me/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
-
-      if (response.ok) {
-        const userData: User = await response.json();
-        setUser(userData);
-        setIsAuthenticated(true);
-      } else {
-        setUser(null);
-        setIsAuthenticated(false);
-      }
-    } catch (error) {
-      console.error(error);
-      setUser(null);
-      setIsAuthenticated(false);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const {
+    data: userdata,
+    error,
+    isLoading,
+    mutate,
+  } = useSWR<User>(
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/users/me/`,
+    fetcher
+  );
 
   const handleLogout = async () => {
     try {
@@ -53,24 +46,19 @@ export function useAuth() {
         method: "POST",
         credentials: "include",
       });
+      await mutate(undefined); // Clear the cache
+      router.push("/auth/logout");
     } catch (error) {
       console.error("Logout error:", error);
-    } finally {
-      setUser(null);
-      setIsAuthenticated(false);
-      router.push("/auth/logout");
     }
   };
 
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
   return {
-    isAuthenticated,
     userdata,
-    loading,
+    isAuthenticated: Boolean(userdata),
+    loading: isLoading,
+    error,
     logout: handleLogout,
-    checkAuth,
+    mutate, // Expose mutate for manual cache updates
   };
 }

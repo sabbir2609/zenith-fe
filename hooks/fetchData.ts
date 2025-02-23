@@ -1,43 +1,36 @@
-// hooks/fetchData.ts
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import useSWR from "swr";
 
-export function useFetchData<T>(endpoint: string) {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+interface FetchResponse<T> {
+  data: T | null;
+  error: Error | null;
+  isLoading: boolean;
+  mutate: () => void;
+}
 
-  const fetchData = useCallback(async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}${endpoint}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+const fetcher = async (url: string) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
 
-      if (response.ok) {
-        const data: T = await response.json();
-        setData(data);
-      } else {
-        setError(new Error(response.statusText));
-      }
-    } catch (error) {
-      setError(
-        error instanceof Error ? error : new Error("An unknown error occurred")
-      );
-    } finally {
-      setLoading(false);
-    }
-  }, [endpoint]);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  return response.json();
+};
 
-  return { data, loading, error };
+export function useFetchData<T>(endpoint: string): FetchResponse<T> {
+  const { data, error, isLoading, mutate } = useSWR<T>(endpoint, fetcher);
+
+  return {
+    data: data || null,
+    error: error || null,
+    isLoading,
+    mutate,
+  };
 }
