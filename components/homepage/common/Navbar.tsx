@@ -1,6 +1,5 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,14 +13,11 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { useAuth } from "@/hooks/useAuth";
-import { userIcon } from "@/public";
 import { ChevronDown, Menu } from "lucide-react";
 import Link from "next/link";
+import { AuthSection } from "./AuthSection";
 
 export default function Navbar() {
-  const { isAuthenticated, user, loading, logout } = useAuth();
-
   const navLinks = [
     { name: "Home", path: "/" },
     {
@@ -35,10 +31,6 @@ export default function Navbar() {
     { name: "Contact", path: "homepage/contact" },
     { name: "Dashboard", path: "/dashboard" },
   ];
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <header className="sticky top-0 z-10 bg-background shadow-sm">
@@ -117,43 +109,8 @@ export default function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-
         {/* Auth Links */}
-        <div className="flex items-center">
-          {isAuthenticated ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="rounded-full p-0">
-                  <Avatar>
-                    <AvatarImage src={userIcon.src} alt="User Profile" />
-                    <AvatarFallback>U</AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuItem>Welcome, {user?.email}</DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/dashboard/profile">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/dashboard">Dashboard</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Button onClick={logout}>Logout</Button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <div className="flex space-x-2">
-              <Button asChild variant="outline" size="sm">
-                <Link href="/auth/login">Login</Link>
-              </Button>
-              <Button asChild variant="outline" size="sm">
-                <Link href="/auth/register">Register</Link>
-              </Button>
-            </div>
-          )}
-        </div>
+        <AuthSection />
       </div>
     </header>
   );

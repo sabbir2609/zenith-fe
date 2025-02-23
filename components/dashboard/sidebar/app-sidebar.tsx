@@ -19,8 +19,6 @@ import {
   GalleryVerticalEnd,
 } from "lucide-react";
 
-
-
 import {
   Sidebar,
   SidebarContent,
@@ -32,7 +30,7 @@ import { NavMain } from "./nav-main";
 // import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
 
-const data = {
+const navdata = {
 
   user: {
     name: "shadcn",
@@ -243,16 +241,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <div className="flex items-center justify-center h-12">
-          Zenith Admin
-        </div>
+      <div className="flex items-center justify-center">
+        <p>Zenith Admin</p>
+      </div>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={navdata.navMain} />
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

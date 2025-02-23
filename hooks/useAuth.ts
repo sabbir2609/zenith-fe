@@ -8,11 +8,13 @@ export interface User {
   email: string;
   first_name: string;
   last_name: string;
+  role: string;
+  avatar: string;
 }
 
 export function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [user, setUser] = useState<User | null>(null);
+  const [userdata, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -29,7 +31,7 @@ export function useAuth() {
       );
 
       if (response.ok) {
-        const userData = await response.json();
+        const userData: User = await response.json();
         setUser(userData);
         setIsAuthenticated(true);
       } else {
@@ -56,7 +58,7 @@ export function useAuth() {
     } finally {
       setUser(null);
       setIsAuthenticated(false);
-      router.push("/auth/login");
+      router.push("/auth/logout");
     }
   };
 
@@ -66,7 +68,7 @@ export function useAuth() {
 
   return {
     isAuthenticated,
-    user,
+    userdata,
     loading,
     logout: handleLogout,
     checkAuth,
