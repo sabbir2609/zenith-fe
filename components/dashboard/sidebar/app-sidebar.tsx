@@ -28,7 +28,6 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { TeamSwitcher } from "./team-switcher";
 import { NavMain } from "./nav-main";
 // import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
@@ -244,7 +243,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <div className="flex items-center justify-center h-12">
+          Zenith Admin
+        </div>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
