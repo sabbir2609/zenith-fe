@@ -1,16 +1,33 @@
-import { redirect } from "next/navigation";
-import { getServerAuthStatus } from "@/lib/auth-actions";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 interface AuthGuardProps {
   children: React.ReactNode;
 }
 
-export default async function AuthGuard({ children }: AuthGuardProps) {
-  const isAuthenticated = await getServerAuthStatus();
+export default function AuthGuard({ children }: AuthGuardProps) {
+  const router = useRouter();
+  const { isAuthenticated, loading } = useAuth();
+  const [isClient, setIsClient] = useState(false);
 
-  if (!isAuthenticated) {
-    redirect("/auth/login");
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      router.push("/auth/login");
+    }
+  }, [loading, isAuthenticated, router]);
+
+  // Don't render anything during SSR or loading
+  if (!isClient || loading) {
+    return null;
   }
 
-  return <>{children}</>;
+  // Only render children when authenticated
+  return isAuthenticated ? <>{children}</> : null;
 }

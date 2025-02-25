@@ -32,8 +32,8 @@ export async function serverLogout() {
 
     // Then clear cookies
     const cookieStore = await cookies();
-    cookieStore.delete("access"); // Changed to match Django cookie names
-    cookieStore.delete("refresh"); // Changed to match Django cookie names
+    cookieStore.delete("access");
+    cookieStore.delete("refresh");
   } catch (error) {
     console.error("Logout error:", error);
   }
@@ -41,6 +41,6 @@ export async function serverLogout() {
 
 export async function getServerAuthStatus() {
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get("access"); // Changed to match Django cookie name
+  const accessToken = cookieStore.get("access");
   return !!accessToken;
 }

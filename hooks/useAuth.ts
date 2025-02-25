@@ -1,5 +1,6 @@
 "use client";
 
+import { serverLogout } from "@/lib/auth-actions";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
@@ -42,12 +43,10 @@ export function useAuth() {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout/`, {
-        method: "POST",
-        credentials: "include",
-      });
-      await mutate(undefined); // Clear the cache
-      router.push("/auth/logout");
+      await serverLogout(); // Call server logout first
+      await mutate(undefined, { revalidate: false }); // Clear cache without revalidation
+      router.push("/auth/login");
+      router.refresh(); // Force router refresh
     } catch (error) {
       console.error("Logout error:", error);
     }
