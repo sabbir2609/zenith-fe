@@ -22,20 +22,12 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-
-interface UserData {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  role: string;
-  avatar: string;
-}
+import { User } from "@/lib/types";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
 
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const { userdata, logout } = useAuth();
 
@@ -59,7 +51,13 @@ export function NavUser() {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
-          <Skeleton className="w-10 h-10 rounded-lg" />
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-8 w-8 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-[180px]" />
+              <Skeleton className="h-4 w-[120px]" />
+            </div>
+          </div>
         </SidebarMenuItem>
       </SidebarMenu>
     );
@@ -88,7 +86,7 @@ export function NavUser() {
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.first_name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">U</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
@@ -111,7 +109,7 @@ export function NavUser() {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.first_name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">U</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
