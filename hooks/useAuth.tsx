@@ -1,17 +1,9 @@
 "use client";
 
 import { serverLogout } from "@/lib/auth-actions";
+import { User } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
-
-export interface User {
-  id: number;
-  email: string;
-  first_name: string;
-  last_name: string;
-  role: string;
-  avatar: string;
-}
 
 const fetcher = async (url: string) => {
   const res = await fetch(url, {

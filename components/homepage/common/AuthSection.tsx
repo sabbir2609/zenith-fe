@@ -3,21 +3,21 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
 import { userIcon } from "@/public";
 import Link from "next/link";
 
 export function AuthSection() {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, userdata, logout } = useAuth();
   return (
     <div className="flex items-center">
       {isAuthenticated ? (
-        <DropdownMenu>
+        <DropdownMenu modal={true}>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="rounded-full p-0">
               <Avatar>
@@ -27,7 +27,7 @@ export function AuthSection() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuItem>Welcome, {user?.email}</DropdownMenuItem>
+            <DropdownMenuItem>Welcome, {userdata?.email}</DropdownMenuItem>
             <DropdownMenuItem>
               <Link href="/dashboard/profile">Profile</Link>
             </DropdownMenuItem>
