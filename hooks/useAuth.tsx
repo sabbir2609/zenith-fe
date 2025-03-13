@@ -4,6 +4,7 @@ import { serverLogout } from "@/lib/auth-actions";
 import { User } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
+import { toast } from "sonner";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url, {
@@ -16,13 +17,11 @@ const fetcher = async (url: string) => {
   if (!res.ok) {
     throw new Error("Failed to fetch user data");
   }
-
   return res.json();
 };
 
 export function useAuth() {
   const router = useRouter();
-
   const {
     data: userdata,
     error,
@@ -39,6 +38,7 @@ export function useAuth() {
       await mutate(undefined, { revalidate: false }); // Clear cache without revalidation
       router.push("/auth/login");
       router.refresh(); // Force router refresh
+      toast("Logged out successfully");
     } catch (error) {
       console.error("Logout error:", error);
     }

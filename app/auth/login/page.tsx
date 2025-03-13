@@ -16,6 +16,7 @@ import { login } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -29,6 +30,7 @@ export default function LoginPage() {
     try {
       const success = await login(email, password);
       if (success) {
+        toast("Logged in successfully");
         router.push("/dashboard");
       }
     } finally {

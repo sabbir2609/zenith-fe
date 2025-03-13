@@ -34,9 +34,9 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>Management</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => (
+        {items.map((item) =>
           item.items ? (
             // Render collapsible menu item for nested items
             <Collapsible
@@ -79,7 +79,7 @@ export function NavMain({
               </SidebarMenuButton>
             </SidebarMenuItem>
           )
-        ))}
+        )}
       </SidebarMenu>
     </SidebarGroup>
   );

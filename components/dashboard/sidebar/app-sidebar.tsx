@@ -17,6 +17,7 @@ import {
   AudioWaveform,
   Command,
   GalleryVerticalEnd,
+  Home,
 } from "lucide-react";
 
 import {
@@ -24,18 +25,19 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenuButton,
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { NavMain } from "./nav-main";
 // import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
+import Link from "next/link";
 
 const navdata = {
-
   user: {
     name: "shadcn",
     email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    avatar: "/avater.jpg",
   },
 
   teams: [
@@ -234,16 +236,18 @@ const navdata = {
       ],
     },
   ],
-
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-      <div className="flex items-center justify-center">
-        <p>Zenith Admin</p>
-      </div>
+        <Link href="/homepage" className="text-lg font-bold">
+          <SidebarMenuButton tooltip={"Back to Home"}>
+            <Home />
+            Zenith Systems
+          </SidebarMenuButton>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navdata.navMain} />

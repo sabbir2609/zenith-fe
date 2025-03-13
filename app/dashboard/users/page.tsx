@@ -1,22 +1,17 @@
 import { Pagination } from "@/components/dashboard";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import { fetchData } from "@/lib/server-actions";
+import { User } from "@/lib/types";
 import { FileSymlink } from "lucide-react";
 import Link from "next/link";
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-}
+import Image from "next/image";
 
 export default async function Users() {
   const users = (await fetchData("/auth/users/")) as User[];
@@ -32,8 +27,10 @@ export default async function Users() {
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
+              <TableHead>Avater</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
+              <TableHead>Role</TableHead>
               <TableHead className="w-[80px]">Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -41,10 +38,20 @@ export default async function Users() {
             {users.map((user) => (
               <TableRow key={user.id}>
                 <TableCell className="font-medium">{user.id}</TableCell>
+                <TableCell>
+                  <Image
+                    src={user.avatar || "/user.png"}
+                    height={32}
+                    width={32}
+                    alt="avatar"
+                    className="w-8 h-8 rounded-full"
+                  />
+                </TableCell>
                 <TableCell className="whitespace-nowrap font-medium">
                   {user.first_name} {user.last_name}
                 </TableCell>
                 <TableCell>{user.email}</TableCell>
+                <TableCell>{user.role}</TableCell>
                 <TableCell>
                   <Link
                     href={`/dashboard/users/${user.id}`}
