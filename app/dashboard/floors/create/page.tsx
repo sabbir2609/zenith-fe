@@ -1,12 +1,14 @@
 import Loading from "@/app/loading";
 import { postData } from "@/lib/server-actions";
 import { redirect } from "next/navigation";
-
-interface Floor {
-  level: number;
-  is_elevator_accessible: boolean;
-  description: string;
-}
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Floor } from "@/lib/types";
+import FloorForm from "@/components/dashboard/forms/floor-from";
 
 export default function Page() {
   async function createFloor(formData: FormData) {
@@ -37,54 +39,16 @@ export default function Page() {
   }
 
   return (
-    <div className="flex items-center justify-center">
-      <form
-        className="space-y-2 p-2 w-full md:w-4/5 lg:w-3/4"
-        action={createFloor}
-      >
-        <h1 className="text-2xl font-semibold">Add New Floor</h1>
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Level</span>
-          </label>
-          <input
-            name="level"
-            type="number"
-            placeholder="Floor Level"
-            className="input input-bordered"
-            maxLength={2}
-            pattern="[0-9]{2}"
-            title="Floor Level should be a number between 0 and 99."
-          />
-        </div>
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Elevator Accessible</span>
-          </label>
-          <select
-            name="is_elevator_accessible"
-            className="select select-bordered"
-          >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-        </div>
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Description</span>
-          </label>
-          <textarea
-            name="description"
-            placeholder="Description"
-            className="textarea textarea-bordered"
-          ></textarea>
-        </div>
-        <div className="flex justify-end mt-4 me-4">
-          <button className="btn btn-md btn-primary rounded-sm" type="submit">
-            Save
-          </button>
-        </div>
-      </form>
+    <div className="flex items-center justify-center p-6">
+      <Card className="w-full md:w-4/5 lg:w-3/4">
+        <CardHeader>
+          <CardTitle>Add New Floor</CardTitle>
+          <CardDescription>
+            Create a new floor for your building
+          </CardDescription>
+        </CardHeader>
+        <FloorForm createFloor={createFloor} submitLabel="Create Floor" />
+      </Card>
     </div>
   );
 }

@@ -120,8 +120,8 @@ const navdata = {
       icon: Building2,
       items: [
         {
-          title: "New Floor",
-          url: "/dashboard/floors/new",
+          title: "Add New",
+          url: "/dashboard/floors/create",
         },
         {
           title: "All Floors",

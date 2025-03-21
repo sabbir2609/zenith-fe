@@ -1,26 +1,84 @@
-import { Fetch } from "@/app/lib";
+import { deleteData, fetchData } from "@/lib/server-actions";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { badgeVariants } from "@/components/ui/badge";
+import { EditIcon } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Floor } from "@/lib/types";
+import { DeleteButton } from "@/components/dashboard/common/delete-button";
+import { redirect } from "next/navigation";
 
-interface Floor {
-    id: string;
-    level: string;
-    is_elevator_available: boolean;
-    description: string;
+export default async function Page({ params }: { params: { id: string } }) {
+  const { id } = await params;
+  const floor: Floor = await fetchData(`main/floors/${id}`);
 
-}
+  async function deleteFloor() {
+    "use server";
+    const response = await deleteData(`main/floors/${id}`);
 
-export default async function Page(
-    { params }: { params: { id: string } }
-) {
-    const floor: Floor = await Fetch({ endpoint: `main/floors/${params.id}` })
-    return (
-        <div className="p-10">
-            <h1><span className="font-bold">Floor: </span>{floor.level}</h1>
-            <p><span className="font-bold">Description: </span>{floor.description ? floor.description : "No description available"}</p>
-            <p><span className="font-bold">Elevator: </span>{floor.is_elevator_available ? 'Elevator available' : 'No elevator'}</p>
-            <Link href={`/dashboard/floors/${params.id}/edit`} className="btn btn-md rounded-sm btn-primary mt-4">
-                Edit
+    if (response.ok) {
+      redirect("/dashboard/floors");
+    } else {
+      throw new Error("Failed to delete floor");
+    }
+  }
+
+  return (
+    <div className="container mx-auto py-6 px-4">
+      <Card className="max-w-2xl mx-auto">
+        <CardHeader>
+          <CardTitle className="text-2xl">Floor {floor.level}</CardTitle>
+          <CardDescription>Floor details and information</CardDescription>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          <div>
+            <p>
+              {floor.description
+                ? floor.description
+                : "No description available"}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-medium text-muted-foreground mb-1">
+              Elevator Status
+            </h3>
+            <Badge
+              className={badgeVariants({
+                variant: floor.is_elevator_accessible
+                  ? "default"
+                  : "destructive",
+              })}
+            >
+              {floor.is_elevator_accessible
+                ? "Elevator available"
+                : "No elevator"}
+            </Badge>
+          </div>
+        </CardContent>
+
+        <CardFooter>
+          {/* edit  */}
+          <Button asChild>
+            <Link href={`/dashboard/floors/${id}/edit`}>
+              <EditIcon className="mr-2 h-4 w-4" /> Edit Floor
             </Link>
-        </div>
-    );
+          </Button>
+          <DeleteButton
+            onDelete={deleteFloor}
+            itemName={`Floor ${floor.level}`}
+          />
+        </CardFooter>
+      </Card>
+    </div>
+  );
 }

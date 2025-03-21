@@ -1,53 +1,85 @@
-import { Fetch } from "@/app/lib";
-import { FileSymlink } from "lucide-react";
+import { fetchData } from "@/lib/server-actions";
+import { FileSymlink, Plus } from "lucide-react";
 import Link from "next/link";
-
-interface Floors {
-    id: number;
-    level: number;
-    elevator: boolean;
-}
+import { Button } from "@/components/ui/button";
+import { badgeVariants } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Floors } from "@/lib/types";
 
 export default async function Page() {
-    const floors: Floors[] = await Fetch({ endpoint: "main/floors/" });
-    return (
-        <div className="flex flex-col">
-            <div className="flex items-center justify-between mb-2 px-2">
-                <h1 className="text-3xl font-semibold">Floor List</h1>
-                <div className="flex justify-end">
-                    <Link className="btn btn-sm btn-primary rounded-sm" href="/dashboard/floors/create">
-                        Add New
-                    </Link>
-                </div>
-            </div>
-            <div className="overflow-y-auto">
-                <table className="table">
-                    <thead>
-                        <tr className="bg-base-200">
-                            <th>ID</th>
-                            <th>Level</th>
-                            <th>Elevator</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {floors.map((floor: Floors) => (
-                            <tr key={floor.id}>
-                                <td>{floor.id}</td>
-                                <td>Level {floor.level}</td>
-                                <td>{floor.elevator ? "No" : "Yes"}</td>
-                                <td>
-                                    <div className="flex items-center space-x-2">
-                                        <Link className="hover:underline hover:text-blue-700" href={`/dashboard/floors/${floor.id}`}>
-                                            <FileSymlink />
-                                        </Link>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    );
+  const floors: Floors[] = await fetchData("main/floors/");
+
+  return (
+    <div className="container mx-auto py-6">
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-2xl font-bold">Floor List</CardTitle>
+          <Button asChild size="sm">
+            <Link href="/dashboard/floors/create">
+              <Plus className="mr-2 h-4 w-4" /> Add New
+            </Link>
+          </Button>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px]">ID</TableHead>
+                <TableHead>Level</TableHead>
+                <TableHead>Is Elevator Available</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {floors.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="text-center py-6 text-muted-foreground"
+                  >
+                    No floors found
+                  </TableCell>
+                </TableRow>
+              ) : (
+                floors.map((floor: Floors) => (
+                  <TableRow key={floor.id}>
+                    <TableCell className="font-medium">{floor.id}</TableCell>
+                    <TableCell>Level {floor.level}</TableCell>
+                    <TableCell>
+                      <Badge
+                        className={badgeVariants({
+                          variant: floor.is_elevator_accessible
+                            ? "default"
+                            : "destructive",
+                        })}
+                      >
+                        {floor.is_elevator_accessible ? "Yes" : "No"}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button variant="ghost" size="icon" asChild>
+                        <Link href={`/dashboard/floors/${floor.id}`}>
+                          <FileSymlink className="h-4 w-4" />
+                          <span className="sr-only">View Details</span>
+                        </Link>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
