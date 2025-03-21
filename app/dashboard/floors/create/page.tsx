@@ -20,8 +20,6 @@ export default function Page() {
       description: formData.get("description") as string,
     };
 
-    console.log(floor);
-
     const response = await postData("main/floors/", floor);
 
     if (!response) {
@@ -30,10 +28,8 @@ export default function Page() {
 
     if (response.ok) {
       const { id } = await response.json();
-      console.log("Floor created successfully");
       redirect(`/dashboard/floors/${id}`);
     } else {
-      console.error("Failed to create floor");
       throw new Error("Failed to create Floor");
     }
   }

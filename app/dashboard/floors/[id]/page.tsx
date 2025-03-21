@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { badgeVariants } from "@/components/ui/badge";
-import { EditIcon } from "lucide-react";
+import { ArrowLeft, EditIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -66,17 +66,33 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
         </CardContent>
 
-        <CardFooter>
-          {/* edit  */}
-          <Button asChild>
-            <Link href={`/dashboard/floors/${id}/edit`}>
-              <EditIcon className="mr-2 h-4 w-4" /> Edit Floor
-            </Link>
-          </Button>
-          <DeleteButton
-            onDelete={deleteFloor}
-            itemName={`Floor ${floor.level}`}
-          />
+        <CardFooter className="flex items-center justify-between space-x-4 pt-2">
+          <div className="flex space-x-2">
+            <Button asChild variant="outline">
+              <Link
+                href="/dashboard/floors"
+                className="inline-flex items-center"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" /> Back to List
+              </Link>
+            </Button>
+          </div>
+
+          <div className="flex space-x-2">
+            <Button asChild variant="default" size="sm">
+              <Link
+                href={`/dashboard/floors/${id}/edit`}
+                className="inline-flex items-center"
+              >
+                <EditIcon className="mr-2 h-4 w-4" /> Edit Floor
+              </Link>
+            </Button>
+
+            <DeleteButton
+              onDelete={deleteFloor}
+              itemName={`Floor ${floor.level}`}
+            />
+          </div>
         </CardFooter>
       </Card>
     </div>
