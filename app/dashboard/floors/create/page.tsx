@@ -1,4 +1,3 @@
-import Loading from "@/app/loading";
 import { postData } from "@/lib/server-actions";
 import { redirect } from "next/navigation";
 import {
@@ -21,10 +20,6 @@ export default function Page() {
     };
 
     const response = await postData("main/floors/", floor);
-
-    if (!response) {
-      <Loading />;
-    }
 
     if (response.ok) {
       const { id } = await response.json();
