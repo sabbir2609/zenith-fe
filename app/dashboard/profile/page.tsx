@@ -9,10 +9,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { fetchData } from "@/lib/server-actions";
-import Image from "next/image";
 import Link from "next/link";
 import { Mail, User as UserIcon, Calendar, Edit } from "lucide-react";
 import { User } from "@/lib/types";
+import AvatarUploader from "@/components/dashboard/profile/AvaterUploader";
 
 export default async function ProfilePage() {
   const profile: User = await fetchData("auth/users/me/");
@@ -27,18 +27,7 @@ export default async function ProfilePage() {
           <CardContent className="flex flex-col items-center pt-6">
             <div className="mb-4 relative group">
               <div className="relative h-32 w-32">
-                <Image
-                  src={profile.avatar || "/avatar.jpg"}
-                  alt={`${profile.first_name}'s profile picture`}
-                  fill
-                  className="rounded-full object-cover border-4 border-background"
-                  priority
-                />
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition">
-                <Button size="sm" variant="ghost" className="text-white">
-                  <Edit className="h-4 w-4 mr-1" /> Change
-                </Button>
+                <AvatarUploader user={profile} />
               </div>
             </div>
 

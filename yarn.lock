@@ -464,9 +464,29 @@
   resolved "https://registry.npmjs.org/@radix-ui/react-context/-/react-context-1.1.1.tgz"
   integrity sha512-UASk9zi+crv9WteK/NU4PLvOoL3OuE6BWVKNF6hPRBtYBDXQ2u5iu3O59zUlJiTVvkyuycnqrztsHVJwcK9K+Q==
 
-"@radix-ui/react-dialog@1.1.6", "@radix-ui/react-dialog@^1.1.6":
+"@radix-ui/react-dialog@1.1.6":
   version "1.1.6"
   resolved "https://registry.npmjs.org/@radix-ui/react-dialog/-/react-dialog-1.1.6.tgz"
+  integrity sha512-/IVhJV5AceX620DUJ4uYVMymzsipdKBzo3edo+omeskCKGm9FRHM0ebIdbPnlQVJqyuHbuBltQUOG2mOTq2IYw==
+  dependencies:
+    "@radix-ui/primitive" "1.1.1"
+    "@radix-ui/react-compose-refs" "1.1.1"
+    "@radix-ui/react-context" "1.1.1"
+    "@radix-ui/react-dismissable-layer" "1.1.5"
+    "@radix-ui/react-focus-guards" "1.1.1"
+    "@radix-ui/react-focus-scope" "1.1.2"
+    "@radix-ui/react-id" "1.1.0"
+    "@radix-ui/react-portal" "1.1.4"
+    "@radix-ui/react-presence" "1.1.2"
+    "@radix-ui/react-primitive" "2.0.2"
+    "@radix-ui/react-slot" "1.1.2"
+    "@radix-ui/react-use-controllable-state" "1.1.0"
+    aria-hidden "^1.2.4"
+    react-remove-scroll "^2.6.3"
+
+"@radix-ui/react-dialog@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-dialog/-/react-dialog-1.1.6.tgz#65b4465e99ad900f28a98eed9a94bb21ec644bf7"
   integrity sha512-/IVhJV5AceX620DUJ4uYVMymzsipdKBzo3edo+omeskCKGm9FRHM0ebIdbPnlQVJqyuHbuBltQUOG2mOTq2IYw==
   dependencies:
     "@radix-ui/primitive" "1.1.1"
@@ -672,6 +692,23 @@
   integrity sha512-oZfHcaAp2Y6KFBX6I5P1u7CQoy4lheCGiYj+pGFrHy8E/VNRb5E39TkTr3JrV520csPBTZjkuKFdEsjS5EUNKQ==
   dependencies:
     "@radix-ui/react-primitive" "2.0.2"
+
+"@radix-ui/react-slider@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-slider/-/react-slider-1.2.3.tgz#f40072e88891d756493f27bb53285e32d0e6af37"
+  integrity sha512-nNrLAWLjGESnhqBqcCNW4w2nn7LxudyMzeB6VgdyAnFLC6kfQgnAjSL2v6UkQTnDctJBlxrmxfplWS4iYjdUTw==
+  dependencies:
+    "@radix-ui/number" "1.1.0"
+    "@radix-ui/primitive" "1.1.1"
+    "@radix-ui/react-collection" "1.1.2"
+    "@radix-ui/react-compose-refs" "1.1.1"
+    "@radix-ui/react-context" "1.1.1"
+    "@radix-ui/react-direction" "1.1.0"
+    "@radix-ui/react-primitive" "2.0.2"
+    "@radix-ui/react-use-controllable-state" "1.1.0"
+    "@radix-ui/react-use-layout-effect" "1.1.0"
+    "@radix-ui/react-use-previous" "1.1.0"
+    "@radix-ui/react-use-size" "1.1.0"
 
 "@radix-ui/react-slot@1.1.2", "@radix-ui/react-slot@^1.1.2":
   version "1.1.2"
@@ -2485,6 +2522,11 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
   resolved "https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
 
+normalize-wheel@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/normalize-wheel/-/normalize-wheel-1.0.1.tgz#aec886affdb045070d856447df62ecf86146ec45"
+  integrity sha512-1OnlAPZ3zgrk8B91HyRj+eVv+kS5u+Z0SCsak6Xil/kmgEia50ga7zfkumayonZrImffAxPU/5WcyGhzetHNPA==
+
 nprogress@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
@@ -2747,6 +2789,14 @@ react-dom@^19.0.0:
   integrity sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==
   dependencies:
     scheduler "^0.25.0"
+
+react-easy-crop@^5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/react-easy-crop/-/react-easy-crop-5.4.1.tgz#41aebb2d602dc3cdf2c2c17df1af776c40188ce0"
+  integrity sha512-Djtsi7bWO75vkKYkVxNRrJWY69pXLahIAkUN0mmt9cXNnaq2tpG59ctSY6P7ipJgBc7COJDRMRuwb2lYwtACNQ==
+  dependencies:
+    normalize-wheel "^1.0.1"
+    tslib "^2.0.1"
 
 react-is@^16.13.1:
   version "16.13.1"
@@ -3302,7 +3352,7 @@ tsconfig-paths@^3.15.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@^2.0.0, tslib@^2.1.0, tslib@^2.4.0, tslib@^2.8.0:
+tslib@^2.0.0, tslib@^2.0.1, tslib@^2.1.0, tslib@^2.4.0, tslib@^2.8.0:
   version "2.8.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
