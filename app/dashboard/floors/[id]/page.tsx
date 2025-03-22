@@ -15,9 +15,11 @@ import {
 import { Floor } from "@/lib/types";
 import { DeleteButton } from "@/components/dashboard/common/delete-button";
 import { redirect } from "next/navigation";
+import ToastHandler from "@/components/common/toast";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = await params;
+
   const floor: Floor = await fetchData(`main/floors/${id}`);
 
   async function deleteFloor() {
@@ -33,6 +35,9 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="container mx-auto py-6 px-4">
+      {/* toast */}
+      <ToastHandler />
+
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl">Floor {floor.level}</CardTitle>

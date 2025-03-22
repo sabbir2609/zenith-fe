@@ -33,7 +33,6 @@ export default async function Page() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">ID</TableHead>
                 <TableHead>Level</TableHead>
                 <TableHead>Is Elevator Available</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -51,8 +50,7 @@ export default async function Page() {
                 </TableRow>
               ) : (
                 floors.map((floor: Floors) => (
-                  <TableRow key={floor.id}>
-                    <TableCell className="font-medium">{floor.id}</TableCell>
+                  <TableRow key={floor.level}>
                     <TableCell>Level {floor.level}</TableCell>
                     <TableCell>
                       <Badge
@@ -67,7 +65,7 @@ export default async function Page() {
                     </TableCell>
                     <TableCell className="text-right">
                       <Button variant="ghost" size="icon" asChild>
-                        <Link href={`/dashboard/floors/${floor.id}`}>
+                        <Link href={`/dashboard/floors/${floor.level}`}>
                           <FileSymlink className="h-4 w-4" />
                           <span className="sr-only">View Details</span>
                         </Link>

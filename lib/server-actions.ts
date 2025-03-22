@@ -47,11 +47,6 @@ export async function postData<T>(endpoint: string, data: T) {
         body: JSON.stringify(data),
       }
     );
-
-    if (!response.ok) {
-      throw new Error("API request failed");
-    }
-
     return response;
   } catch (error) {
     console.error("Fetch error:", error);

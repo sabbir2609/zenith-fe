@@ -9,7 +9,7 @@ import {
 import FloorForm from "@/components/dashboard/forms/floor-from";
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const { id } = params;
+  const { id } = await params;
   const floor = await fetchData(`main/floors/${id}`);
 
   async function updateFloor(formData: FormData) {
@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     const response = await patchData(`main/floors/${id}/`, updatedFloor);
 
     if (response && response.ok) {
-      redirect(`/dashboard/floors/${id}`);
+      redirect(`/dashboard/floors/${id}?updated=true`);
     } else {
       throw new Error("Failed to update floor");
     }

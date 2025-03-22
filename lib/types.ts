@@ -24,6 +24,8 @@ export interface Floor {
   description: string;
 }
 
-export interface Floors extends Floor {
-  id: number;
+export interface Floors {
+  level: number;
+  is_elevator_accessible: boolean;
+  description: string;
 }
