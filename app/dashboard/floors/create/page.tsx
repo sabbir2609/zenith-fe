@@ -24,8 +24,8 @@ export default function Page() {
     const response = await postData("main/floors/", floor);
 
     if (response.ok) {
-      const { id } = await response.json();
-      redirect(`/dashboard/floors/${id}?created=true`);
+      const { level } = await response.json();
+      redirect(`/dashboard/floors/${level}?created=true`);
     } else {
       // Check if error is because floor already exists
       const errorData = await response.json();

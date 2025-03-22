@@ -1,4 +1,3 @@
-import Form from "next/form";
 import { CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,12 +30,8 @@ export default function FloorForm({
 }: FloorFormProps) {
   const handleAction = createFloor || updateFloor;
 
-  if (!handleAction) {
-    return <div>No form action provided</div>;
-  }
-
   return (
-    <Form action={handleAction}>
+    <form action={handleAction}>
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="level">Level</Label>
@@ -79,9 +74,9 @@ export default function FloorForm({
         </div>
       </CardContent>
 
-      <CardFooter>
+      <CardFooter className="flex justify-end">
         <SubmitButton label={submitLabel} />
       </CardFooter>
-    </Form>
+    </form>
   );
 }

@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "@/lib/types";
+import Link from "next/link";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -121,13 +122,25 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/dashboard/profile"
+                  className="flex items-center"
+                  passHref
+                >
+                  <BadgeCheck className="mr-2" />
+                  Profile
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
+              <DropdownMenuItem asChild>
+                <Link
+                  href="/notifications/all"
+                  className="flex items-center"
+                  passHref
+                >
+                  <Bell className="mr-2" />
+                  Notifications
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

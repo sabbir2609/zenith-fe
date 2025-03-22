@@ -47,6 +47,7 @@ export async function postData<T>(endpoint: string, data: T) {
         body: JSON.stringify(data),
       }
     );
+    console.error("response", response);
     return response;
   } catch (error) {
     console.error("Fetch error:", error);

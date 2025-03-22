@@ -33,7 +33,7 @@ import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
 import Link from "next/link";
 
-const navdata = {
+const navData = {
   user: {
     name: "shadcn",
     email: "m@example.com",
@@ -250,7 +250,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={navdata.navMain} />
+        <NavMain items={navData.navMain} />
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
