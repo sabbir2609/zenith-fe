@@ -12,9 +12,11 @@ import { fetchData } from "@/lib/server-actions";
 import Link from "next/link";
 import { Mail, User as UserIcon, Calendar, Edit } from "lucide-react";
 import { User } from "@/lib/types";
-import AvatarUploader from "@/components/dashboard/profile/AvaterUploader";
+import AvatarUploader from "@/components/dashboard/profile/avatar-uploader";
+import { getCookies } from "@/lib/action";
 
 export default async function ProfilePage() {
+  const accessToken = await getCookies();
   const profile: User = await fetchData("auth/users/me/");
 
   return (
@@ -27,7 +29,10 @@ export default async function ProfilePage() {
           <CardContent className="flex flex-col items-center pt-6">
             <div className="mb-4 relative group">
               <div className="relative h-32 w-32">
-                <AvatarUploader user={profile} />
+                <AvatarUploader
+                  user={profile}
+                  accessToken={accessToken || ""}
+                />
               </div>
             </div>
 
