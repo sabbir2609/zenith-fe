@@ -9,13 +9,13 @@ import {
   DialogFooter,
   DialogDescription,
 } from "@/components/ui/dialog";
-import Form from "next/form";
-import { SubmitButton } from "../common/submit-button";
+import { createRoomType } from "@/lib/server-actions";
 import { toast } from "sonner";
 import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { SubmitButton } from "../common/submit-button";
 
 interface AddRoomTypeProps {
   accessToken: string | null;
@@ -29,29 +29,29 @@ export default function AddRoomType({ accessToken }: AddRoomTypeProps) {
   const closeDialog = () => setIsOpen(false);
 
   const handleSubmit = async (formData: FormData) => {
+    if (!accessToken) {
+      toast.error("Authentication required");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/main/room-types/`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: formData,
-        }
-      );
+      const result = await createRoomType(formData, accessToken);
 
-      if (res.ok) {
+      if (result.success) {
         toast.success("Room type added successfully");
         closeDialog();
       } else {
-        const data = await res.json();
-        toast.error(data.detail || "Failed to add room type");
+        toast.error(result.error || "Failed to add room type");
       }
     } catch (error) {
-      toast.error(`Failed to add room type: ${error}`);
+      console.error("Error submitting form:", error);
+      toast.error(
+        `Failed to add room type: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
     } finally {
       setLoading(false);
     }
@@ -71,7 +71,14 @@ export default function AddRoomType({ accessToken }: AddRoomTypeProps) {
             Add a new room type with a unique name, pricing, and description.
           </DialogDescription>
 
-          <Form action={handleSubmit} className="space-y-4">
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              await handleSubmit(formData);
+            }}
+            className="space-y-4"
+          >
             <div className="grid w-full items-center gap-1.5">
               <Label htmlFor="room-type">Room Type</Label>
               <Input
@@ -111,7 +118,7 @@ export default function AddRoomType({ accessToken }: AddRoomTypeProps) {
               </Button>
               <SubmitButton disabled={loading} label="Add" />
             </DialogFooter>
-          </Form>
+          </form>
         </DialogContent>
       </Dialog>
     </>
