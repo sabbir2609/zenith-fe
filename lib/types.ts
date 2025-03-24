@@ -113,14 +113,28 @@ export interface RoomType {
   description: string;
 }
 
-export interface Room {
-  room_number: string;
-  room_type: string;
-  bed_type: string;
-  smoking: boolean;
-  view: string;
-  amenities: string[];
-  price: number;
+interface Image {
+  id: number;
+  image: string;
+  description: string | null;
+}
+
+interface Amenity {
+  id: number;
+  room: number;
+  title: string;
+  description: string;
   is_available: boolean;
+}
+
+export interface Room {
+  id: number;
   floor: Floor;
+  room_label: string;
+  room_type: RoomType;
+  capacity: number;
+  description: string;
+  is_available: boolean;
+  images: Image[];
+  amenities: Amenity[];
 }
