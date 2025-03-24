@@ -14,7 +14,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default async function Users() {
-  const users = (await fetchData("/auth/users/")) as User[];
+  const users = (await fetchData("auth/users/")) as User[];
 
   return (
     <div className="flex flex-col gap-4">

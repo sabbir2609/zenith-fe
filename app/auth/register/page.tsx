@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import Form from "next/form";
 import { Input } from "@/components/ui/input";
 import {
   Card,
@@ -13,29 +13,56 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Loader2 } from "lucide-react";
+import { usePasswordValidation } from "@/hooks/usePasswordValidation";
+import { SubmitButton } from "@/components/dashboard/common/submit-button";
+import { toast } from "sonner";
+import { PasswordInput } from "@/components/dashboard/utils/password-input";
+import { PasswordStrength } from "@/components/dashboard/utils/password-strength";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-    re_password: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  // Use password validation hook
+  const {
+    newPassword,
+    confirmPassword,
+    passwordStrength,
+    errors: passwordErrors,
+    isValid: passwordIsValid,
+    handleNewPasswordChange,
+    handleConfirmPasswordChange,
+    validatePasswords,
+    setErrors: setPasswordErrors,
+  } = usePasswordValidation();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+
+    // Clear field-specific errors when user corrects them
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => {
+        const updated = { ...prev };
+        delete updated[name];
+        return updated;
+      });
+    }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+  const handleRegister = async (formData: FormData) => {
+    // First validate passwords client-side
+    if (!validatePasswords()) {
+      return;
+    }
+
+    // Create the submission object
+    const payload = {
+      first_name: formData.get("first_name") as string,
+      last_name: formData.get("last_name") as string,
+      email: formData.get("email") as string,
+      password: newPassword,
+      re_password: confirmPassword,
+    };
 
     try {
       const response = await fetch(
@@ -45,28 +72,67 @@ export default function RegisterPage() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(payload),
         }
       );
 
       if (response.ok) {
-        // Redirect to confirmation page
+        // Success - redirect to confirmation page
+        toast.success(
+          "Registration successful! Please check your email to activate your account."
+        );
         router.push("/auth/register/confirmation");
-      } else {
-        // Handle API errors
-        const data = await response.json();
-
-        // Format error messages
-        if (data.email) setError(`Email: ${data.email[0]}`);
-        else if (data.password) setError(`Password: ${data.password[0]}`);
-        else if (data.non_field_errors) setError(data.non_field_errors[0]);
-        else setError("Registration failed. Please try again.");
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      setError("Network error. Please check your connection and try again.");
-    } finally {
-      setLoading(false);
+
+      // Handle error responses
+      const data = await response.json();
+
+      // Process field-specific errors
+      const newFieldErrors: Record<string, string> = {};
+      let hasFieldErrors = false;
+
+      if (data.email) {
+        newFieldErrors.email = data.email[0];
+        hasFieldErrors = true;
+      }
+
+      if (data.first_name) {
+        newFieldErrors.first_name = data.first_name[0];
+        hasFieldErrors = true;
+      }
+
+      if (data.last_name) {
+        newFieldErrors.last_name = data.last_name[0];
+        hasFieldErrors = true;
+      }
+
+      if (data.password) {
+        setPasswordErrors((prev) => ({
+          ...prev,
+          newPassword: data.password[0],
+        }));
+        hasFieldErrors = true;
+      }
+
+      if (data.re_password) {
+        setPasswordErrors((prev) => ({
+          ...prev,
+          confirmPassword: data.re_password[0],
+        }));
+        hasFieldErrors = true;
+      }
+
+      if (hasFieldErrors) {
+        setFieldErrors(newFieldErrors);
+      } else if (data.non_field_errors) {
+        toast.error(data.non_field_errors[0]);
+      } else {
+        toast.error("Registration failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error("Network error. Please check your connection and try again.");
     }
   };
 
@@ -80,14 +146,8 @@ export default function RegisterPage() {
           </CardDescription>
         </CardHeader>
 
-        <form onSubmit={handleSubmit}>
+        <Form action={handleRegister}>
           <CardContent className="space-y-4">
-            {error && (
-              <div className="bg-red-50 p-3 rounded-md border border-red-200 text-red-600 text-sm">
-                {error}
-              </div>
-            )}
-
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label htmlFor="first_name" className="text-sm font-medium">
@@ -96,10 +156,15 @@ export default function RegisterPage() {
                 <Input
                   id="first_name"
                   name="first_name"
-                  value={formData.first_name}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
+                  className={fieldErrors.first_name ? "border-red-500" : ""}
                   required
                 />
+                {fieldErrors.first_name && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {fieldErrors.first_name}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -109,10 +174,15 @@ export default function RegisterPage() {
                 <Input
                   id="last_name"
                   name="last_name"
-                  value={formData.last_name}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
+                  className={fieldErrors.last_name ? "border-red-500" : ""}
                   required
                 />
+                {fieldErrors.last_name && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {fieldErrors.last_name}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -124,52 +194,55 @@ export default function RegisterPage() {
                 id="email"
                 name="email"
                 type="email"
-                value={formData.email}
-                onChange={handleChange}
+                onChange={handleInputChange}
+                className={fieldErrors.email ? "border-red-500" : ""}
                 required
               />
+              {fieldErrors.email && (
+                <p className="text-sm text-red-500 mt-1">{fieldErrors.email}</p>
+              )}
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium">
-                Password
-              </label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
+            {/* Password Input with Strength Indicator */}
+            <PasswordInput
+              id="password"
+              name="password"
+              label="Password"
+              value={newPassword}
+              onChange={handleNewPasswordChange}
+              error={passwordErrors.newPassword}
+            />
 
-            <div className="space-y-2">
-              <label htmlFor="re_password" className="text-sm font-medium">
-                Confirm Password
-              </label>
-              <Input
-                id="re_password"
-                name="re_password"
-                type="password"
-                value={formData.re_password}
-                onChange={handleChange}
-                required
+            {newPassword && (
+              <PasswordStrength
+                password={newPassword}
+                strength={passwordStrength}
               />
-            </div>
+            )}
+
+            {/* Confirm Password Input */}
+            <PasswordInput
+              id="confirm-password"
+              name="confirm-password"
+              label="Confirm Password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              error={passwordErrors.confirmPassword}
+            />
+
+            {confirmPassword && newPassword === confirmPassword && (
+              <p className="text-sm text-green-500 flex items-center gap-1 mt-1">
+                ✓ Passwords match
+              </p>
+            )}
           </CardContent>
 
           <CardFooter className="flex flex-col space-y-2">
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Creating Account...
-                </>
-              ) : (
-                "Register"
-              )}
-            </Button>
+            <SubmitButton
+              label="Register"
+              disabled={!passwordIsValid}
+              className="w-full"
+            />
 
             <div className="text-center text-sm mt-4">
               Already have an account?{" "}
@@ -178,7 +251,7 @@ export default function RegisterPage() {
               </Link>
             </div>
           </CardFooter>
-        </form>
+        </Form>
       </Card>
     </div>
   );

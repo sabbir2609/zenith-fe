@@ -6,7 +6,6 @@ import { cookies } from "next/headers";
 export async function fetchData(endpoint: string) {
   const cookieStore = cookies();
   const accessToken = (await cookieStore).get("access");
-
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`,
@@ -15,7 +14,6 @@ export async function fetchData(endpoint: string) {
           Authorization: `Bearer ${accessToken?.value}`,
           "Content-Type": "application/json",
         },
-        credentials: "include",
       }
     );
 
