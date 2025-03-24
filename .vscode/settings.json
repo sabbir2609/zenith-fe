@@ -1,5 +1,8 @@
 {
     "editor.wordWrap": "on",
     "editor.cursorBlinking": "smooth",
-    "editor.cursorSmoothCaretAnimation": "on"
+    "editor.cursorSmoothCaretAnimation": "on",
+    "cSpell.words": [
+        "sonner"
+    ]
 }

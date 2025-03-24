@@ -166,7 +166,7 @@ export default function AvatarUploader({
               <div className="text-center">
                 <p className="text-sm font-medium">Click to upload image</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  300x300px recommended, max 500KB
+                  1000x1000px recommended, max 500KB
                 </p>
                 {selectedFile && (
                   <p className="text-xs font-medium text-primary mt-2">

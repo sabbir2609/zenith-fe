@@ -13,10 +13,11 @@ import Link from "next/link";
 import { Mail, User as UserIcon, Calendar, Edit } from "lucide-react";
 import { User } from "@/lib/types";
 import AvatarUploader from "@/components/dashboard/profile/avatar-uploader";
-import { getCookies } from "@/lib/action";
+import { getAccessToken } from "@/lib/auth-actions";
+import ChangePassword from "@/components/dashboard/profile/change-password";
 
 export default async function ProfilePage() {
-  const accessToken = await getCookies();
+  const accessToken = await getAccessToken();
   const profile: User = await fetchData("auth/users/me/");
 
   return (
@@ -85,9 +86,7 @@ export default async function ProfilePage() {
           </CardContent>
 
           <CardFooter className="border-t flex justify-between pt-6">
-            <Button variant="outline" asChild>
-              <Link href="/dashboard/change-password">Change Password</Link>
-            </Button>
+            <ChangePassword accessToken={accessToken || ""} />
 
             <Button variant="destructive" size="sm">
               Delete Account

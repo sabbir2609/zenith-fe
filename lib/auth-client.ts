@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { serverLogin, serverLogout } from "./auth-actions";
 
 interface AuthTokens {
@@ -22,9 +23,9 @@ export async function login(email: string, password: string): Promise<boolean> {
 
     if (!response.ok) {
       const errorData = await response.json();
+      toast.error(errorData.detail || "Login failed");
       throw new Error(errorData.detail || "Login failed");
     }
-
     const data: AuthTokens = await response.json();
     await serverLogin(data);
     return true;
