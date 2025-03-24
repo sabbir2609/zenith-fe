@@ -136,7 +136,7 @@ const navData = {
       items: [
         {
           title: "Room Types",
-          url: "/dashboard/rooms/type",
+          url: "/dashboard/rooms/room-types",
         },
         {
           title: "All Rooms",

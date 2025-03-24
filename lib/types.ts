@@ -105,3 +105,22 @@ export interface Floors {
   is_elevator_accessible: boolean;
   description: string;
 }
+
+export interface RoomType {
+  id: number;
+  room_type: string;
+  price: number;
+  description: string;
+}
+
+export interface Room {
+  room_number: string;
+  room_type: string;
+  bed_type: string;
+  smoking: boolean;
+  view: string;
+  amenities: string[];
+  price: number;
+  is_available: boolean;
+  floor: Floor;
+}
