@@ -11,15 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { RoomType } from "@/lib/types";
 import AddRoomType from "@/components/dashboard/room/add-roomtype";
 import { getAccessToken } from "@/lib/auth-actions";
+import ToastHandler from "@/components/common/toast";
 
 export default async function Page() {
   const accessToken = await getAccessToken();
@@ -27,6 +22,7 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-6">
+      <ToastHandler />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Room Types</h1>
@@ -58,47 +54,6 @@ export default async function Page() {
                   <CardTitle className="text-xl">
                     {roomType.room_type}
                   </CardTitle>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="h-4 w-4"
-                        >
-                          <circle cx="12" cy="12" r="1" />
-                          <circle cx="12" cy="5" r="1" />
-                          <circle cx="12" cy="19" r="1" />
-                        </svg>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem asChild>
-                        <Link
-                          href={`/dashboard/rooms/room-types/${roomType.id}`}
-                        >
-                          View details
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link
-                          href={`/dashboard/rooms/room-types/${roomType.id}/edit`}
-                        >
-                          Edit
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="text-destructive">
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
                 </div>
                 <CardDescription className="line-clamp-2 h-10">
                   {roomType.description || "No description available"}
@@ -124,6 +79,7 @@ export default async function Page() {
                   <Button variant="outline" size="sm" className="text-blue-500">
                     <Edit className="h-4 w-4" />
                   </Button>
+
                   <Button
                     variant="outline"
                     size="sm"

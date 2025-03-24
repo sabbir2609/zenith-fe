@@ -2,6 +2,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 export async function fetchData(endpoint: string) {
   const cookieStore = cookies();
@@ -110,23 +111,29 @@ export async function patchData<T>(endpoint: string, data: T) {
   }
 }
 
-// ...existing code...
-
-import { revalidatePath } from "next/cache";
-
-// Add this new function
-export async function createRoomType(formData: FormData, accessToken: string) {
+/**
+ * Generic function to submit form data to any endpoint with revalidation
+ * @param endpoint API endpoint to submit data to
+ * @param formData Form data to submit
+ * @param accessToken Authentication token
+ * @param revalidatePaths Array of paths to revalidate after successful submission
+ * @param entityName Name of the entity for error messages (e.g., "room type")
+ */
+export async function submitFormData(
+  endpoint: string,
+  formData: FormData,
+  accessToken: string,
+  revalidatePaths: string[],
+  entityName: string = "item"
+) {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/main/room-types/`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: formData,
-      }
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: formData,
+    });
 
     if (!res.ok) {
       const data = await res.json();
@@ -136,18 +143,35 @@ export async function createRoomType(formData: FormData, accessToken: string) {
           data.detail ||
           (typeof data === "object"
             ? Object.values(data).flat()[0]
-            : "Failed to add room type"),
+            : `Failed to add ${entityName}`),
       };
     }
 
-    // Revalidate the room types page to refresh data
-    revalidatePath("/dashboard/rooms/room-types");
-    return { success: true };
+    // Revalidate all specified paths
+    revalidatePaths.forEach((path) => revalidatePath(path));
+
+    // Return the created data if available
+    const responseData = await res.json().catch(() => null);
+    return {
+      success: true,
+      data: responseData,
+    };
   } catch (error) {
-    console.error("Error adding room type:", error);
+    console.error(`Error adding ${entityName}:`, error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",
     };
   }
+}
+
+// You can keep the original function but implement it using the generic one
+export async function createRoomType(formData: FormData, accessToken: string) {
+  return submitFormData(
+    "main/room-types/",
+    formData,
+    accessToken,
+    ["/dashboard/rooms/room-types"],
+    "room type"
+  );
 }

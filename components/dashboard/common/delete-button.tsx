@@ -16,7 +16,7 @@ import {
 import { toast } from "sonner";
 
 interface DeleteButtonProps {
-  onDelete: () => Promise<void>;
+  onDelete: () => Promise<boolean> | void;
   itemName?: string;
 }
 
