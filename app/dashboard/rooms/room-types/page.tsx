@@ -1,5 +1,5 @@
 import { Edit, Trash, BedDouble, DollarSign } from "lucide-react";
-import { fetchData } from "@/lib/server-actions";
+import { fetchData, postData, patchData, deleteData } from "@/lib/server-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,13 +12,32 @@ import {
 } from "@/components/ui/card";
 import { RoomType } from "@/lib/types";
 import AddRoomType from "@/components/dashboard/room/roomtype-add";
-import { getAccessToken } from "@/lib/auth-actions";
 import ToastHandler from "@/components/common/toast";
 import RoomTypeDetail from "@/components/dashboard/room/roomtype-detail";
+import { revalidatePath } from "next/cache";
+import { DeleteButton } from "@/components/dashboard/common/delete-button";
 
 export default async function Page() {
-  const accessToken = await getAccessToken();
   const roomTypes: RoomType[] = await fetchData("main/room-types/");
+
+  async function createRoomType(formData: FormData) {
+    "use server";
+    const data = {
+      room_type: formData.get("room_type") as string,
+      price: Number(formData.get("price")),
+      description: formData.get("description") as string,
+    }
+    await postData("main/room-types/", data);
+    revalidatePath("dashboard/rooms/room-types");
+  }
+
+  async function deleteRoomType(
+    id: number,
+  ): Promise<void> {
+    "use server";
+    await deleteData(`main/room-types/${id}`);
+    revalidatePath("dashboard/rooms/room-types");
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -30,7 +49,7 @@ export default async function Page() {
             Manage available room types and their pricing
           </p>
         </div>
-        <AddRoomType accessToken={accessToken} />
+        <AddRoomType createRoomType={createRoomType} />
       </div>
 
       {roomTypes.length === 0 ? (
@@ -42,7 +61,7 @@ export default async function Page() {
               Create room types to define different accommodation options with
               unique amenities and pricing.
             </p>
-            <AddRoomType accessToken={accessToken} />
+            <AddRoomType createRoomType={createRoomType} />
           </CardContent>
         </Card>
       ) : (
@@ -79,13 +98,12 @@ export default async function Page() {
                     <Edit className="h-4 w-4" />
                   </Button>
 
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="text-destructive"
+                  <DeleteButton
+                    onDelete={deleteRoomType(roomType.id)} // TODO: This is not working
+                    itemName={roomType.room_type}
                   >
                     <Trash className="h-4 w-4" />
-                  </Button>
+                  </DeleteButton>
 
                 </div>
               </CardFooter>
