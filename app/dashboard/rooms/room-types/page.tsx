@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Edit, Trash, BedDouble, DollarSign, FileText } from "lucide-react";
+import { Edit, Trash, BedDouble, DollarSign } from "lucide-react";
 import { fetchData } from "@/lib/server-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,6 +14,7 @@ import { RoomType } from "@/lib/types";
 import AddRoomType from "@/components/dashboard/room/roomtype-add";
 import { getAccessToken } from "@/lib/auth-actions";
 import ToastHandler from "@/components/common/toast";
+import RoomTypeDetail from "@/components/dashboard/room/roomtype-detail";
 
 export default async function Page() {
   const accessToken = await getAccessToken();
@@ -68,16 +68,13 @@ export default async function Page() {
                   </Badge>
                 </div>
               </CardContent>
+
               <CardFooter className="flex justify-between pt-1">
 
-                <Button variant="outline" size="sm" asChild>
-                  <Link href={`/dashboard/rooms/room-types/${roomType.id}`}>
-                    <FileText className="mr-2 h-4 w-4" />
-                    Details
-                  </Link>
-                </Button>
+                <RoomTypeDetail roomType={roomType} />
 
                 <div className="flex gap-2">
+
                   <Button variant="outline" size="sm" className="text-blue-500">
                     <Edit className="h-4 w-4" />
                   </Button>
@@ -89,8 +86,10 @@ export default async function Page() {
                   >
                     <Trash className="h-4 w-4" />
                   </Button>
+
                 </div>
               </CardFooter>
+
             </Card>
           ))}
         </div>

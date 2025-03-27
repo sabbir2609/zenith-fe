@@ -40,7 +40,7 @@ export default function NavUser() {
                     <Link href="/dashboard/settings">Settings</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    <Link href="/dashboard/logout">Logout</Link>
+                    <Link href="/auth/logout">Logout</Link>
                 </DropdownMenuItem>
             </DropdownMenuContent>
 

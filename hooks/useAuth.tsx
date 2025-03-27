@@ -58,6 +58,6 @@ export function useAuth(swrOptions?: SWRConfiguration) {
     loading,
     error,
     logout: handleLogout,
-    mutate, // Expose mutate for manual cache updates
+    mutate,
   };
 }
