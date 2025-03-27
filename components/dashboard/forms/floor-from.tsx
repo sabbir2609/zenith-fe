@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { SubmitButton } from "../common/submit-button";
+import Form from "next/form";
 
 interface FloorFormProps {
   createFloor?: (formData: FormData) => void;
@@ -22,16 +23,16 @@ interface FloorFormProps {
   submitLabel?: string;
 }
 
-export default function FloorForm({
+export default async function FloorForm({
   createFloor,
   updateFloor,
   initialData = {},
   submitLabel = "Save",
 }: FloorFormProps) {
-  const handleAction = createFloor || updateFloor;
+  const handleAction = createFloor || updateFloor || (() => {});
 
   return (
-    <form action={handleAction}>
+    <Form action={handleAction}>
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="level">Level</Label>
@@ -77,6 +78,6 @@ export default function FloorForm({
       <CardFooter className="flex justify-end">
         <SubmitButton label={submitLabel} />
       </CardFooter>
-    </form>
+    </Form>
   );
 }

@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   const floor: Floor = await fetchData(`main/floors/${id}`);
 
-  async function deleteFloor() {
+  async function deleteFloor(): Promise<boolean> {
     "use server";
     const response = await deleteData(`main/floors/${id}`);
 

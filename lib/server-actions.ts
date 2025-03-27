@@ -115,22 +115,23 @@ export async function patchData<T>(endpoint: string, data: T) {
  * Generic function to submit form data to any endpoint with revalidation
  * @param endpoint API endpoint to submit data to
  * @param formData Form data to submit
- * @param accessToken Authentication token
  * @param revalidatePaths Array of paths to revalidate after successful submission
  * @param entityName Name of the entity for error messages (e.g., "room type")
  */
-export async function submitFormData(
+export async function submitFormDataAndRevalidate(
   endpoint: string,
   formData: FormData,
-  accessToken: string,
   revalidatePaths: string[],
   entityName: string = "item"
 ) {
   try {
+    const cookieStore = cookies();
+    const accessToken = (await cookieStore).get("access");
+    console.log("Form data", formData);
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessToken?.value}`,
       },
       body: formData,
     });
@@ -165,12 +166,19 @@ export async function submitFormData(
   }
 }
 
-// You can keep the original function but implement it using the generic one
-export async function createRoomType(formData: FormData, accessToken: string) {
-  return submitFormData(
+export async function createFloor(formData: FormData) {
+  return submitFormDataAndRevalidate(
+    "main/floors/",
+    formData,
+    ["/dashboard/floors"],
+    "floor"
+  );
+}
+
+export async function createRoomType(formData: FormData) {
+  return submitFormDataAndRevalidate(
     "main/room-types/",
     formData,
-    accessToken,
     ["/dashboard/rooms/room-types"],
     "room type"
   );

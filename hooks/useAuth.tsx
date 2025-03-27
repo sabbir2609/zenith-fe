@@ -3,7 +3,7 @@
 import { serverLogout } from "@/lib/auth-actions";
 import { User } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import useSWR from "swr";
+import useSWR, { SWRConfiguration } from "swr";
 import { toast } from "sonner";
 
 const fetcher = async (url: string) => {
@@ -20,16 +20,24 @@ const fetcher = async (url: string) => {
   return res.json();
 };
 
-export function useAuth() {
+export function useAuth(swrOptions?: SWRConfiguration) {
   const router = useRouter();
   const {
-    data: userdata,
+    data: user,
     error,
-    isLoading,
+    isLoading: loading,
     mutate,
   } = useSWR<User>(
     `${process.env.NEXT_PUBLIC_API_URL}/auth/users/me/`,
-    fetcher
+    fetcher,
+    {
+      // Default SWR options
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
+      dedupingInterval: 5000,
+      // Override with any passed options
+      ...swrOptions,
+    }
   );
 
   const handleLogout = async () => {
@@ -45,9 +53,9 @@ export function useAuth() {
   };
 
   return {
-    userdata,
-    isAuthenticated: Boolean(userdata),
-    loading: isLoading,
+    user,
+    isAuthenticated: Boolean(user),
+    loading,
     error,
     logout: handleLogout,
     mutate, // Expose mutate for manual cache updates

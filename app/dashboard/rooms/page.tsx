@@ -50,8 +50,11 @@ export default async function RoomsPage({
 }: {
   searchParams: { page?: string; view?: string };
 }) {
-  const page = searchParams.page ? parseInt(searchParams.page as string) : 1;
-  const view = searchParams.view || "table";
+  const resolvedSearchParam = await searchParams;
+  const page = resolvedSearchParam.page
+    ? parseInt(resolvedSearchParam.page)
+    : 1;
+  const view = resolvedSearchParam.view as string;
   const data = await fetchData(`main/rooms?page=${page}`);
   const rooms: Room[] = data.results;
 

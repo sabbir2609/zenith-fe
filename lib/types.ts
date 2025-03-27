@@ -100,12 +100,6 @@ export interface Floor {
   description: string;
 }
 
-export interface Floors {
-  level: number;
-  is_elevator_accessible: boolean;
-  description: string;
-}
-
 export interface RoomType {
   id: number;
   room_type: string;
@@ -113,15 +107,14 @@ export interface RoomType {
   description: string;
 }
 
-interface Image {
+export interface ImageTypes {
   id: number;
   image: string;
   description: string | null;
 }
 
-interface Amenity {
+export interface RoomAmenities {
   id: number;
-  room: number;
   title: string;
   description: string;
   is_available: boolean;
@@ -135,6 +128,6 @@ export interface Room {
   capacity: number;
   description: string;
   is_available: boolean;
-  images: Image[];
-  amenities: Amenity[];
+  images: ImageTypes[];
+  amenities: RoomAmenities[];
 }

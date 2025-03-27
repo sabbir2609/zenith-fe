@@ -1,7 +1,6 @@
 "use client";
 
 import { BadgeCheck, Bell, ChevronsUpDown, LogOut } from "lucide-react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -20,33 +19,19 @@ import {
 } from "@/components/ui/sidebar";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { User } from "@/lib/types";
 import Link from "next/link";
+import { memo } from "react";
 
-export function NavUser() {
+// Memoize the component to prevent unnecessary re-renders
+export const NavUser = memo(function NavUser() {
   const { isMobile } = useSidebar();
-
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const { userdata, logout } = useAuth();
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if (userdata) {
-          setUser(userdata);
-        }
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [userdata]);
+  const { user, logout, loading } = useAuth({
+    // Add SWR configuration to reduce revalidation
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    dedupingInterval: 60000, // 1 minute
+  });
 
   if (loading) {
     return (
@@ -64,6 +49,10 @@ export function NavUser() {
     );
   }
 
+  if (!user) {
+    return null;
+  }
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -71,10 +60,6 @@ export function NavUser() {
       console.error("Logout failed:", error);
     }
   };
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <SidebarMenu>
@@ -94,18 +79,20 @@ export function NavUser() {
                   {user.first_name} {user.last_name}
                 </span>
                 <span className="truncate text-xs">
-                  {userdata?.email || "No email"}
+                  {user?.email || "No email"}
                 </span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
+          {/* Rest of your dropdown menu content remains the same */}
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
             side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
           >
+            {/* ... existing dropdown content ... */}
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
@@ -151,7 +138,7 @@ export function NavUser() {
                 size="sm"
                 className="w-full"
               >
-                <LogOut />
+                <LogOut className="mr-2" />
                 Logout
               </Button>
             </DropdownMenuItem>
@@ -160,4 +147,4 @@ export function NavUser() {
       </SidebarMenuItem>
     </SidebarMenu>
   );
-}
+});

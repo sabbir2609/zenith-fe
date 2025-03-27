@@ -1,44 +1,27 @@
-import { postData } from "@/lib/server-actions";
-import { redirect } from "next/navigation";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Floor } from "@/lib/types";
 import FloorForm from "@/components/dashboard/forms/floor-from";
+import { postData } from "@/lib/server-actions";
+import { Room } from "@/lib/types";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
   async function createFloor(formData: FormData) {
     "use server";
-
-    const floorLevel = Number(formData.get("level"));
-
-    const floor: Floor = {
-      level: floorLevel,
-      is_elevator_accessible: formData.get("is_elevator_accessible") === "true",
-      description: formData.get("description") as string,
-    };
-
-    const response = await postData("main/floors/", floor);
-
-    if (response.ok) {
-      const { level } = await response.json();
-      redirect(`/dashboard/floors/${level}?created=true`);
+    const res = await postData("main/floors/", {
+      body: formData,
+    });
+    const resData: Room = await res.json();
+    if (res.ok) {
+      redirect(`/dashboard/floors/${resData.id}?created=true`);
     } else {
-      // Check if error is because floor already exists
-      const errorData = await response.json();
-
-      if (errorData.level && errorData.level[0]?.includes("already exists")) {
-        redirect(`/dashboard/floors/${floorLevel}?exists=true`);
-      }
-
-      // If we get here, it's a different error
-      throw new Error("Failed to create Floor");
+      throw new Error("Failed to create floor");
     }
   }
-
   return (
     <div className="flex items-center justify-center p-6">
       <Card className="w-full md:w-4/5 lg:w-3/4">
