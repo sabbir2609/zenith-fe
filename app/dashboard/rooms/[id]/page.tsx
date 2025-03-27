@@ -29,6 +29,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Room } from "@/lib/types";
+import ToastHandler from "@/components/common/toast";
 
 export default async function RoomDetailPage({
   params,
@@ -48,6 +49,7 @@ export default async function RoomDetailPage({
 
   return (
     <div className="container mx-auto py-6 space-y-6">
+      <ToastHandler />
       {/* Header with back button and availability badge */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">

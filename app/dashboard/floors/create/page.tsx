@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/card";
 import FloorForm from "@/components/dashboard/forms/floor-from";
 import { postData } from "@/lib/server-actions";
-import { Room } from "@/lib/types";
+import { Floor } from "@/lib/types";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
@@ -15,13 +15,14 @@ export default async function Page() {
     const res = await postData("main/floors/", {
       body: formData,
     });
-    const resData: Room = await res.json();
+    const resData: Floor = await res.json();
     if (res.ok) {
-      redirect(`/dashboard/floors/${resData.id}?created=true`);
+      redirect(`/dashboard/floors/${resData.level}?created=true`);
     } else {
       throw new Error("Failed to create floor");
     }
   }
+
   return (
     <div className="flex items-center justify-center p-6">
       <Card className="w-full md:w-4/5 lg:w-3/4">
