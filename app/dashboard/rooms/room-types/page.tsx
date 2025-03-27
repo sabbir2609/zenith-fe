@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { RoomType } from "@/lib/types";
-import AddRoomType from "@/components/dashboard/room/add-roomtype";
+import AddRoomType from "@/components/dashboard/room/roomtype-add";
 import { getAccessToken } from "@/lib/auth-actions";
 import ToastHandler from "@/components/common/toast";
 
@@ -69,12 +69,14 @@ export default async function Page() {
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between pt-1">
+
                 <Button variant="outline" size="sm" asChild>
                   <Link href={`/dashboard/rooms/room-types/${roomType.id}`}>
                     <FileText className="mr-2 h-4 w-4" />
                     Details
                   </Link>
                 </Button>
+
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" className="text-blue-500">
                     <Edit className="h-4 w-4" />
