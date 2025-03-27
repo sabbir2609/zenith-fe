@@ -34,19 +34,21 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="container mx-auto py-6 px-4">
+    <div className="container mx-auto py-4 sm:py-6 px-4 sm:px-6">
       {/* toast */}
       <ToastHandler />
 
       <Card className="max-w-2xl mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl">Floor {floor.level}</CardTitle>
-          <CardDescription>Floor details and information</CardDescription>
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="text-xl sm:text-2xl">Floor {floor.level}</CardTitle>
+          <CardDescription className="text-sm sm:text-base">
+            Floor details and information
+          </CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-4">
           <div>
-            <p>
+            <p className="text-sm sm:text-base">
               {floor.description
                 ? floor.description
                 : "No description available"}
@@ -54,7 +56,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
 
           <div>
-            <h3 className="text-sm font-medium text-muted-foreground mb-1">
+            <h3 className="text-xs sm:text-sm font-medium text-muted-foreground mb-1">
               Elevator Status
             </h3>
             <Badge
@@ -71,25 +73,32 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
         </CardContent>
 
-        <CardFooter className="flex items-center justify-between space-x-4 pt-2">
-          <div className="flex space-x-2">
-            <Button asChild variant="outline">
+        <CardFooter className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 sm:space-x-4 pt-2">
+          <div className="w-full sm:w-auto mt-4 sm:mt-0">
+            <Button asChild variant="outline" className="w-full sm:w-auto">
               <Link
                 href="/dashboard/floors"
-                className="inline-flex items-center"
+                className="inline-flex items-center justify-center"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" /> Back to List
               </Link>
             </Button>
           </div>
 
-          <div className="flex space-x-2">
-            <Button asChild variant="default" size="sm">
+          <div className="flex w-full sm:w-auto space-x-2">
+            <Button
+              asChild
+              variant="default"
+              size="sm"
+              className="flex-1 sm:flex-initial"
+            >
               <Link
                 href={`/dashboard/floors/${id}/edit`}
-                className="inline-flex items-center"
+                className="inline-flex items-center justify-center"
               >
-                <EditIcon className="mr-2 h-4 w-4" /> Edit Floor
+                <EditIcon className="mr-1 sm:mr-2 h-3.5 sm:h-4 w-3.5 sm:w-4" />
+                <span className="sm:inline">Edit</span>
+                <span className="hidden sm:inline"> Floor</span>
               </Link>
             </Button>
 
