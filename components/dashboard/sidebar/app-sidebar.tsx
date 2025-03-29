@@ -85,36 +85,6 @@ const navData = {
       ],
     },
     {
-      title: "Tasks",
-      url: "#",
-      icon: CircleCheckBig,
-      items: [
-        {
-          title: "New Task",
-          url: "/dashboard/tasks/new",
-        },
-        {
-          title: "All Tasks",
-          url: "/dashboard/tasks",
-        },
-      ],
-    },
-    {
-      title: "Devices",
-      url: "#",
-      icon: Airplay,
-      items: [
-        {
-          title: "Device Types",
-          url: "/dashboard/devices/type",
-        },
-        {
-          title: "All Devices",
-          url: "/dashboard/devices",
-        },
-      ],
-    },
-    {
       title: "Floors",
       url: "#",
       icon: Building2,
@@ -124,7 +94,7 @@ const navData = {
           url: "/dashboard/floors/create",
         },
         {
-          title: "All Floors",
+          title: "Floor List",
           url: "/dashboard/floors",
         },
       ],
@@ -190,6 +160,36 @@ const navData = {
         {
           title: "Roles",
           url: "/dashboard/staffs/roles",
+        },
+      ],
+    },
+    {
+      title: "Tasks",
+      url: "#",
+      icon: CircleCheckBig,
+      items: [
+        {
+          title: "New Task",
+          url: "/dashboard/tasks/new",
+        },
+        {
+          title: "All Tasks",
+          url: "/dashboard/tasks",
+        },
+      ],
+    },
+    {
+      title: "Devices",
+      url: "#",
+      icon: Airplay,
+      items: [
+        {
+          title: "Device Types",
+          url: "/dashboard/devices/type",
+        },
+        {
+          title: "All Devices",
+          url: "/dashboard/devices",
         },
       ],
     },

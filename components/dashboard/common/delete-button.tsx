@@ -14,50 +14,51 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import { deleteData } from "@/lib/server-actions";
 
 interface DeleteButtonProps {
-  onDelete: () => Promise<boolean> | void;
+  endpoint?: string;
   itemName?: string;
+  buttonLabel?: string;
 }
 
-export function DeleteButton({
-  onDelete,
+export function DeleteItem({
+  endpoint,
   itemName = "item",
+  buttonLabel,
 }: DeleteButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const handleDelete = async () => {
+  async function handleDelete() {
+    if (!endpoint) return;
     setIsLoading(true);
     try {
-      await onDelete();
-      toast.success(`${itemName} deleted successfully`);
-      // No need to close dialog here as we're redirecting
-    } catch (error: unknown) {
-      // Check if it's a Next.js redirect error (not a real error)
-      if ((error as { message?: string })?.message?.includes("NEXT_REDIRECT")) {
-        // This is a redirect, not an error
+      const response = await deleteData(endpoint);
+      if (response.success) {
         toast.success(`${itemName} deleted successfully`);
+        setOpen(false);
       } else {
-        // This is a genuine error
-        console.error("Error deleting:", error);
         toast.error(`Failed to delete ${itemName}`);
       }
-    } finally {
-      setIsLoading(false);
-      // Only close dialog if we're not redirecting
-      if (!isLoading) {
-        setOpen(false);
-      }
     }
-  };
+    catch (error) {
+      console.error("Error deleting item:", error);
+      toast.error(`An error occurred while deleting ${itemName}`);
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button variant="destructive" size="sm">
-          <Trash2 className="mr-2 h-4 w-4" />
-          Delete
+          <Trash2 className="h-4 w-4" />
+          {buttonLabel && (
+            <span className="ml-2">{buttonLabel}</span>
+          )}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -81,7 +82,10 @@ export function DeleteButton({
                 Deleting...
               </>
             ) : (
-              "Delete"
+              <>
+                <Trash2 className="h-4 w-4" />
+                Delete
+              </>
             )}
           </Button>
         </AlertDialogFooter>
