@@ -11,7 +11,6 @@ export default async function CreateRoomPage() {
     "use server";
 
     const res = await postData("main/rooms/", data);
-    console.log(res);
     const resData = await res.json();
     if (res.ok) {
       redirect(`/dashboard/rooms/${resData.id}?created=true`);

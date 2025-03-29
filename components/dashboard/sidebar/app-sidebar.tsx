@@ -90,10 +90,6 @@ const navData = {
       icon: Building2,
       items: [
         {
-          title: "Add New",
-          url: "/dashboard/floors/create",
-        },
-        {
           title: "Floor List",
           url: "/dashboard/floors",
         },

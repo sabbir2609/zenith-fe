@@ -30,8 +30,6 @@ export default async function ProfileEditPage() {
       username: formData.get("username") as string,
     };
 
-    console.log("updatedProfile", updatedProfile);
-
     const response = await patchData(`auth/users/me/`, updatedProfile);
 
     if (response && response.ok) {

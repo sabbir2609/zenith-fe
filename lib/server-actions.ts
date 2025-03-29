@@ -32,7 +32,6 @@ export async function fetchData(endpoint: string) {
 export async function postData<T>(endpoint: string, data: T) {
   const cookieStore = cookies();
   const accessToken = (await cookieStore).get("access");
-  console.log("Data:", data);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`,
     {
@@ -80,7 +79,6 @@ export async function deleteData(endpoint: string) {
 export async function patchData<T>(endpoint: string, data: T) {
   const cookieStore = cookies();
   const accessToken = (await cookieStore).get("access");
-  console.log("Data:", data);
 
   try {
     const response = await fetch(
@@ -95,8 +93,6 @@ export async function patchData<T>(endpoint: string, data: T) {
         body: JSON.stringify(data),
       }
     );
-
-    console.log("Response:", response);
 
     if (!response.ok) {
       throw new Error("API request failed");
