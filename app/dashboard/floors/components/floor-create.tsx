@@ -21,10 +21,10 @@ export default function CreateFloor() {
     const result = await createFloor(formData);
 
     if (result.success) {
-      toast(`${result.message}`)
+      toast.success(`${result.message}`)
       setOpen(false); // Close dialog on success
     } else {
-      toast(`${result.message}`)
+      toast.error(`${result.message}`)
     }
   }
 
@@ -85,6 +85,9 @@ export default function CreateFloor() {
 
           <CardFooter className="flex justify-end">
             <SubmitButton label="Save" />
+            <Button variant="outline" onClick={() => setOpen(false)} className="ml-2">
+              Cancel
+            </Button>
           </CardFooter>
         </Form>
       </DialogContent>
