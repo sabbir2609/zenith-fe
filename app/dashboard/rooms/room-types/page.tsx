@@ -1,7 +1,6 @@
-import { Edit, Trash, BedDouble, DollarSign } from "lucide-react";
-import { fetchData, postData, patchData, deleteData } from "@/lib/server-actions";
+import { BedDouble, DollarSign } from "lucide-react";
+import { fetchData } from "@/lib/server-actions";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,37 +10,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { RoomType } from "@/lib/types";
-import AddRoomType from "@/components/dashboard/room/roomtype-add";
-import ToastHandler from "@/components/common/toast";
-import RoomTypeDetail from "@/components/dashboard/room/roomtype-detail";
-import { revalidatePath } from "next/cache";
-import { DeleteButton } from "@/components/dashboard/common/delete-button";
+import { DeleteItem } from "@/components/dashboard";
+import AddRoomType from "./components/roomtype-create";
+import RoomTypeDetail from "./components/roomtype-detail";
+import EditRoomType from "./components/roomtype-edit";
 
 export default async function Page() {
   const roomTypes: RoomType[] = await fetchData("main/room-types/");
 
-  async function createRoomType(formData: FormData) {
-    "use server";
-    const data = {
-      room_type: formData.get("room_type") as string,
-      price: Number(formData.get("price")),
-      description: formData.get("description") as string,
-    }
-    await postData("main/room-types/", data);
-    revalidatePath("dashboard/rooms/room-types");
-  }
-
-  async function deleteRoomType(
-    id: number,
-  ): Promise<void> {
-    "use server";
-    await deleteData(`main/room-types/${id}`);
-    revalidatePath("dashboard/rooms/room-types");
-  }
-
   return (
     <div className="flex flex-col gap-6">
-      <ToastHandler />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Room Types</h1>
@@ -49,9 +27,8 @@ export default async function Page() {
             Manage available room types and their pricing
           </p>
         </div>
-        <AddRoomType createRoomType={createRoomType} />
+        <AddRoomType />
       </div>
-
       {roomTypes.length === 0 ? (
         <Card className="border-dashed">
           <CardContent className="py-12 flex flex-col items-center justify-center text-center">
@@ -61,7 +38,7 @@ export default async function Page() {
               Create room types to define different accommodation options with
               unique amenities and pricing.
             </p>
-            <AddRoomType createRoomType={createRoomType} />
+            <AddRoomType />
           </CardContent>
         </Card>
       ) : (
@@ -87,27 +64,13 @@ export default async function Page() {
                   </Badge>
                 </div>
               </CardContent>
-
               <CardFooter className="flex justify-between pt-1">
-
                 <RoomTypeDetail roomType={roomType} />
-
                 <div className="flex gap-2">
-
-                  <Button variant="outline" size="sm" className="text-blue-500">
-                    <Edit className="h-4 w-4" />
-                  </Button>
-
-                  <DeleteButton
-                    onDelete={deleteRoomType(roomType.id)} // TODO: This is not working
-                    itemName={roomType.room_type}
-                  >
-                    <Trash className="h-4 w-4" />
-                  </DeleteButton>
-
+                  <EditRoomType id={roomType.id} initialData={roomType} submitLabel="Update" />
+                  <DeleteItem endpoint={`main/room-types/${roomType.id}`} itemName="room type" key={roomType.id} />
                 </div>
               </CardFooter>
-
             </Card>
           ))}
         </div>

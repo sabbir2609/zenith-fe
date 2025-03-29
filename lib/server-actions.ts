@@ -158,3 +158,47 @@ export async function updateFloor(formData: FormData, level: number) {
     return { success: false, message: `An error occurred ${error}` };
   }
 }
+
+
+// app/dashboard/rooms/room-types/components/roomtype-add.tsx
+export async function createRoomType(formData: FormData) {
+  "use server";
+  const data = {
+    room_type: formData.get("room_type") as string,
+    price: Number(formData.get("price")),
+    description: formData.get("description") as string,
+  }
+
+  const response = await postData("main/room-types/", data);
+
+  if (response && response.status === 400) {
+    return { success: false, message: "Room type already exists" };
+  }
+
+  if (response && response.status === 201) {
+    revalidatePath("/dashboard/rooms/room-types");
+    return { success: true, message: "Room type created successfully" };
+  } else {
+    return { success: false, message: "Failed to create room type" };
+  }
+}
+
+
+// app/dashboard/rooms/room-types/components/roomtype-edit.tsx
+export async function updateRoomType(formData: FormData, id: number) {
+  "use server";
+  const data = {
+    room_type: formData.get("room_type") as string,
+    price: Number(formData.get("price")),
+    description: formData.get("description") as string,
+  };
+
+  const response = await patchData(`main/room-types/${id}/`, data);
+
+  if (response && response.ok) {
+    revalidatePath("/dashboard/rooms/room-types");
+    return { success: true, message: "Room type updated successfully" };
+  } else {
+    return { success: false, message: "Failed to update room type" };
+  }
+}

@@ -7,14 +7,13 @@ import { RoomType } from "@/lib/types";
 import { FileText } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-interface RoomTypeDetailDialogProps {
+interface RoomTypeDetailProps {
     roomType: RoomType;
 }
 
-export default function RoomTypeDetailDialog({ roomType }: RoomTypeDetailDialogProps) {
+export default function RoomTypeDetail({ roomType }: RoomTypeDetailProps) {
     const isMobile = useIsMobile();
 
-    // Shared content component
     const Content = (
         <div className="flex flex-col gap-5 py-3">
             <h3 className="text-xl font-bold tracking-tight text-primary">{roomType.room_type}</h3>
