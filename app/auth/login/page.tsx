@@ -1,6 +1,6 @@
-// auth/login/page.tsx
 "use client";
 
+import { PasswordInput } from "@/components/dashboard/utils/password-input";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,30 +13,55 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login } from "@/lib/auth-client";
+import { Loader2 } from "lucide-react";
+import Form from "next/form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+  async function handleSubmit(formData: FormData) {
     try {
-      const success = await login(email, password);
-      if (success) {
-        toast("Logged in successfully");
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+
+      const response = await login(email, password);
+
+      if (response) {
+        toast.success("Login successful!");
         router.push("/dashboard");
+      } else {
+        toast.error("Login failed. Please check your credentials.");
       }
-    } finally {
-      setLoading(false);
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An error occurred during login");
     }
-  };
+  }
+
+  function SubmitButton() {
+    const { pending } = useFormStatus();
+
+    return (
+      <Button className="w-full" type="submit" disabled={pending}>
+        {pending ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Signing in...
+          </>
+        ) : (
+          "Sign in"
+        )}
+      </Button>
+    );
+  }
 
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center">
@@ -47,24 +72,25 @@ export default function LoginPage() {
             Enter your credentials to access your account
           </CardDescription>
         </CardHeader>
-        <form onSubmit={handleSubmit}>
+        <Form action={handleSubmit} className="grid gap-4">
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
-                placeholder="jhon@example.com"
+                placeholder="john@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
+              <PasswordInput
                 id="password"
-                type="password"
+                name="password"
+                label="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -72,9 +98,7 @@ export default function LoginPage() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
-            <Button className="w-full" type="submit" disabled={loading}>
-              {loading ? "Signing in..." : "Sign in"}
-            </Button>
+            <SubmitButton />
             <div className="text-sm text-muted-foreground text-center">
               Don&apos;t have an account?{" "}
               <Link
@@ -85,7 +109,7 @@ export default function LoginPage() {
               </Link>
             </div>
           </CardFooter>
-        </form>
+        </Form>
       </Card>
     </div>
   );

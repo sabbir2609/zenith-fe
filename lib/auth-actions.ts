@@ -16,7 +16,7 @@ interface RefreshResponse {
 // Cookie configuration
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
+  secure: process.env.NODE_ENV === "production" === true,
   sameSite: "lax" as const,
   path: "/",
 };
@@ -27,7 +27,7 @@ export async function serverLogin(data: AuthTokens): Promise<void> {
 
   (await cookieStore).set("access", data.access, {
     ...COOKIE_OPTIONS,
-    maxAge: 60 * 24 * 3, // 3 days
+    maxAge: 60 * 60 * 24 * 3, // 3 days
   });
 
   (await cookieStore).set("refresh", data.refresh, {

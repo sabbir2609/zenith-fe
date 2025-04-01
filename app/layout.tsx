@@ -1,19 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 // import Script from "next/script";
-import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/common/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import localFont from "next/font/local";
 import NextTopLoader from "nextjs-toploader";
+import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const mainfoldCF = localFont({
+  src: [
+    {
+      path: '../fonts/manifold-cf/manifold_cf_regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/manifold-cf/Manifold_CF_Bold.otf',
+      weight: '700',
+      style: 'normal',
+    }
+  ]
 });
 
 export const metadata: Metadata = {
@@ -36,7 +41,7 @@ export default function RootLayout({
         /> */}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${mainfoldCF.className} antialiased scroll-smooth`}
       >
         <NextTopLoader />
         <ThemeProvider

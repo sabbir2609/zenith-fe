@@ -1,17 +1,18 @@
 "use client";
 
-import { serverLogout } from "@/lib/auth-actions";
+import { getAccessToken, serverLogout } from "@/lib/auth-actions";
 import { User } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import useSWR, { SWRConfiguration } from "swr";
 import { toast } from "sonner";
 
 const fetcher = async (url: string) => {
+  const accessToken = await getAccessToken();
   const res = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${accessToken}`,
     },
-    credentials: "include",
   });
 
   if (!res.ok) {
