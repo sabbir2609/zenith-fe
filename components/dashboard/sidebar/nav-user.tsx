@@ -121,7 +121,7 @@ export const NavUser = memo(function NavUser() {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link
-                  href="/notifications/all"
+                  href="/dashboard/notifications"
                   className="flex items-center"
                   passHref
                 >

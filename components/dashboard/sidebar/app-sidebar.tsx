@@ -17,7 +17,7 @@ import {
   AudioWaveform,
   Command,
   GalleryVerticalEnd,
-  Home,
+  Mountain,
 } from "lucide-react";
 
 import {
@@ -240,7 +240,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <Link href="/homepage" className="text-lg font-bold">
           <SidebarMenuButton tooltip={"Back to Home"}>
-            <Home />
+            <Mountain />
             Zenith Systems
           </SidebarMenuButton>
         </Link>

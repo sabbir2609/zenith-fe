@@ -58,9 +58,28 @@ export async function deleteData(endpoint: string) {
         Authorization: `Bearer ${accessToken?.value}`,
         "Content-Type": "application/json",
       },
-      credentials: "include",
     }
   );
+
+  if (response.status === 401) {
+    return { success: false, message: "Unauthorized" };
+  }
+
+  if (response.status === 400) {
+    try {
+      // Parse the JSON response to extract detailed error messages
+      const errorData = await response.json();
+      return {
+        success: false,
+        message: errorData.error || errorData.detail || response.statusText
+      };
+    } catch (error) {
+      // Fallback if parsing fails
+      console.error("Error parsing response:", error);
+      return { success: false, message: response.statusText };
+    }
+  }
+
   if (!response.ok) {
     throw new Error("API request failed");
   }

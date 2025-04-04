@@ -33,13 +33,13 @@ export default function NavUser() {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent>
-                <DropdownMenuItem>
+                <DropdownMenuItem asChild>
                     <Link href="/dashboard/profile">Profile</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem asChild>
                     <Link href="/dashboard/settings">Settings</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem asChild>
                     <Link href="/auth/logout">Logout</Link>
                 </DropdownMenuItem>
             </DropdownMenuContent>

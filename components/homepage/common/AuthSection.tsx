@@ -13,7 +13,7 @@ import { userIcon } from "@/public";
 import Link from "next/link";
 
 export function AuthSection() {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   return (
     <div className="flex items-center">
       {isAuthenticated ? (
@@ -27,15 +27,17 @@ export function AuthSection() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuItem>Welcome, {user?.email}</DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem>Welcome, {user?.first_name}</DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link href="/dashboard/profile">Profile</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link href="/dashboard">Dashboard</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Button onClick={logout}>Logout</Button>
+            <DropdownMenuItem asChild>
+              <Link href="/auth/logout">
+                Logout
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

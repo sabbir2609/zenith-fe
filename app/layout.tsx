@@ -2,23 +2,29 @@ import type { Metadata } from "next";
 // import Script from "next/script";
 import { ThemeProvider } from "@/components/common/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
+import { Duru_Sans } from "next/font/google";
 
-const mainfoldCF = localFont({
-  src: [
-    {
-      path: '../fonts/manifold-cf/manifold_cf_regular.otf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../fonts/manifold-cf/Manifold_CF_Bold.otf',
-      weight: '700',
-      style: 'normal',
-    }
-  ]
+// const mainfoldCF = localFont({
+//   src: [
+//     {
+//       path: '../fonts/manifold-cf/manifold_cf_regular.otf',
+//       weight: '400',
+//       style: 'normal',
+//     },
+//     {
+//       path: '../fonts/manifold-cf/Manifold_CF_Bold.otf',
+//       weight: '700',
+//       style: 'normal',
+//     }
+//   ]
+// });
+
+const duruSans = Duru_Sans({
+  weight: "400",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -41,7 +47,7 @@ export default function RootLayout({
         /> */}
       </head>
       <body
-        className={`${mainfoldCF.className} antialiased scroll-smooth`}
+        className={`${duruSans.className} antialiased scroll-smooth`}
       >
         <NextTopLoader />
         <ThemeProvider

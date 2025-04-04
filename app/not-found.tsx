@@ -1,28 +1,80 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
+import Image from "next/image";
 
 export default function NotFound() {
   return (
-    <main className="grid min-h-screen place-items-center bg-white">
-      <div className="text-center">
-        <p className="text-base font-semibold text-indigo-600">404</p>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          Page not found
-        </h1>
-        <p className="mt-6 text-base leading-7 text-gray-600">
-          Sorry, we couldn&apos;t find the page you&apos;re looking for.
-        </p>
-        <div className="mt-10 flex items-center justify-center gap-x-6">
-          <Link
-            href="/"
-            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Go back home
-          </Link>
-          <Link href="/contact" className="text-sm font-semibold text-gray-900">
-            Contact support <span aria-hidden="true">&rarr;</span>
-          </Link>
-        </div>
-      </div>
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-100 to-slate-500 p-4">
+      <Card className="max-w-md w-full shadow-lg">
+        <CardHeader>
+          <div className="mx-auto h-16 mb-4">
+            <Image
+              src="/zenith-logo.png"
+              height={1000}
+              width={1000}
+              priority
+              alt="Zenith Hotels"
+              className="w-full h-full"
+            />
+          </div>
+          <div className="text-center space-y-2">
+            <p className="text-sm font-medium text-muted-foreground">Error 404</p>
+            <h1 className="text-3xl font-bold tracking-tight">
+              Room Not Found
+            </h1>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <p className="text-center text-muted-foreground">
+            We apologize, but the page you&apos;re looking for seems to have checked out.
+          </p>
+
+          <div className="relative">
+            <Input
+              type="search"
+              placeholder="Search our amenities..."
+              className="pl-10"
+            />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button asChild variant="default" className="flex-1">
+              <Link href="/">
+                Return to Lobby
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="flex-1">
+              <Link href="/reservations">
+                Make a Reservation
+              </Link>
+            </Button>
+          </div>
+
+          <div className="pt-6 border-t">
+            <p className="text-sm text-center text-muted-foreground mb-4">
+              Popular Destinations
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              <Button asChild variant="link" size="sm">
+                <Link href="/rooms">Rooms & Suites</Link>
+              </Button>
+              <Button asChild variant="link" size="sm">
+                <Link href="/dining">Dining</Link>
+              </Button>
+              <Button asChild variant="link" size="sm">
+                <Link href="/spa">Spa & Wellness</Link>
+              </Button>
+              <Button asChild variant="link" size="sm">
+                <Link href="/contact">Contact Us</Link>
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </main>
   );
 }

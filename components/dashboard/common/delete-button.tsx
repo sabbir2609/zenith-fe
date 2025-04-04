@@ -32,23 +32,14 @@ export function DeleteItem({
 
   async function handleDelete() {
     if (!endpoint) return;
-    setIsLoading(true);
-    try {
-      const response = await deleteData(endpoint);
-      if (response.success) {
-        toast.success(`${itemName} deleted successfully`);
-        setOpen(false);
-      } else {
-        toast.error(`Failed to delete ${itemName}`);
-      }
+    const response = await deleteData(endpoint);
+    if (response.success) {
+      toast.success(`${itemName} deleted successfully`);
+      setOpen(false);
+    } else {
+      toast.error(`{response.message}`);
     }
-    catch (error) {
-      console.error("Error deleting item:", error);
-      toast.error(`An error occurred while deleting ${itemName}`);
-    }
-    finally {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   }
 
   return (
