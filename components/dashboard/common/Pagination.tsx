@@ -25,6 +25,10 @@ export default function PaginationComponent({ totalPages, baseURL }: PaginationP
     const startPage = active - 2 > 0 ? active - 2 : 1;
     const endPage = active + 2 <= totalPages ? active + 2 : totalPages;
 
+    if (totalPages <= 1) {
+        return null;
+    }
+
     return (
         <Pagination>
             <PaginationContent>

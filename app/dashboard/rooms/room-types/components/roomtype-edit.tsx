@@ -13,13 +13,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus } from "lucide-react";
 import Form from "next/form";
 import { toast } from "sonner";
 import { useState } from "react";
 import { updateRoomType } from "@/lib/server-actions";
 
 import { RoomType } from "@/lib/types";
+import { Edit2 } from "lucide-react";
 
 interface RoomTypeEditProps {
   initialData: RoomType;
@@ -50,7 +50,7 @@ export default function EditRoomType({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="default" size="sm">
-          <Plus className="h-5 w-5" />
+          <Edit2 className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent>

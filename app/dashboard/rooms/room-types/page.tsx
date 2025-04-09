@@ -15,7 +15,14 @@ import AddRoomType from "./components/roomtype-create";
 import RoomTypeDetail from "./components/roomtype-detail";
 import EditRoomType from "./components/roomtype-edit";
 
-export default async function Page() {
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Room Types",
+  description: "Manage available room types and their pricing",
+};
+
+export default async function RoomTypePage() {
   const roomTypes: RoomType[] = await fetchData("main/room-types/");
 
   return (
