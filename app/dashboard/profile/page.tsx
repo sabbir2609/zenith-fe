@@ -42,7 +42,7 @@ export default async function ProfilePage() {
             </h2>
 
             <Badge className="mt-2" variant="outline">
-              User
+              {profile.role}
             </Badge>
 
             <div className="w-full border-t mt-6 pt-4">
