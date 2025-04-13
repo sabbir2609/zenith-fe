@@ -49,8 +49,9 @@ export default function AvatarUploader({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const validateFile = (file: File): string | null => {
-    // Check file size (500KB max)
-    if (file.size > 500 * 1024) {
+    const file_size = 1000 * 1024;
+    // Check file size
+    if (file.size > file_size) {
       return "Image must be smaller than 500KB";
     }
 
