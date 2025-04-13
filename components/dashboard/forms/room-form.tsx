@@ -20,9 +20,19 @@ interface RoomFormProps {
   floors: Floor[];
   roomTypes: RoomType[];
   initialData?: {
-    floor?: Floor;
+    id?: number;
+    floor?: {
+      level?: number;
+      is_elevator_accessible?: boolean;
+      description?: string;
+    };
     room_label?: string;
-    room_type?: RoomType;
+    room_type?: {
+      id?: number;
+      room_type?: string;
+      price?: string;
+      description?: string;
+    };
     capacity?: number;
     description?: string;
     is_available?: boolean;
@@ -50,6 +60,13 @@ export default async function RoomForm({
       </CardHeader>
       <CardContent>
         <Form action={handleAction} className="space-y-6">
+          {/* Include room id as hidden field if it exists */}
+          {initialData.id && (
+            <input type="hidden" name="id" value={initialData.id} />
+          )}
+
+          {/* basic room details  */}
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label htmlFor="floor">Floor Level</Label>
@@ -64,7 +81,7 @@ export default async function RoomForm({
                 <SelectContent>
                   {floors.map((floor) => (
                     <SelectItem key={floor.level} value={String(floor.level)}>
-                      {floor.level}
+                      {`Floor ${floor.level}${floor.is_elevator_accessible ? " (Elevator Access)" : ""}`}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -84,7 +101,7 @@ export default async function RoomForm({
                 <SelectContent>
                   {roomTypes.map((roomType) => (
                     <SelectItem key={roomType.id} value={String(roomType.id)}>
-                      {roomType.room_type}
+                      {`${roomType.room_type} - $${roomType.price}`}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -99,7 +116,7 @@ export default async function RoomForm({
                 id="room_label"
                 name="room_label"
                 type="text"
-                placeholder="e.g., Room 101"
+                placeholder="e.g., Room A, B, C"
                 defaultValue={initialData.room_label}
                 className="w-full"
                 required
@@ -127,10 +144,15 @@ export default async function RoomForm({
               id="description"
               name="description"
               placeholder="Describe the room features and highlights"
-              defaultValue={initialData.description}
+              defaultValue={initialData.description || initialData.room_type?.description}
               className="min-h-[100px]"
             />
           </div>
+
+          {/* amenities */}
+          TODO: Add amenities selection here
+
+          {/* images */}
 
           <div className="flex items-center space-x-2">
             <Switch
