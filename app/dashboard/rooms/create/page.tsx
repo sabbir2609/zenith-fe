@@ -30,7 +30,7 @@ export default async function CreateRoomPage() {
   }
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto">
       <h1 className="text-2xl font-bold mb-6">Create New Room</h1>
       <RoomForm floors={floors} roomTypes={roomTypes} createRoom={createRoom} />
     </div>
