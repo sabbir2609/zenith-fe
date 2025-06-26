@@ -36,8 +36,8 @@ export default async function RoomDetailPage({
 }: {
   params: { id: number };
 }) {
-  const id = await params.id;
-  const room: Room = await fetchData(`/rooms/${id}`);
+  const { id } = await params;
+  const room: Room = await fetchData(`main/rooms/${id}`);
 
   // Map of amenity titles to icons
   const amenityIcons: Record<string, React.ReactNode> = {
@@ -73,25 +73,37 @@ export default async function RoomDetailPage({
         <div className="lg:col-span-2">
           <Card className="overflow-hidden">
             <CardContent className="p-0">
-              <Carousel className="w-full">
-                <CarouselContent>
-                  {room.images.map((image) => (
-                    <CarouselItem key={image.id}>
-                      <div className="relative aspect-video">
-                        <Image
-                          src={image.image}
-                          alt={image.description || `Room ${room.room_label}`}
-                          fill
-                          className="object-cover rounded-md"
-                          priority
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="left-2" />
-                <CarouselNext className="right-2" />
-              </Carousel>
+              {room.images.length > 0 ? (
+                <Carousel className="w-full">
+                  <CarouselContent>
+                    {room.images.map((image) => (
+                      <CarouselItem key={image.id}>
+                        <div className="relative aspect-video">
+                          <Image
+                            src={image.image}
+                            alt={image.description || `Room ${room.room_label}`}
+                            fill
+                            className="object-cover rounded-md"
+                            priority
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-2" />
+                  <CarouselNext className="right-2" />
+                </Carousel>
+              ) : (
+                <div className="relative aspect-video">
+                  <Image
+                    src={`/no-img.png`}
+                    alt={"No image available"}
+                    fill
+                    className="object-cover rounded-md"
+                    priority
+                  />
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -135,10 +147,12 @@ export default async function RoomDetailPage({
                   <Tag className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm">{room.room_type.room_type}</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                >
                   <Calendar className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm">Check Availability</span>
-                </div>
+                </Button>
               </div>
             </div>
 
@@ -189,8 +203,10 @@ export default async function RoomDetailPage({
               <h3 className="text-lg font-semibold mb-2">Floor Information</h3>
               <div className="flex items-center gap-2">
                 <span>Level {room.floor.level}</span>
-                {room.floor.is_elevator_accessible && (
+                {room.floor.is_elevator_accessible ? (
                   <Badge variant="outline">Elevator Accessible</Badge>
+                ) : (
+                  <Badge variant="destructive">Elevator Not Accessible</Badge>
                 )}
               </div>
               <p className="mt-2">
@@ -203,6 +219,11 @@ export default async function RoomDetailPage({
 
         {/* Amenities tab */}
         <TabsContent value="amenities" className="p-4 border rounded-md mt-2">
+          {room.amenities.length === 0 && (
+            <p className="text-muted-foreground">
+              No amenities are listed for this room yet.
+            </p>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {room.amenities.map((amenity) => (
               <div

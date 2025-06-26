@@ -221,3 +221,4 @@ export async function updateRoomType(formData: FormData, id: number) {
     return { success: false, message: "Failed to update room type" };
   }
 }
+

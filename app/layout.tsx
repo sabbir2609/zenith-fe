@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 // import localFont from "next/font/local";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
-import { Duru_Sans } from "next/font/google";
+import { Lexend } from "next/font/google";
 
 // const mainfoldCF = localFont({
 //   src: [
@@ -22,9 +22,25 @@ import { Duru_Sans } from "next/font/google";
 //   ]
 // });
 
-const duruSans = Duru_Sans({
+// const duruSans = Duru_Sans({
+//   weight: "400",
+//   subsets: ["latin"],
+// });
+
+// const InstagramSans = localFont({
+//   src: [
+//     {
+//       path: '../fonts/instagram-sans/Instagram_Sans.ttf',
+//       weight: '400',
+//       style: 'normal',
+//     },
+//   ]
+// });
+
+const font = Lexend({
   weight: "400",
   subsets: ["latin"],
+  variable: "--font-funnel-display",
 });
 
 export const metadata: Metadata = {
@@ -47,7 +63,7 @@ export default function RootLayout({
         /> */}
       </head>
       <body
-        className={`${duruSans.className} antialiased scroll-smooth`}
+        className={`${font.className} antialiased scroll-smooth`}
       >
         <NextTopLoader />
         <ThemeProvider
