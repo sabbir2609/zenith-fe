@@ -23,7 +23,7 @@ import { Separator } from "@/components/ui/separator";
 import { User as UserType } from "@/lib/types";
 
 export default async function Page({ params }: { params: { id: number } }) {
-  const id = await params.id;
+  const id = params.id;
   const user: UserType = {
     id: id,
     email: "john.doe@example.com",
