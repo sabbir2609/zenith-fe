@@ -6,9 +6,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
-        <Navbar />
-        <main className="flex-1 px-6 py-4">{children}</main>
+      <SidebarInset >
+        <main>
+          <Navbar />
+          {children}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );
