@@ -132,14 +132,16 @@ export default function RegisterPage() {
       }
     } catch (error) {
       console.error("Registration error:", error);
-      toast.error("Network error. Please check your connection and try again.");
+      toast.error("An unexpected error occurred. Please try again later.");
     }
   };
 
   return (
     <Card className="w-full max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       <CardHeader>
-        <CardTitle className="text-2xl">Create an Account</CardTitle>
+        <CardTitle className="text-2xl">
+          Create an Account
+        </CardTitle>
         <CardDescription>
           Enter your information to create a new account
         </CardDescription>
@@ -246,7 +248,6 @@ export default function RegisterPage() {
             disabled={!passwordIsValid}
             className="w-full"
           />
-
           <div className="text-center text-sm mt-4">
             Already have an account?{" "}
             <Link href="/auth/login" className="text-primary hover:underline">

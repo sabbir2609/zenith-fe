@@ -7,14 +7,14 @@ import Image from "next/image";
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-100 to-slate-500 p-4">
+    <main className="min-h-screen flex items-center justify-center bg-linear-to-b from-orange-600 to-gray-200 p-4">
       <Card className="max-w-md w-full shadow-lg">
         <CardHeader>
           <div className="mx-auto h-16 mb-4">
             <Image
               src="/zenith-logo.png"
-              height={1000}
-              width={1000}
+              height={622}
+              width={153}
               priority
               alt="Zenith Hotels"
               className="w-full h-full"
@@ -23,7 +23,7 @@ export default function NotFound() {
           <div className="text-center space-y-2">
             <p className="text-sm font-medium text-muted-foreground">Error 404</p>
             <h1 className="text-3xl font-bold tracking-tight">
-              Room Not Found
+              Invalid Destination
             </h1>
           </div>
         </CardHeader>

@@ -98,6 +98,12 @@ export default function LoginPage() {
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <SubmitButton />
+          <Link
+            href="/auth/forgot-password"
+            className="text-sm text-center underline-offset-auto text-blue-500 hover:underline mb-2"
+          >
+            Forgot your password?
+          </Link>
           <div className="text-sm text-muted-foreground text-center">
             Don&apos;t have an account?{" "}
             <Link

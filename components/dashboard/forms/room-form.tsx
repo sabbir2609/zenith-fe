@@ -57,7 +57,7 @@ export default async function RoomForm({
   return (
     <Tabs defaultValue="general" className="w-full">
 
-      <TabsList className="grid grid-cols-3 w-[400px] mb-2">
+      <TabsList className="grid grid-cols-3 w-100 mb-2">
         <TabsTrigger value="general">General</TabsTrigger>
         <TabsTrigger value="amenities">Amenities</TabsTrigger>
         <TabsTrigger value="images">Images</TabsTrigger>

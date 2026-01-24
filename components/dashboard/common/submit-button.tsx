@@ -1,19 +1,19 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useFormStatus } from "react-dom";
 import { Loader2 } from "lucide-react";
+import { useFormStatus } from "react-dom";
 
 interface SubmitButtonProps {
   label: string;
   disabled?: boolean;
   variant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link";
+  | "default"
+  | "destructive"
+  | "outline"
+  | "secondary"
+  | "ghost"
+  | "link";
   className?: string;
 }
 
