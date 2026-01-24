@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import { Lexend } from "next/font/google";
+import Script from "next/script";
 
 // const mainfoldCF = localFont({
 //   src: [
@@ -56,11 +57,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* <Script
+        <Script
           src="//unpkg.com/react-scan/dist/auto.global.js"
           crossOrigin="anonymous"
           strategy="afterInteractive"
-        /> */}
+        />
       </head>
       <body
         className={`${font.className} antialiased scroll-smooth`}
@@ -72,7 +73,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main>{children}</main>
+          {children}
         </ThemeProvider>
         <Toaster />
       </body>

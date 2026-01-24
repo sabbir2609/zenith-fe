@@ -15,6 +15,7 @@ interface PasswordInputProps {
   error?: string;
   required?: boolean;
   className?: string;
+  autocomplete?: string;
 }
 
 export function PasswordInput({
@@ -26,6 +27,7 @@ export function PasswordInput({
   error,
   required = true,
   className = "",
+  autocomplete,
 }: PasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -43,6 +45,7 @@ export function PasswordInput({
           value={value}
           onChange={onChange}
           className={`pr-10 ${error ? "border-red-500" : ""} ${className}`}
+          autoComplete={autocomplete}
         />
         <Button
           type="button"

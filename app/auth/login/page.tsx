@@ -64,53 +64,51 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center">
-      <Card className="m-4">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl text-center">Welcome back</CardTitle>
-          <CardDescription className="text-center">
-            Enter your credentials to access your account
-          </CardDescription>
-        </CardHeader>
-        <Form action={handleSubmit} className="grid gap-4">
-          <CardContent className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="john@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <PasswordInput
-                id="password"
-                name="password"
-                label="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col gap-4">
-            <SubmitButton />
-            <div className="text-sm text-muted-foreground text-center">
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/auth/register"
-                className="text-primary underline-offset-4 hover:underline"
-              >
-                Sign up
-              </Link>
-            </div>
-          </CardFooter>
-        </Form>
-      </Card>
-    </div>
+    <Card className="w-full max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <CardHeader className="space-y-1">
+        <CardTitle className="text-2xl text-center">Welcome back</CardTitle>
+        <CardDescription className="text-center">
+          Enter your credentials to access your account
+        </CardDescription>
+      </CardHeader>
+      <Form action={handleSubmit} className="grid gap-4">
+        <CardContent className="grid gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="john@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="grid gap-2">
+            <PasswordInput
+              id="password"
+              name="password"
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+        </CardContent>
+        <CardFooter className="flex flex-col gap-4">
+          <SubmitButton />
+          <div className="text-sm text-muted-foreground text-center">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/auth/register"
+              className="text-primary underline-offset-4 hover:underline"
+            >
+              Sign up
+            </Link>
+          </div>
+        </CardFooter>
+      </Form>
+    </Card>
   );
 }

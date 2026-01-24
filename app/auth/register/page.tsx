@@ -137,122 +137,124 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="container mx-auto flex justify-center items-center min-h-screen p-2">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-2xl">Create an Account</CardTitle>
-          <CardDescription>
-            Enter your information to create a new account
-          </CardDescription>
-        </CardHeader>
+    <Card className="w-full max-w-md mx-auto fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <CardHeader>
+        <CardTitle className="text-2xl">Create an Account</CardTitle>
+        <CardDescription>
+          Enter your information to create a new account
+        </CardDescription>
+      </CardHeader>
 
-        <Form action={handleRegister}>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label htmlFor="first_name" className="text-sm font-medium">
-                  First Name
-                </label>
-                <Input
-                  id="first_name"
-                  name="first_name"
-                  onChange={handleInputChange}
-                  className={fieldErrors.first_name ? "border-red-500" : ""}
-                  required
-                />
-                {fieldErrors.first_name && (
-                  <p className="text-sm text-red-500 mt-1">
-                    {fieldErrors.first_name}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="last_name" className="text-sm font-medium">
-                  Last Name
-                </label>
-                <Input
-                  id="last_name"
-                  name="last_name"
-                  onChange={handleInputChange}
-                  className={fieldErrors.last_name ? "border-red-500" : ""}
-                  required
-                />
-                {fieldErrors.last_name && (
-                  <p className="text-sm text-red-500 mt-1">
-                    {fieldErrors.last_name}
-                  </p>
-                )}
-              </div>
-            </div>
-
+      <Form action={handleRegister}>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
-                Email
+              <label htmlFor="first_name" className="text-sm font-medium">
+                First Name
               </label>
               <Input
-                id="email"
-                name="email"
-                type="email"
+                id="first_name"
+                name="first_name"
                 onChange={handleInputChange}
-                className={fieldErrors.email ? "border-red-500" : ""}
+                className={fieldErrors.first_name ? "border-red-500" : ""}
                 required
               />
-              {fieldErrors.email && (
-                <p className="text-sm text-red-500 mt-1">{fieldErrors.email}</p>
+              {fieldErrors.first_name && (
+                <p className="text-sm text-red-500 mt-1">
+                  {fieldErrors.first_name}
+                </p>
               )}
             </div>
 
-            {/* Password Input with Strength Indicator */}
-            <PasswordInput
-              id="password"
-              name="password"
-              label="Password"
-              value={newPassword}
-              onChange={handleNewPasswordChange}
-              error={passwordErrors.newPassword}
-            />
-
-            {newPassword && (
-              <PasswordStrength
-                password={newPassword}
-                strength={passwordStrength}
+            <div className="space-y-2">
+              <label htmlFor="last_name" className="text-sm font-medium">
+                Last Name
+              </label>
+              <Input
+                id="last_name"
+                name="last_name"
+                onChange={handleInputChange}
+                className={fieldErrors.last_name ? "border-red-500" : ""}
+                required
               />
-            )}
-
-            {/* Confirm Password Input */}
-            <PasswordInput
-              id="confirm-password"
-              name="confirm-password"
-              label="Confirm Password"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-              error={passwordErrors.confirmPassword}
-            />
-
-            {confirmPassword && newPassword === confirmPassword && (
-              <p className="text-sm text-green-500 flex items-center gap-1 mt-1">
-                ✓ Passwords match
-              </p>
-            )}
-          </CardContent>
-
-          <CardFooter className="flex flex-col space-y-2">
-            <SubmitButton
-              label="Register"
-              disabled={!passwordIsValid}
-              className="w-full"
-            />
-
-            <div className="text-center text-sm mt-4">
-              Already have an account?{" "}
-              <Link href="/auth/login" className="text-primary hover:underline">
-                Sign in
-              </Link>
+              {fieldErrors.last_name && (
+                <p className="text-sm text-red-500 mt-1">
+                  {fieldErrors.last_name}
+                </p>
+              )}
             </div>
-          </CardFooter>
-        </Form>
-      </Card>
-    </div>
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="email" className="text-sm font-medium">
+              Email
+            </label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              onChange={handleInputChange}
+              className={fieldErrors.email ? "border-red-500" : ""}
+              required
+            />
+            {fieldErrors.email && (
+              <p className="text-sm text-red-500 mt-1">{fieldErrors.email}</p>
+            )}
+          </div>
+
+          {/* Password Input with Strength Indicator */}
+          <PasswordInput
+            id="password"
+            name="password"
+            label="Password"
+            value={newPassword}
+            onChange={handleNewPasswordChange}
+            error={passwordErrors.newPassword}
+            required={true}
+            autocomplete="new-password"
+          />
+
+          {newPassword && (
+            <PasswordStrength
+              password={newPassword}
+              strength={passwordStrength}
+            />
+          )}
+
+          {/* Confirm Password Input */}
+          <PasswordInput
+            id="confirm-password"
+            name="confirm-password"
+            label="Confirm Password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+            error={passwordErrors.confirmPassword}
+            required={true}
+            autocomplete="confirm-new-password"
+          />
+
+          {confirmPassword && newPassword === confirmPassword && (
+            <p className="text-sm text-green-500 flex items-center gap-1 mt-1">
+              ✓ Passwords match
+            </p>
+          )}
+        </CardContent>
+
+        <CardFooter className="flex flex-col space-y-2">
+          <SubmitButton
+            label="Register"
+            disabled={!passwordIsValid}
+            className="w-full"
+          />
+
+          <div className="text-center text-sm mt-4">
+            Already have an account?{" "}
+            <Link href="/auth/login" className="text-primary hover:underline">
+              Sign in
+            </Link>
+          </div>
+        </CardFooter>
+      </Form>
+    </Card>
   );
 }
