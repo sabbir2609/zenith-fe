@@ -16,7 +16,10 @@ export default function Navbar() {
         <Separator orientation="vertical" className="mr-2 h-4" />
 
         {/* breadcrumb */}
-        <Breadcrumb homeElement />
+        <div className="hidden md:block">
+          <Breadcrumb homeElement />
+        </div>
+
       </div>
 
       {/* Navigation Menu */}

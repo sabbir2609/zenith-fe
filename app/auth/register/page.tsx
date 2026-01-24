@@ -137,7 +137,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="container mx-auto flex justify-center items-center min-h-screen py-8">
+    <div className="container mx-auto flex justify-center items-center min-h-screen p-2">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl">Create an Account</CardTitle>

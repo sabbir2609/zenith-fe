@@ -131,17 +131,15 @@ export const NavUser = memo(function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Button
-                onClick={handleLogout}
-                variant="ghost"
-                size="sm"
-                className="w-full"
-              >
-                <LogOut className="mr-2" />
-                Logout
-              </Button>
-            </DropdownMenuItem>
+            <Button
+              onClick={handleLogout}
+              variant="ghost"
+              size="sm"
+              className="w-full bg-red-500/10 text-red-700 hover:bg-red-500/20"
+            >
+              <LogOut className="mr-2" />
+              Logout
+            </Button>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
