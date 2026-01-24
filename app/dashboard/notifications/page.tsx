@@ -102,7 +102,7 @@ export default function NotificationsPage() {
                 </div>
             </div>
 
-            <div className="bg-card rounded-lg border shadow-sm">
+            <div className="bg-card rounded-lg border shadow-xs">
                 <div className="p-4 border-b">
                     <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1">

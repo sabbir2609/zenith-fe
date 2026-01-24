@@ -83,15 +83,15 @@ export default async function Page({ params }: { params: { id: number } }) {
             guest.reservation_details?.payment_status === "Paid"
               ? "default"
               : guest.reservation_details?.payment_status === "Pending"
-              ? "outline"
-              : "destructive"
+                ? "outline"
+                : "destructive"
           }
         >
           {guest.reservation_details?.payment_status}
         </Badge>
       </div>
 
-      <Card className="border-none shadow-sm">
+      <Card className="border-none shadow-xs">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-6 items-start">
             <Avatar className="w-24 h-24 border">
@@ -351,8 +351,8 @@ export default async function Page({ params }: { params: { id: number } }) {
                           ? "default"
                           : guest.reservation_details.payment_status ===
                             "Pending"
-                          ? "secondary"
-                          : "destructive"
+                            ? "secondary"
+                            : "destructive"
                       }
                     >
                       {guest.reservation_details.payment_status}

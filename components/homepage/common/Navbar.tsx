@@ -33,7 +33,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-10 bg-background shadow-sm">
+    <header className="sticky top-0 z-10 bg-background shadow-xs">
       <div className="flex items-center justify-between p-3">
         {/* Mobile Navigation */}
         <div className="flex items-center lg:hidden">
