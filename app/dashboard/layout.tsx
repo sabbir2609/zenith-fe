@@ -6,12 +6,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div className="flex flex-col flex-1">
+      <SidebarInset>
         <Navbar />
-        <SidebarInset>
-          <main>{children}</main>
-        </SidebarInset>
-      </div>
+        <main className="p-1">{children}</main>
+      </SidebarInset>
     </SidebarProvider>
   );
 }
