@@ -5398,13 +5398,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-resizable-panels@npm:^4.4.2":
-  version: 4.4.2
-  resolution: "react-resizable-panels@npm:4.4.2"
+"react-resizable-panels@npm:^4.5.3":
+  version: 4.5.3
+  resolution: "react-resizable-panels@npm:4.5.3"
   peerDependencies:
     react: ^18.0.0 || ^19.0.0
     react-dom: ^18.0.0 || ^19.0.0
-  checksum: 10c0/d6039e122d62a6cc5598149aced6b82b3295adae0328ab11aa5386d9289064343134e3da722ebd750e9a2694392a1e995ef8a76ad6cb5d90dd591bd355e1c138
+  checksum: 10c0/e3eb941615355182b95f1f210363e4e3e3a9a4c05d885a389d95dfbb0ae0c1eae0e04e829243ee43b036694ef4610ab897dfbc68b5f9755c6f711d0d2ef38cc3
   languageName: node
   linkType: hard
 
@@ -6536,7 +6536,7 @@ __metadata:
     react-dom: "npm:^19.2.3"
     react-easy-crop: "npm:^5.5.6"
     react-hook-form: "npm:^7.71.1"
-    react-resizable-panels: "npm:^4.4.2"
+    react-resizable-panels: "npm:^4.5.3"
     recharts: "npm:2.15.4"
     sonner: "npm:^2.0.7"
     swr: "npm:^2.3.8"
